@@ -1,0 +1,81 @@
+package test.project.together.adapter;
+
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
+
+import test.project.together.tab.CheckFragment;
+import test.project.together.tab.RegisterFragment;
+import test.project.together.tab.SNSFragment;
+import test.project.together.tab.SelectFragment;
+import test.project.together.tab.SeniorFragment;
+import test.project.together.tab.VolunteerFragment;
+
+
+/**
+ * Created by jeongdahun on 2017. 7. 13..
+ */
+
+//Pager Adapter
+public class ViewPagerAdapter extends FragmentStatePagerAdapter
+{
+
+    public static int mode=0;
+    public static int subMode=0;
+    public ViewPagerAdapter(FragmentManager fm) {
+        super(fm);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+
+        switch (position) {
+            case 0:
+                return "Matching";
+            case 1:
+                return "SNS";
+            default:
+                return null;
+
+        }
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
+    @Override
+    public android.support.v4.app.Fragment getItem(int position) {
+
+        Log.d("Viewpager",mode+" "+subMode);
+
+        switch(position){
+            case 0:
+                switch(mode){
+                    case 0:
+                        return new SelectFragment();
+                    case 1:
+                        if(subMode==0)
+                            return new SeniorFragment();
+                        else if(subMode==1)
+                            return new RegisterFragment();
+                        else if(subMode==2)
+                            return new CheckFragment();
+                    case 2:
+                        return new VolunteerFragment();
+                }
+            case 1:
+                return new SNSFragment();
+            default:
+                return null;
+        }
+
+    }
+    @Override
+    public int getCount() {
+        return 2;
+    }
+
+
+}
