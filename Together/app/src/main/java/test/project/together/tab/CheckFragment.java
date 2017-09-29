@@ -37,14 +37,14 @@ import test.project.together.network.NetworkService;
 
 public class CheckFragment extends Fragment
 {
-//github ssi bal
 
+    //i love git hub;;;;
     @BindView(R.id.registerInfoRecyclerview) RecyclerView registerInfoRecyclerView;
 
     NetworkService service;
     final String TAG="CheckFragment";
     LinearLayout layout;
-
+//dahun
     ArrayList<Matching> matchingList;
     RegisterInfoRecyclerViewAdapter registerInfoRecyclerViewAdapter;
     LinearLayoutManager linearLayoutManager;
