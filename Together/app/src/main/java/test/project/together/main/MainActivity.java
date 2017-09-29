@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity{
     //test eunju
     @BindView(R.id.tabs) TabLayout tabLayout;
     @BindView(R.id.pager) ViewPager viewPager;
-
+//testtetsetest1231231
     final String TAG="MainActivity";
 //ㅏㅗ하ㅘㅓ
     ViewPagerAdapter viewPagerAdapter;
