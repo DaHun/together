@@ -20,7 +20,8 @@ import test.project.together.viewholder.PostingViewHolder;
  */
 
 public class PostingRecyclerViewAdapter extends RecyclerView.Adapter<PostingViewHolder>{
-
+    //master push test
+    //eunju test
     ArrayList<Posting> items;
     Context context;
 
@@ -30,7 +31,7 @@ public class PostingRecyclerViewAdapter extends RecyclerView.Adapter<PostingView
 
     @Override
     public PostingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.posting_viewholder,parent,false);
+        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_posting,parent,false);
         context=parent.getContext();
         Log.d("Posting",items.size()+"");
         return new PostingViewHolder(v);

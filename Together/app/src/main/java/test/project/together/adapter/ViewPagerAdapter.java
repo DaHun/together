@@ -6,6 +6,7 @@ import android.util.Log;
 
 import test.project.together.tab.CheckFragment;
 import test.project.together.tab.RegisterFragment;
+import test.project.together.tab.RegisterInfoFragment;
 import test.project.together.tab.SNSFragment;
 import test.project.together.tab.SelectFragment;
 import test.project.together.tab.SeniorFragment;
@@ -62,6 +63,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
                             return new RegisterFragment();
                         else if(subMode==2)
                             return new CheckFragment();
+                        else if(subMode==3)
+                            return new RegisterInfoFragment();
                     case 2:
                         return new VolunteerFragment();
                 }

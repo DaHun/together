@@ -130,7 +130,7 @@ public class RegisterFragment extends Fragment
                         String.valueOf(wantSpinner.getSelectedItem()),
                         mYear+"-"+mMonth+"-"+mDay,
                         mStartHour+" : "+mStartMinute,
-                        mFinishHour+" : "+mFinishMinute);
+                        mFinishHour+" : "+mFinishMinute,0);
 
                 Call<Void> register=service.register(matching);
                 register.enqueue(new Callback<Void>() {
@@ -279,8 +279,7 @@ public class RegisterFragment extends Fragment
 
         ////
         ArrayList<String> wantList = new ArrayList<String>();
-        wantList.add("산책하기"); wantList.add("말동무하기"); wantList.add("같이 식사하기");
-        wantList.add("젊은 세대 관심사 알기"); wantList.add("기타");
+        wantList.add("Walk"); wantList.add("Talk"); wantList.add("Meal");wantList.add("etc");
 
         ArrayAdapter<String> dataAdapter3 = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, wantList);
         dataAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

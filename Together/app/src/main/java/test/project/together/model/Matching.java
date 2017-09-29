@@ -13,8 +13,10 @@ public class Matching {
     String date;
     String startTime;
     String finishTime;
+    int check;
 
-    public Matching(String user_id, String location, double latitude, double longitude, String wish, String date,String startTime, String finishTime) {
+
+    public Matching(String user_id, String location, double latitude, double longitude, String wish, String date, String startTime, String finishTime, int check) {
         this.user_id = user_id;
         this.location = location;
         this.latitude = latitude;
@@ -23,6 +25,7 @@ public class Matching {
         this.date = date;
         this.startTime = startTime;
         this.finishTime = finishTime;
+        this.check = check;
     }
 
     public Matching() {
@@ -52,11 +55,15 @@ public class Matching {
         return date;
     }
 
-    public String getStartDate() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public String getFinishDate() {
+    public String getFinishTime() {
         return finishTime;
+    }
+
+    public int isCheck() {
+        return check;
     }
 }

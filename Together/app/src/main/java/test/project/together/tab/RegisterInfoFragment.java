@@ -2,7 +2,6 @@ package test.project.together.tab;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -20,24 +19,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.LatLng;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -52,34 +46,40 @@ import test.project.together.adapter.ViewPagerAdapter;
 import test.project.together.application.ApplicationController;
 import test.project.together.model.Change;
 import test.project.together.model.Matching;
-import test.project.together.model.Posting;
 import test.project.together.network.NetworkService;
 
 /**
  * Created by jeongdahun on 2017. 9. 11..
  */
 
-public class SeniorFragment extends Fragment {
+public class RegisterInfoFragment extends Fragment {
 
     @BindView(R.id.nextBtn) Button nextBtn;
-    @BindView(R.id.registerBtn) Button registerBtn;
-    @BindView(R.id.checkBtn) Button checkBtn;
 
-    ///////
+    @BindView(R.id.locationText) TextView locationText;
+    @BindView(R.id.wantText) TextView wantText;
+    @BindView(R.id.dateText) TextView dateText;
 
-    final static String TAG="SeniorFragment";
+    @BindView(R.id.startTimeText) TextView startTimeText;
+    @BindView(R.id.finishTimeText) TextView finishTimeText;
+
+
     LinearLayout layout;
+    NetworkService service;
+    final static String TAG="RegisterFragment";
 
 
+    public static Matching registerInfo;
 
-    public SeniorFragment() {
+    public RegisterInfoFragment() {
         super();
     }
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layout = (LinearLayout) inflater.inflate(R.layout.fragment_senior, container, false);
+        layout = (LinearLayout) inflater.inflate(R.layout.fragment_registerinfo, container, false);
 
         ButterKnife.bind(this, layout);
 
@@ -88,36 +88,15 @@ public class SeniorFragment extends Fragment {
         return layout;
     }
 
-
-
     public void initSetting() {
 
+        service= ApplicationController.getInstance().getNetworkService();
 
-
-        //Button
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new Posting());
-            }
-        });
-
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewPagerAdapter.subMode=1;
-                EventBus.getDefault().post(new Change());
-            }
-        });
-
-        checkBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewPagerAdapter.subMode=2;
-                EventBus.getDefault().post(new Change());
-            }
-        });
-
+        locationText.setText(registerInfo.getLocation());
+        wantText.setText(registerInfo.getWish());
+        dateText.setText(registerInfo.getDate());
+        startTimeText.setText(registerInfo.getStartTime());
+        finishTimeText.setText(registerInfo.getFinishTime());
 
     }
 

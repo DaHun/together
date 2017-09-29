@@ -1,18 +1,10 @@
 package test.project.together.main;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -27,16 +19,17 @@ import test.project.together.model.Matching;
 import test.project.together.model.Posting;
 
 public class MainActivity extends AppCompatActivity{
-
+    //test eunju
     @BindView(R.id.tabs) TabLayout tabLayout;
     @BindView(R.id.pager) ViewPager viewPager;
 
     final String TAG="MainActivity";
-
+//ㅏㅗ하ㅘㅓ
     ViewPagerAdapter viewPagerAdapter;
+//testtttttt
+    //test222222
 
-
-    //
+    //gong ho jin babo
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onFirstPageEvent(Matching matching){
         viewPager.setCurrentItem(0);
@@ -97,6 +90,8 @@ public class MainActivity extends AppCompatActivity{
                 ViewPagerAdapter.mode=0;
             else if(ViewPagerAdapter.subMode==1 || ViewPagerAdapter.subMode==2)
                 ViewPagerAdapter.subMode=0;
+            else if(ViewPagerAdapter.subMode==3)
+                ViewPagerAdapter.subMode=2;
 
             viewPagerAdapter.notifyDataSetChanged();
         }else if(ViewPagerAdapter.mode == 2){

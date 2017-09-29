@@ -37,6 +37,7 @@
 
                 <TextView
                     android:id="@+id/locationText"
+                    android:layout_marginTop="5dp"
                     android:textSize="20sp"
                     android:textColor="#f44c84"
                     android:layout_width="match_parent"
@@ -45,7 +46,7 @@
 
             <LinearLayout
                 android:layout_marginTop="30dp"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -56,23 +57,40 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <Spinner
-                    android:id="@+id/wantSpinner"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                <TextView
+                    android:id="@+id/wantText"
+                    android:paddingRight="10dp"
+                    android:background="#e4dddd"
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="17sp"
+                    android:textColor="#000000"
+                    android:text="● Date : "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/dateText"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
                     android:background="#e4dddd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
 
-            <CalendarView
-                android:id="@+id/calendar"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-            </CalendarView>
 
             <LinearLayout
                 android:layout_marginTop="30dp"
@@ -87,25 +105,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <Spinner
-                    android:id="@+id/start_hourSpinner"
-                    android:background="#e4dddd"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-
                 <TextView
-                    android:textColor="#000000"
-                    android:text=":"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/startTimeText"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:background="#e4dddd"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <Spinner
-                    android:id="@+id/start_minuteSpinner"
-                    android:background="#e4dddd"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
@@ -121,36 +128,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <Spinner
-                    android:id="@+id/finish_hourSpinner"
-                    android:background="#e4dddd"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-
                 <TextView
-                    android:textColor="#000000"
-                    android:text=":"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/finishTimeText"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:background="#e4dddd"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <Spinner
-                    android:id="@+id/finish_minuteSpinner"
-                    android:background="#e4dddd"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <Button
-                android:layout_margin="30dp"
-                android:text="Register"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:id="@+id/completeBtn"
-                android:background="@drawable/button3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </ScrollView>

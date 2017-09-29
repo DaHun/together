@@ -5,13 +5,13 @@
         <shape>
             <gradient android:angle="270" android:endColor="#cdcdcd" android:startColor="#eeeeee" />
 
-            <corners android:bottomLeftRadius="10dp" android:bottomRightRadius="10dp" android:topLeftRadius="10dp" android:topRightRadius="10dp" />
+            <corners android:bottomLeftRadius="35dp" android:bottomRightRadius="35dp" android:topLeftRadius="35dp" android:topRightRadius="35dp" />
         </shape>
     </item>
     <item android:state_pressed="false">
         <shape>
-            <solid android:color="#8bef6f44" />
-            <corners android:bottomLeftRadius="10dp" android:bottomRightRadius="10dp" android:topLeftRadius="10dp" android:topRightRadius="10dp" />
+            <solid android:color="#696262" />
+            <corners android:bottomLeftRadius="35dp" android:bottomRightRadius="35dp" android:topLeftRadius="35dp" android:topRightRadius="35dp" />
         </shape>
     </item>
 </selector>

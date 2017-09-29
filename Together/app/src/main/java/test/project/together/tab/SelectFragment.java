@@ -41,7 +41,7 @@ public class SelectFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = (LinearLayout) inflater.inflate(R.layout.fragment_select, container, false);
-
+//tests
         ButterKnife.bind(this, layout);
 
         initSetting();

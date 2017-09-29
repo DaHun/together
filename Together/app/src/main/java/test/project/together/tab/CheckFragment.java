@@ -37,8 +37,7 @@ import test.project.together.network.NetworkService;
 
 public class CheckFragment extends Fragment
 {
-
-    @BindView(R.id.nextBtn) Button nextBtn;
+//github ssi bal
 
     @BindView(R.id.registerInfoRecyclerview) RecyclerView registerInfoRecyclerView;
 
@@ -49,7 +48,7 @@ public class CheckFragment extends Fragment
     ArrayList<Matching> matchingList;
     RegisterInfoRecyclerViewAdapter registerInfoRecyclerViewAdapter;
     LinearLayoutManager linearLayoutManager;
-
+//tetsetsfasfsadffsadffdffds
 
     public CheckFragment() {
         super();
@@ -69,13 +68,6 @@ public class CheckFragment extends Fragment
     }
 
     public void initSetting() {
-
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new Posting());
-            }
-        });
 
 
         service= ApplicationController.getInstance().getNetworkService();
