@@ -62,7 +62,7 @@
 
         <Button
             android:id="@+id/detailBtn"
-            android:text="상세정보"
+            android:text="Detail"
             android:background="@drawable/button4"
             android:layout_width="70dp"
             android:layout_height="70dp" />

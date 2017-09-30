@@ -13,10 +13,10 @@ import test.project.together.network.NetworkService;
 public class ApplicationController extends Application {
     private static volatile ApplicationController instance = null;
 
-    public static int user_id=1000;
+    public static int user_id=0;
 
     //서버 유알엘
-    private static String baseUrl = "http://52.78.182.121:3000";
+    private static String baseUrl = "http://52.79.105.167:3000";
 
     private static NetworkService networkService;
     public NetworkService getNetworkService() { return networkService; }

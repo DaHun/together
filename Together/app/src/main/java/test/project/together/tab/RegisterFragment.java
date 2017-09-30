@@ -123,7 +123,7 @@ public class RegisterFragment extends Fragment
                 Log.d(TAG,mYear+"-"+mMonth+"-"+mDay+" "+mFinishHour+":"+mFinishMinute+":00");
 
                 Matching matching=new Matching(
-                        "1000",
+                        0,
                         currentLocation,
                         currentLatitude,
                         currentLongitude,

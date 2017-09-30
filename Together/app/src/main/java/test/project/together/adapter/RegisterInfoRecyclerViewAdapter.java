@@ -55,7 +55,7 @@ public class RegisterInfoRecyclerViewAdapter extends RecyclerView.Adapter<Regist
         holder.detailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegisterInfoFragment.registerInfo=item;
+                RegisterInfoFragment.matching_id=item.getMatching_id();
                 ViewPagerAdapter.subMode=3;
                 EventBus.getDefault().post(new Change());
             }

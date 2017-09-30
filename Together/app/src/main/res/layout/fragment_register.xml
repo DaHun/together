@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="#000000"
                     android:text="● Location : "
@@ -50,6 +51,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="#000000"
                     android:text="● Thing to want : "
@@ -81,6 +83,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="#000000"
                     android:text="● Start time : "
@@ -88,6 +91,7 @@
                     android:layout_height="wrap_content" />
 
                 <Spinner
+                    android:layout_marginLeft="10dp"
                     android:id="@+id/start_hourSpinner"
                     android:background="#e4dddd"
                     android:layout_weight="1"
@@ -95,6 +99,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:textStyle="bold"
                     android:textColor="#000000"
                     android:text=":"
                     android:layout_width="wrap_content"
@@ -115,6 +120,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="#000000"
                     android:text="● Finish time : "
@@ -129,6 +135,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:textStyle="bold"
                     android:textColor="#000000"
                     android:text=":"
                     android:layout_width="wrap_content"
@@ -159,9 +166,10 @@
     <Button
         android:id="@+id/nextBtn"
         android:background="#e4dddd"
+        android:textStyle="bold"
         android:textColor="#000000"
         android:gravity="center"
-        android:text="다음"
+        android:text="Next"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="match_parent" />

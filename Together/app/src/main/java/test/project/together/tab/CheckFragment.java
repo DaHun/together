@@ -72,8 +72,8 @@ public class CheckFragment extends Fragment
 
         service= ApplicationController.getInstance().getNetworkService();
 
-        Call<ArrayList<Matching>> registerInfo=service.registerInfo(ApplicationController.user_id);
-        registerInfo.enqueue(new Callback<ArrayList<Matching>>() {
+        Call<ArrayList<Matching>> load_AllRegisterInfo=service.load_allRegisterInfo(ApplicationController.user_id);
+        load_AllRegisterInfo.enqueue(new Callback<ArrayList<Matching>>() {
             @Override
             public void onResponse(Call<ArrayList<Matching>> call, Response<ArrayList<Matching>> response) {
                 if(response.isSuccessful()){

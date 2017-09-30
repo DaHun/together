@@ -5,7 +5,8 @@ package test.project.together.model;
  */
 
 public class Matching {
-    String user_id;
+    int matching_id;
+    int user_id;
     String location;
     double latitude;
     double longitude;
@@ -16,7 +17,20 @@ public class Matching {
     int check;
 
 
-    public Matching(String user_id, String location, double latitude, double longitude, String wish, String date, String startTime, String finishTime, int check) {
+    public Matching(int user_id, String location, double latitude, double longitude, String wish, String date, String startTime, String finishTime, int check) {
+        this.user_id = user_id;
+        this.location = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.wish = wish;
+        this.date = date;
+        this.startTime = startTime;
+        this.finishTime = finishTime;
+        this.check = check;
+    }
+
+    public Matching(int matching_id, int user_id, String location, double latitude, double longitude, String wish, String date, String startTime, String finishTime, int check) {
+        this.matching_id = matching_id;
         this.user_id = user_id;
         this.location = location;
         this.latitude = latitude;
@@ -31,7 +45,11 @@ public class Matching {
     public Matching() {
     }
 
-    public String getUser_id() {
+    public int getMatching_id() {
+        return matching_id;
+    }
+
+    public int getUser_id() {
         return user_id;
     }
 

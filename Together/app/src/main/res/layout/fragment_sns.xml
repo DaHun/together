@@ -14,7 +14,8 @@
         android:background="#ffffff"
         android:textColor="#000000"
         android:gravity="center"
-        android:text="이전"
+        android:textStyle="bold"
+        android:text="Previous"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="match_parent" />
