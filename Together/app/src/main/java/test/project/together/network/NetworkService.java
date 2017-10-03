@@ -32,21 +32,25 @@ public interface NetworkService {
      * 익명게시글 등록하기: POST, /posts
      */
 
-    //등록
-    @POST("/matching/register")
+    //////////////
+
+    //시니어:등록
+    @POST("/senior/register/volunteerinfo")
     Call<Void> register(@Body Matching matching);
-    //등록했던 모든 봉사 정보
-    @GET("/matching/all_registerinfo")
+    //시니어:등록했던 모든 봉사 정보
+    @GET("/senior/load/all/volunteerinfo")
     Call<ArrayList<Matching>> load_allRegisterInfo(@Query("user_id") int user_id);
-    //리스트에서 클릭한 봉사 정보
-    @GET("/matching/one_registerinfo")
+    //시니어:리스트에서 클릭한 봉사 정보
+    @GET("/senior/load/one/volunteerinfo")
     Call<Matching> load_oneRegisterInfo(@Query("matching_id") int matching_id);
-    //매칭된 상대 정보
-    @GET("/matching/matchinginfo")
+    //시니어:매칭된 상대 정보
+    @GET("/senior/load/matchinginfo")
     Call<User> load_matchinginfo(@Query("matching_id") int matching_id);
 
-    @GET("/matching/load")
-    Call<ArrayList<Matching>> load(@Query("latitude") double latitude, @Query("longitude") double longitude);
+    /////////////
 
+    //봉사자:자기 위치에서 반경 nkm 있는것만 봉사등록 리스트 받아오기
+    @GET("/volunteer/load/volunteerinfo")
+    Call<ArrayList<Matching>> load_nearMyLocation(@Query("latitude") double latitude, @Query("longitude") double longitude);
 
 }

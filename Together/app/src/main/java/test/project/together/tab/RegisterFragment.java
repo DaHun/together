@@ -115,6 +115,13 @@ public class RegisterFragment extends Fragment
 
         service= ApplicationController.getInstance().getNetworkService();
 
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new Posting());
+            }
+        });
+
 
         completeBtn.setOnClickListener(new View.OnClickListener() {
             @Override

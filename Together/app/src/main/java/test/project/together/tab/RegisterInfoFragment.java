@@ -46,6 +46,7 @@ import test.project.together.adapter.ViewPagerAdapter;
 import test.project.together.application.ApplicationController;
 import test.project.together.model.Change;
 import test.project.together.model.Matching;
+import test.project.together.model.Posting;
 import test.project.together.model.User;
 import test.project.together.network.NetworkService;
 
@@ -92,6 +93,13 @@ public class RegisterInfoFragment extends Fragment {
     }
 
     public void initSetting() {
+
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new Posting());
+            }
+        });
 
         service= ApplicationController.getInstance().getNetworkService();
 

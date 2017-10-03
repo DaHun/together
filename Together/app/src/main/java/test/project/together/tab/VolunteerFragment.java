@@ -1,7 +1,10 @@
 package test.project.together.tab;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +31,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.greenrobot.eventbus.EventBus;
@@ -66,8 +71,10 @@ public class VolunteerFragment extends Fragment
     Location mLastLocation;
     LocationRequest mLocationRequest;
 
+    Bitmap interested_bitmap;
 
-
+    ArrayList<Matching> seniorArrayList=null;
+    ArrayList<Marker> markerArrayList=null;
 
 
     public VolunteerFragment() {
@@ -110,6 +117,10 @@ public class VolunteerFragment extends Fragment
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
+        //커스텀 마커
+        View interested_marker_view = LayoutInflater.from(getContext()).inflate(R.layout.marker_interest, null);
+        interested_bitmap=createDrawableFromView(getContext(), interested_marker_view);
+
 
     }
 
@@ -130,25 +141,60 @@ public class VolunteerFragment extends Fragment
         // 줌기능 설정
         uiSettings.setZoomControlsEnabled(true);
 
+
     }
 
 
+    // View를 Bitmap으로 변환
+    private Bitmap createDrawableFromView(Context context, View view) {
+
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+
+        return bitmap;
+    }
 
     public void mark_And_Loadlist(LatLng current_Loc){
 
-//        if(markerList != null)
-//            for(int i=0;i<markerList.size();i++)
-//                markerList.get(i).remove();
+        if(markerArrayList != null){
+            for(int i=0;i<markerArrayList.size();i++)
+                markerArrayList.get(i).remove();
+
+            markerArrayList=null;
+        }
 
 
-        //현재위치~목적지 사이 일 리스트 받아오기
-        Call<ArrayList<Matching>> getList=service.load(current_Loc.latitude, current_Loc.longitude);
 
-        getList.enqueue(new Callback<ArrayList<Matching>>() {
+        //봉사자:현재 위치에서 반경 nkm 있는것만 봉사등록 리스트 받아오기
+        Call<ArrayList<Matching>> load_nearMyLocation=service.load_nearMyLocation(current_Loc.latitude, current_Loc.longitude);
+
+        load_nearMyLocation.enqueue(new Callback<ArrayList<Matching>>() {
             @Override
             public void onResponse(Call<ArrayList<Matching>> call, Response<ArrayList<Matching>> response) {
                 if(response.isSuccessful()){
 
+                    markerArrayList=new ArrayList<Marker>();
+                    seniorArrayList=new ArrayList<Matching>();
+
+                    seniorArrayList=response.body();
+                    //검색한 곳 마커 설정 및 옵션
+                    MarkerOptions options = new MarkerOptions();
+                    options.icon(BitmapDescriptorFactory.fromBitmap(interested_bitmap));
+
+                    for(int i=0;i<seniorArrayList.size();i++){
+                        options.position(new LatLng(seniorArrayList.get(i).getLatitude(), seniorArrayList.get(i).getLongitude()));
+                        Marker marker=map.addMarker(options);
+                        markerArrayList.add(marker);
+                    }
                 }
             }
 
@@ -237,6 +283,8 @@ public class VolunteerFragment extends Fragment
         double longitude = location.getLongitude();
         final LatLng Loc = new LatLng(latitude, longitude);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(Loc, 16));
+
+        mark_And_Loadlist(Loc);
     }
 
 }
