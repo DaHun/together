@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 
 import test.project.together.R;
-import test.project.together.model.Change;
+import test.project.together.model.ChangeEvent;
 import test.project.together.model.Matching;
 import test.project.together.tab.RegisterInfoFragment;
 import test.project.together.viewholder.RegisterInfoViewHolder;
@@ -57,7 +57,7 @@ public class RegisterInfoRecyclerViewAdapter extends RecyclerView.Adapter<Regist
             public void onClick(View v) {
                 RegisterInfoFragment.matching_id=item.getMatching_id();
                 ViewPagerAdapter.subMode=3;
-                EventBus.getDefault().post(new Change());
+                EventBus.getDefault().post(new ChangeEvent());
             }
         });
     }

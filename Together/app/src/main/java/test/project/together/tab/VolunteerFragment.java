@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -48,6 +51,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import test.project.together.R;
 import test.project.together.application.ApplicationController;
+import test.project.together.model.ChangeEvent;
+import test.project.together.model.InfoLayoutEvent;
 import test.project.together.model.Matching;
 import test.project.together.model.Posting;
 import test.project.together.network.NetworkService;
@@ -62,9 +67,16 @@ public class VolunteerFragment extends Fragment
         GoogleApiClient.ConnectionCallbacks,
         LocationListener{
 
+    @BindView(R.id.infoLayout) LinearLayout infoLayout;
+    @BindView(R.id.locationText) TextView locationText;
+    @BindView(R.id.wantText) TextView wantText;
+    @BindView(R.id.dateText) TextView dateText;
+    @BindView(R.id.startTimeText) TextView startTimeText;
+    @BindView(R.id.finishTimeText) TextView finishTimeText;
+
     NetworkService service;
     final String TAG="VolunteerFragment";
-    LinearLayout layout;
+    RelativeLayout layout;
 
     //Google Setting
     GoogleApiClient mGoogleApiClient = null;
@@ -75,9 +87,10 @@ public class VolunteerFragment extends Fragment
     LocationRequest mLocationRequest;
 
     //마커 윈도우
+    public static boolean infoLayoutMode=false;
     View marker_window_view;
-    TextView dateText; //마커 윈도우에 있는 date
-    TextView typeText; //마커 윈도우에 있는 type
+    TextView window_dateText; //마커 윈도우에 있는 date
+    TextView window_typeText; //마커 윈도우에 있는 type
     //근처 봉사리스트들 마커 이미지
     Bitmap interested_bitmap;
     Matching interested_volunteer;
@@ -85,6 +98,9 @@ public class VolunteerFragment extends Fragment
     ArrayList<Matching> seniorArrayList=null;
     ArrayList<Marker> markerArrayList=null;
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onInfoLayoutEvent(InfoLayoutEvent infoLayoutEvent){ infoLayout.setVisibility(View.GONE);}
 
     public VolunteerFragment() {
         super();
@@ -99,7 +115,7 @@ public class VolunteerFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layout = (LinearLayout) inflater.inflate(R.layout.fragment_volunteer, container, false);
+        layout = (RelativeLayout) inflater.inflate(R.layout.fragment_volunteer, container, false);
 
         ButterKnife.bind(this, layout);
         service=ApplicationController.getInstance().getNetworkService();
@@ -132,8 +148,8 @@ public class VolunteerFragment extends Fragment
         interested_bitmap=createDrawableFromView(getContext(), interested_marker_view);
         //마커 윈도우
         marker_window_view = LayoutInflater.from(getContext()).inflate(R.layout.window_marker, null);
-        dateText = (TextView) marker_window_view.findViewById(R.id.dateText);
-        typeText = (TextView) marker_window_view.findViewById(R.id.typeText);
+        window_dateText = (TextView) marker_window_view.findViewById(R.id.dateText);
+        window_typeText = (TextView) marker_window_view.findViewById(R.id.typeText);
 
     }
 
@@ -164,11 +180,10 @@ public class VolunteerFragment extends Fragment
                 if(!marker.getTitle().equals("interest")) return null;
 
                 interested_volunteer=searchInfo(marker);
-                if(interested_volunteer == null)
-                    return null;
+                if(interested_volunteer == null) return null;
 
-                dateText.setText(interested_volunteer.getDate());
-                typeText.setText(interested_volunteer.getWish());
+                window_dateText.setText(interested_volunteer.getDate());
+                window_typeText.setText(interested_volunteer.getWish());
 
                 return marker_window_view;
             }
@@ -178,7 +193,19 @@ public class VolunteerFragment extends Fragment
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                
+
+                if(!marker.getTitle().equals("interest")) return;
+
+                interested_volunteer=searchInfo(marker);
+                if(interested_volunteer == null) return;
+
+                infoLayoutMode=true;
+                infoLayout.setVisibility(View.VISIBLE);
+                locationText.setText(interested_volunteer.getLocation());
+                wantText.setText(interested_volunteer.getWish());
+                dateText.setText(interested_volunteer.getDate());
+                startTimeText.setText(interested_volunteer.getStartTime());
+                finishTimeText.setText(interested_volunteer.getFinishTime());
             }
         });
     }
@@ -262,8 +289,18 @@ public class VolunteerFragment extends Fragment
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
 
+    }
 
     //mapView
     @Override
@@ -342,5 +379,6 @@ public class VolunteerFragment extends Fragment
 
         mark_And_Loadlist(Loc);
     }
+
 
 }

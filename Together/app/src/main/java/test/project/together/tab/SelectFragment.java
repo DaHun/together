@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.project.together.R;
 import test.project.together.adapter.ViewPagerAdapter;
-import test.project.together.model.Change;
+import test.project.together.model.ChangeEvent;
 import test.project.together.model.Posting;
 
 /**
@@ -54,7 +54,7 @@ public class SelectFragment extends Fragment
             @Override
             public void onClick(View v) {
                 ViewPagerAdapter.mode=1;
-                EventBus.getDefault().post(new Change());
+                EventBus.getDefault().post(new ChangeEvent());
             }
         });
 
@@ -62,7 +62,7 @@ public class SelectFragment extends Fragment
             @Override
             public void onClick(View v) {
                 ViewPagerAdapter.mode=2;
-                EventBus.getDefault().post(new Change());
+                EventBus.getDefault().post(new ChangeEvent());
             }
         });
 

@@ -9,10 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -22,13 +19,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import test.project.together.R;
-import test.project.together.adapter.PostingRecyclerViewAdapter;
 import test.project.together.adapter.RegisterInfoRecyclerViewAdapter;
-import test.project.together.adapter.ViewPagerAdapter;
 import test.project.together.application.ApplicationController;
-import test.project.together.model.Change;
 import test.project.together.model.Matching;
-import test.project.together.model.Posting;
 import test.project.together.network.NetworkService;
 
 /**

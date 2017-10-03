@@ -44,7 +44,7 @@ import retrofit2.Response;
 import test.project.together.R;
 import test.project.together.adapter.ViewPagerAdapter;
 import test.project.together.application.ApplicationController;
-import test.project.together.model.Change;
+import test.project.together.model.ChangeEvent;
 import test.project.together.model.Matching;
 import test.project.together.model.Posting;
 import test.project.together.network.NetworkService;
@@ -158,7 +158,7 @@ public class RegisterFragment extends Fragment
                 });
 
                 ViewPagerAdapter.subMode=0;
-                EventBus.getDefault().post(new Change());
+                EventBus.getDefault().post(new ChangeEvent());
             }
         });
 

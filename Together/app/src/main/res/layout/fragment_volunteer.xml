@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,11 +10,231 @@
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
-        android:layout_weight="5"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </com.google.android.gms.maps.MapView>
 
 
-</LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="10dp"
+        android:id="@+id/infoLayout"
+        android:orientation="vertical"
+        android:background="#FFFFFF"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+        <LinearLayout
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_weight="4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="#FFA200"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="● Location : "
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:background="#716b6b"
+                android:layout_width="1dp"
+                android:layout_height="match_parent" />
+
+            <ScrollView
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="#000000"
+                    android:paddingLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/locationText"
+                    />
+            </ScrollView>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:background="#716b6b"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <LinearLayout
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="#FFA200"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="● Work : "
+                android:layout_marginRight="10dp"
+                />
+            <TextView
+                android:background="#716b6b"
+                android:layout_width="1dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:textColor="#000000"
+                android:paddingLeft="10dp"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/wantText"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:background="#716b6b"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+
+        <LinearLayout
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="#FFA200"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="● Date : "
+                android:layout_marginRight="10dp"
+                />
+            <TextView
+                android:background="#716b6b"
+                android:layout_width="1dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:textColor="#000000"
+                android:paddingLeft="10dp"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/dateText"
+                />
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:background="#716b6b"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <LinearLayout
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="#FFA200"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="● Start time : "
+                android:layout_marginRight="10dp"
+                />
+            <TextView
+                android:background="#716b6b"
+                android:layout_width="1dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:textColor="#000000"
+                android:paddingLeft="10dp"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/startTimeText"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:background="#716b6b"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+
+        <LinearLayout
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="#FFA200"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="● Finish time : "
+                android:layout_marginRight="10dp"
+                />
+            <TextView
+                android:background="#716b6b"
+                android:layout_width="1dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:textColor="#000000"
+                android:paddingLeft="10dp"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/finishTimeText"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center">
+            <Button
+                android:text="Match"
+                android:background="#95989A"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/matchBtn"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

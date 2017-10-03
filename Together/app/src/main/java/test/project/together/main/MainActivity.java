@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -14,9 +15,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.project.together.R;
 import test.project.together.adapter.ViewPagerAdapter;
-import test.project.together.model.Change;
+import test.project.together.model.ChangeEvent;
+import test.project.together.model.InfoLayoutEvent;
 import test.project.together.model.Matching;
 import test.project.together.model.Posting;
+import test.project.together.tab.VolunteerFragment;
 
 public class MainActivity extends AppCompatActivity{
     //test eunju
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity{
     }
     //
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void change(Change change){
+    public void change(ChangeEvent changeEvent){
         viewPagerAdapter.notifyDataSetChanged();
     }
 
@@ -95,10 +98,16 @@ public class MainActivity extends AppCompatActivity{
 
             viewPagerAdapter.notifyDataSetChanged();
         }else if(ViewPagerAdapter.mode == 2){
-            ViewPagerAdapter.mode=0;
-            viewPagerAdapter.notifyDataSetChanged();
-        }
-        else{
+
+            if(VolunteerFragment.infoLayoutMode){
+                VolunteerFragment.infoLayoutMode=false;
+                EventBus.getDefault().post(new InfoLayoutEvent());
+            }else{
+                ViewPagerAdapter.mode=0;
+                viewPagerAdapter.notifyDataSetChanged();
+            }
+
+        } else{
             super.onBackPressed();
         }
     }
