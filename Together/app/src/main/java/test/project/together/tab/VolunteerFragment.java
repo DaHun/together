@@ -19,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -62,9 +64,9 @@ public class VolunteerFragment extends Fragment
 
     NetworkService service;
     final String TAG="VolunteerFragment";
-
     LinearLayout layout;
 
+    //Google Setting
     GoogleApiClient mGoogleApiClient = null;
     FragmentManager fm;
     MapView mapView;
@@ -72,7 +74,13 @@ public class VolunteerFragment extends Fragment
     Location mLastLocation;
     LocationRequest mLocationRequest;
 
+    //마커 윈도우
+    View marker_window_view;
+    TextView dateText; //마커 윈도우에 있는 date
+    TextView typeText; //마커 윈도우에 있는 type
+    //근처 봉사리스트들 마커 이미지
     Bitmap interested_bitmap;
+    Matching interested_volunteer;
 
     ArrayList<Matching> seniorArrayList=null;
     ArrayList<Marker> markerArrayList=null;
@@ -118,10 +126,14 @@ public class VolunteerFragment extends Fragment
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
+
         //커스텀 마커
         View interested_marker_view = LayoutInflater.from(getContext()).inflate(R.layout.marker_interest, null);
         interested_bitmap=createDrawableFromView(getContext(), interested_marker_view);
-
+        //마커 윈도우
+        marker_window_view = LayoutInflater.from(getContext()).inflate(R.layout.window_marker, null);
+        dateText = (TextView) marker_window_view.findViewById(R.id.dateText);
+        typeText = (TextView) marker_window_view.findViewById(R.id.typeText);
 
     }
 
@@ -142,7 +154,45 @@ public class VolunteerFragment extends Fragment
         // 줌기능 설정
         uiSettings.setZoomControlsEnabled(true);
 
+        //마커 윈도우 세팅
+        map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {return null;}
 
+            @Override
+            public View getInfoContents(Marker marker) {
+                if(!marker.getTitle().equals("interest")) return null;
+
+                interested_volunteer=searchInfo(marker);
+                if(interested_volunteer == null)
+                    return null;
+
+                dateText.setText(interested_volunteer.getDate());
+                typeText.setText(interested_volunteer.getWish());
+
+                return marker_window_view;
+            }
+        });
+
+        //마커 윈도우 클릭
+        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                
+            }
+        });
+    }
+
+    public Matching searchInfo(Marker marker){
+
+        double lat=marker.getPosition().latitude;
+        double log=marker.getPosition().longitude;
+
+        for(int i=0;i<seniorArrayList.size();i++)
+            if(seniorArrayList.get(i).getLatitude() == lat && seniorArrayList.get(i).getLongitude()==log)
+                return seniorArrayList.get(i);
+
+        return null;
     }
 
 
@@ -194,6 +244,7 @@ public class VolunteerFragment extends Fragment
 
                     for(int i=0;i<seniorArrayList.size();i++){
                         options.position(new LatLng(seniorArrayList.get(i).getLatitude(), seniorArrayList.get(i).getLongitude()));
+                        options.title("interest");
                         Marker marker=map.addMarker(options);
                         markerArrayList.add(marker);
                     }
