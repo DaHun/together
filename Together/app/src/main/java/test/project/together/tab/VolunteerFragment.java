@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +61,7 @@ public class VolunteerFragment extends Fragment
         LocationListener{
 
     NetworkService service;
-    final String TAG="MatchingFragment";
+    final String TAG="VolunteerFragment";
 
     LinearLayout layout;
 
@@ -182,6 +183,7 @@ public class VolunteerFragment extends Fragment
             public void onResponse(Call<ArrayList<Matching>> call, Response<ArrayList<Matching>> response) {
                 if(response.isSuccessful()){
 
+                    Log.d(TAG, "SUCCESS");
                     markerArrayList=new ArrayList<Marker>();
                     seniorArrayList=new ArrayList<Matching>();
 
@@ -195,11 +197,14 @@ public class VolunteerFragment extends Fragment
                         Marker marker=map.addMarker(options);
                         markerArrayList.add(marker);
                     }
+                }else{
+                    Log.d(TAG, "fail1");
                 }
             }
 
             @Override
             public void onFailure(Call<ArrayList<Matching>> call, Throwable t) {
+                Log.d(TAG, "fail2");
 
             }
         });

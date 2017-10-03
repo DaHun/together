@@ -52,6 +52,6 @@ public interface NetworkService {
     //봉사자:자기 위치에서 반경 nkm 있는것만 봉사등록 리스트 받아오기
     @GET("/volunteer/load/volunteerinfo")
     Call<ArrayList<Matching>> load_nearMyLocation(@Query("latitude") double latitude, @Query("longitude") double longitude);
-    //test!!!2dfsfafdfdsfsfas
+
 
 }
