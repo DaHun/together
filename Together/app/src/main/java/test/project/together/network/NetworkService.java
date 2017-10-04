@@ -2,19 +2,11 @@ package test.project.together.network;
 
 
 import java.util.ArrayList;
-import java.util.Map;
 
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
-import retrofit2.http.PartMap;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 import test.project.together.model.Matching;
 import test.project.together.model.Posting;
@@ -52,6 +44,10 @@ public interface NetworkService {
     //봉사자:자기 위치에서 반경 nkm 있는것만 봉사등록 리스트 받아오기
     @GET("/volunteer/load/volunteerinfo")
     Call<ArrayList<Matching>> load_nearMyLocation(@Query("latitude") double latitude, @Query("longitude") double longitude);
+
+    //SNS 새 글 작성
+    @POST("/sns/newposting") //임시로 지었음!
+    Call<Void> snsPlus(@Body Posting posting);
 
 
 }

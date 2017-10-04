@@ -74,7 +74,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
                         return new VolunteerFragment();
                 }
             case 1:
-
                 switch(SNSmode){
                     case 0:
                         return new SNSFragment();

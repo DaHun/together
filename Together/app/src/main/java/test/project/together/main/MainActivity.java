@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -20,6 +19,8 @@ import test.project.together.model.InfoLayoutEvent;
 import test.project.together.model.Matching;
 import test.project.together.model.Posting;
 import test.project.together.tab.VolunteerFragment;
+
+import static test.project.together.adapter.ViewPagerAdapter.subMode;
 
 public class MainActivity extends AppCompatActivity{
     //test eunju
@@ -88,27 +89,32 @@ public class MainActivity extends AppCompatActivity{
     @Override
     public void onBackPressed() {
 
-        if(ViewPagerAdapter.mode==1) {
-            if(ViewPagerAdapter.subMode==0)
-                ViewPagerAdapter.mode=0;
-            else if(ViewPagerAdapter.subMode==1 || ViewPagerAdapter.subMode==2)
-                ViewPagerAdapter.subMode=0;
-            else if(ViewPagerAdapter.subMode==3)
-                ViewPagerAdapter.subMode=2;
+        if(viewPager.getCurrentItem() == 0) {
+            if (ViewPagerAdapter.mode == 1 ) {
+                if (subMode == 0)
+                    ViewPagerAdapter.mode = 0;
+                else if (subMode == 1 || subMode == 2)
+                    subMode = 0;
+                else if (subMode == 3)
+                    subMode = 2;
 
-            viewPagerAdapter.notifyDataSetChanged();
-        }else if(ViewPagerAdapter.mode == 2){
-
-            if(VolunteerFragment.infoLayoutMode){
-                VolunteerFragment.infoLayoutMode=false;
-                EventBus.getDefault().post(new InfoLayoutEvent());
-            }else{
-                ViewPagerAdapter.mode=0;
                 viewPagerAdapter.notifyDataSetChanged();
-            }
+            } else if (ViewPagerAdapter.mode == 2) {
 
-        } else{
-            super.onBackPressed();
+                if (VolunteerFragment.infoLayoutMode) {
+                    VolunteerFragment.infoLayoutMode = false;
+                    EventBus.getDefault().post(new InfoLayoutEvent());
+                } else {
+                    ViewPagerAdapter.mode = 0;
+                    viewPagerAdapter.notifyDataSetChanged();
+                }
+            } else {
+                super.onBackPressed();
+            }
+        }else if(viewPager.getCurrentItem() == 1){
+            if(ViewPagerAdapter.SNSmode == 1)
+                ViewPagerAdapter.SNSmode = 0;
+            viewPagerAdapter.notifyDataSetChanged();
         }
     }
 }

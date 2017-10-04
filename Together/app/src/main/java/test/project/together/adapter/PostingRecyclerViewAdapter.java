@@ -39,7 +39,7 @@ public class PostingRecyclerViewAdapter extends RecyclerView.Adapter<PostingView
 
     @Override
     public void onBindViewHolder(PostingViewHolder holder, final int position) {
-        Glide.with(context).load(items.get(position).imageUrl).into(holder.postingImage);
+        Glide.with(context).load(items.get(position).image_path).into(holder.postingImage);
     }
 
     @Override

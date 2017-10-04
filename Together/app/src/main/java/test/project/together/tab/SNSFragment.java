@@ -1,6 +1,5 @@
 package test.project.together.tab;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -64,7 +63,7 @@ public class SNSFragment extends Fragment{
         postingList=new ArrayList<Posting>();
 
         Posting posting=new Posting();
-        posting.imageUrl="http://www.google.co.kr/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
+        posting.image_path="http://www.google.co.kr/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
 
 
         postingList.add(posting);
