@@ -3,15 +3,69 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_margin="10dp"
     android:background="#f7f4f4"
+    android:gravity="center"
     tools:context="test.project.together.main.MainActivity">
 
     <ImageView
-        android:id="@+id/postingImage"
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/snsdate"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp"
+        android:layout_gravity="left"
+        android:textColor="#000"
+        android:text="2017.10.4"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/snstext"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp"
+        android:layout_gravity="left"
+        android:textColor="#000"
+        android:text="Test SNS 즐거운추석!"/>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="LIKE"
+                android:background="#000"
+                android:id="@+id/snslike" />
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="2"
+                android:id="@+id/likecount"
+                android:background="@mipmap/ic_launcher"/>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/snscomment"
+            android:text="COMMENT"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
 
 </LinearLayout>

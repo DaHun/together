@@ -8,6 +8,7 @@ import test.project.together.tab.CheckFragment;
 import test.project.together.tab.RegisterFragment;
 import test.project.together.tab.RegisterInfoFragment;
 import test.project.together.tab.SNSFragment;
+import test.project.together.tab.SNSplusFragment;
 import test.project.together.tab.SelectFragment;
 import test.project.together.tab.SeniorFragment;
 import test.project.together.tab.VolunteerFragment;
@@ -23,6 +24,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
 
     public static int mode=0;
     public static int subMode=0;
+    //SNS
+    public static int SNSmode=0;
+    public static int SNSsubMode=0;
+    //
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -69,7 +74,15 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
                         return new VolunteerFragment();
                 }
             case 1:
-                return new SNSFragment();
+
+                switch(SNSmode){
+                    case 0:
+                        return new SNSFragment();
+                    case 1:
+                        return new SNSplusFragment();
+                }
+
+                //return new SNSFragment();
             default:
                 return null;
         }

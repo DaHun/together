@@ -29,17 +29,36 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="1">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/postingRecyclerView"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content"
+            android:text="NEW POST"
+            android:textSize="30dp"
+            android:textStyle="bold"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#fff"
+            android:layout_margin="10dp"
+            android:text="내용을 입력해주세요"
+            android:textColor="#BDBDBD"
+            android:id="@+id/newposttxt"/>
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="PHOTO ALBUM"
+            android:id="@+id/getphotobtn"/>
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="NEW"
-            android:id="@+id/plusposting"/>
+            android:text="REGISTER"
+            android:id="@+id/registerposting"/>
     </LinearLayout>
 
 </LinearLayout>

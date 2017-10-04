@@ -1,6 +1,5 @@
 package test.project.together.tab;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -29,29 +29,28 @@ import test.project.together.model.Posting;
  * Created by jeongdahun on 2017. 9. 11..
  */
 
-public class SNSFragment extends Fragment{
+public class SNSplusFragment extends Fragment{
 
-    @BindView(R.id.postingRecyclerView) RecyclerView postingRecyclerView;
+    //@BindView(R.id.postingRecyclerView) RecyclerView postingRecyclerView;
     @BindView(R.id.previousBtn) Button previousBtn;
-    @BindView(R.id.plusposting) Button plusregi;
-
+    //@BindView(R.id.plusposting) Button plusregi;
+    @BindView(R.id.registerposting) Button registerposting;
 
     final String TAG="SNSFragment";
     LinearLayout layout;
 
-    ArrayList<Posting> postingList;
-    PostingRecyclerViewAdapter postingRecyclerViewAdapter;
+    //ArrayList<Posting> postingList;
+    //PostingRecyclerViewAdapter postingRecyclerViewAdapter;
     LinearLayoutManager linearLayoutManager;
 
-    public SNSFragment() {
+    public SNSplusFragment() {
         super();
     }
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layout = (LinearLayout) inflater.inflate(R.layout.fragment_sns, container, false);
+        layout = (LinearLayout) inflater.inflate(R.layout.fragment_plusposting, container, false);
 
         ButterKnife.bind(this, layout);
 
@@ -61,29 +60,13 @@ public class SNSFragment extends Fragment{
     }
 
     public void initSetting() {
-        postingList=new ArrayList<Posting>();
-
-        Posting posting=new Posting();
-        posting.imageUrl="http://www.google.co.kr/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
-
-
-        postingList.add(posting);
-        postingList.add(posting);
-        postingList.add(posting);
-        postingList.add(posting);
-
-
-        //Posting RecyclerView Setting
-        postingRecyclerViewAdapter=new PostingRecyclerViewAdapter(postingList);
-        postingRecyclerView.setAdapter(postingRecyclerViewAdapter);
-        linearLayoutManager=new LinearLayoutManager(getContext());
-        postingRecyclerView.setLayoutManager(linearLayoutManager);
 
         //게시물 추가
-        plusregi.setOnClickListener(new View.OnClickListener() {
+        registerposting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewPagerAdapter.SNSmode=1;
+                Toast.makeText(getContext(), "눌림",Toast.LENGTH_SHORT).show();
+                ViewPagerAdapter.SNSmode=0;
                 EventBus.getDefault().post(new ChangeEvent());
             }
         });

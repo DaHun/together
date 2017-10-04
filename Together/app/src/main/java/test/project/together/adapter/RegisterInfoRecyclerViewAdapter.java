@@ -46,6 +46,7 @@ public class RegisterInfoRecyclerViewAdapter extends RecyclerView.Adapter<Regist
         else
             holder.oxImage.setImageResource(R.drawable.cast_abc_scrubber_control_to_pressed_mtrl_005);
 
+
         holder.date.setText(item.getDate());
         holder.startTime.setText(item.getStartTime());
         holder.finishTime.setText(item.getFinishTime());
