@@ -29,17 +29,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="1">
+
+        <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NEW"
+        android:id="@+id/plusposting"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/postingRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
         </android.support.v7.widget.RecyclerView>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="NEW"
-            android:id="@+id/plusposting"/>
+
     </LinearLayout>
 
 </LinearLayout>
