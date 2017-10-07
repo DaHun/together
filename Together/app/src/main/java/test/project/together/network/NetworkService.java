@@ -24,30 +24,37 @@ public interface NetworkService {
      * 익명게시글 등록하기: POST, /posts
      */
 
-    //////////////
+    ////////////////////Matching
 
     //시니어:등록
-    @POST("/senior/register/volunteerinfo")
+    @POST("/senior/volunteerinfo/register")
     Call<Void> register(@Body Matching matching);
     //시니어:등록했던 모든 봉사 정보
-    @GET("/senior/load/all/volunteerinfo")
+    @GET("/senior/volunteerinfo/load/all")
     Call<ArrayList<Matching>> load_allRegisterInfo(@Query("user_id") int user_id);
     //시니어:리스트에서 클릭한 봉사 정보
-    @GET("/senior/load/one/volunteerinfo")
+    @GET("/senior/volunteerinfo/load/one")
     Call<Matching> load_oneRegisterInfo(@Query("matching_id") int matching_id);
     //시니어:매칭된 상대 정보
-    @GET("/senior/load/matchinginfo")
+    @GET("/senior/matchinginfo/load")
     Call<User> load_matchinginfo(@Query("matching_id") int matching_id);
 
-    /////////////
+    //////
 
     //봉사자:자기 위치에서 반경 nkm 있는것만 봉사등록 리스트 받아오기
-    @GET("/volunteer/load/volunteerinfo")
+    @GET("/volunteer/volunteerinfo/load")
     Call<ArrayList<Matching>> load_nearMyLocation(@Query("latitude") double latitude, @Query("longitude") double longitude);
 
+
+    /////////////////////SNS
+
     //SNS 새 글 작성
-    @POST("/sns/newposting") //임시로 지었음!
+    @POST("/all/sns/newposting") //임시로 지었음!
     Call<Void> snsPlus(@Body Posting posting);
+
+    //SNS 모든 글 로드
+    @GET("/all/sns/load")
+    Call<ArrayList<Posting>> snsLoad();
 
 
 }
