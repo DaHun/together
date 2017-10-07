@@ -2,7 +2,6 @@ package test.project.together.tab;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -107,7 +106,7 @@ public class SNSplusFragment extends Fragment{
 
                 content = newposttxt.getText().toString();
                 image_path = image_uri.toString();
-                Posting posting = new Posting(ApplicationController.user_id, date, content, image_path);
+                Posting posting = new Posting(ApplicationController.user_id, date, content, image_path, 0);
                 Call<Void> snsPlus=service.snsPlus(posting);
                 snsPlus.enqueue(new Callback<Void>() {
                     @Override

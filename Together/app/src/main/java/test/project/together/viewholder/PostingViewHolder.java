@@ -13,9 +13,9 @@ public class PostingViewHolder extends RecyclerView.ViewHolder {
     public TextView snstext;
     public TextView snsdate;
     public Button snslike;
-    public Button snslikecount;
+    public TextView snslikecount;
     public Button snscomment;
-    public Button plusposting;
+    //public Button plusposting;
 
     public PostingViewHolder(View itemView) {
         super(itemView);
@@ -23,8 +23,8 @@ public class PostingViewHolder extends RecyclerView.ViewHolder {
         snstext = (TextView)itemView.findViewById(R.id.snstext);
         snsdate = (TextView)itemView.findViewById(R.id.snsdate);
         snslike = (Button) itemView.findViewById(R.id.snslike);
-        snslikecount = (Button) itemView.findViewById(R.id.likecount);
+        snslikecount = (TextView) itemView.findViewById(R.id.likecount);
         snscomment = (Button) itemView.findViewById(R.id.snscomment);
-        plusposting = (Button) itemView.findViewById(R.id.plusposting);
+    //    plusposting = (Button) itemView.findViewById(R.id.plusposting);
     }
 }

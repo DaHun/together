@@ -10,20 +10,23 @@ public class Posting {
     String content;
     int user_id;
     int post_id;
+    int like_count;
 
-    public Posting(int user_id, String date, String content, String image_path) {
+    public Posting(int user_id, String date, String content, String image_path, int like_count) {
         this.user_id = user_id;
         this.date = date;
         this.content = content;
         this.image_path = image_path;
+        this.like_count = like_count;
     }
 
-    public Posting(int post_id, int user_id, String date, String content, String image_path) {
+    public Posting(int post_id, int user_id, String date, String content, String image_path, int like_count) {
         this.user_id = user_id;
         this.date = date;
         this.content = content;
         this.image_path = image_path;
         this.post_id = post_id;
+        this.like_count = like_count;
     }
 
     public Posting() {
@@ -48,4 +51,6 @@ public class Posting {
     public String getImage_path() {
         return image_path;
     }
+
+    public int getLike_count() { return like_count; }
 }
