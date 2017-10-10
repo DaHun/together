@@ -58,7 +58,7 @@ public class SNSplusFragment extends Fragment{
     LinearLayout layout;
     NetworkService service;
 
-    Uri image_uri;
+    Uri image_uri = null;
     String image_path = "";
     String date = "";
     String content = "";
@@ -86,6 +86,8 @@ public class SNSplusFragment extends Fragment{
 
     public void initSetting() {
 
+        service= ApplicationController.getInstance().getNetworkService();
+
         //사진 가져오기
         getphotobtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +107,8 @@ public class SNSplusFragment extends Fragment{
                 String date = getDateString();
 
                 content = newposttxt.getText().toString();
-                image_path = image_uri.toString();
+                if(image_uri != null)
+                    image_path = image_uri.toString();
                 Posting posting = new Posting(ApplicationController.user_id, date, content, image_path, 0);
                 Call<Void> snsPlus=service.snsPlus(posting);
                 snsPlus.enqueue(new Callback<Void>() {
