@@ -43,6 +43,15 @@
             android:layout_weight="1">
         </android.support.v7.widget.RecyclerView>
 
+        <!---->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/change_sns_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="15dp"
+            app:src="@drawable/age" />
+        <!---->
     </LinearLayout>
 
 </LinearLayout>
