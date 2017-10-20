@@ -14,6 +14,7 @@ public class ApplicationController extends Application {
     private static volatile ApplicationController instance = null;
 
     public static int user_id=0;
+    public static String token=null;
 
     //서버 유알엘
     private static String baseUrl = "http://52.79.105.167:3000";

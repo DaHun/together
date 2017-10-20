@@ -3,10 +3,15 @@ package test.project.together.network;
 
 import java.util.ArrayList;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 import test.project.together.model.Matching;
 import test.project.together.model.Posting;
@@ -45,16 +50,25 @@ public interface NetworkService {
     @GET("/volunteer/volunteerinfo/load")
     Call<ArrayList<Matching>> load_nearMyLocation(@Query("latitude") double latitude, @Query("longitude") double longitude);
 
+    //봉사자:매칭하기
+    @PUT("/volunteer/volunteerinfo/matching")
+    Call<Void> matching(@Query("matching_id") int matching_id, @Query("user_id") int user_id);
+
 
     /////////////////////SNS
 
     //SNS 새 글 작성
+    @Multipart
     @POST("/all/sns/newposting") //임시로 지었음!
-    Call<Void> snsPlus(@Body Posting posting);
+    Call<Void> snsPlus(@Part MultipartBody.Part file,
+                                           @Part("user_id") RequestBody id,
+                                           @Part("content") RequestBody content,
+                                           @Part("date") RequestBody date);
 
     //SNS 모든 글 로드
     @GET("/all/sns/load")
     Call<ArrayList<Posting>> snsLoad();
+
 
 
 }

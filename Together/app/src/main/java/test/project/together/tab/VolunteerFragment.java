@@ -73,6 +73,7 @@ public class VolunteerFragment extends Fragment
     @BindView(R.id.dateText) TextView dateText;
     @BindView(R.id.startTimeText) TextView startTimeText;
     @BindView(R.id.finishTimeText) TextView finishTimeText;
+    @BindView(R.id.matchBtn) Button matchBtn;
 
     NetworkService service;
     final String TAG="VolunteerFragment";
@@ -151,6 +152,29 @@ public class VolunteerFragment extends Fragment
         window_dateText = (TextView) marker_window_view.findViewById(R.id.dateText);
         window_typeText = (TextView) marker_window_view.findViewById(R.id.typeText);
 
+
+        matchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Call<Void> matching=service.matching(interested_volunteer.getMatching_id(), ApplicationController.user_id);
+                matching.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.isSuccessful()){
+                            Log.d(TAG,"success");
+                        }else
+                            Log.d(TAG,"fail1");
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.d(TAG,"fail2");
+
+                    }
+                });
+            }
+        });
     }
 
     @Override

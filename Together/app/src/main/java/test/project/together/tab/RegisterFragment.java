@@ -130,7 +130,7 @@ public class RegisterFragment extends Fragment
                 Log.d(TAG,mYear+"-"+mMonth+"-"+mDay+" "+mFinishHour+":"+mFinishMinute+":00");
 
                 Matching matching=new Matching(
-                        0,
+                        ApplicationController.user_id,
                         currentLocation,
                         currentLatitude,
                         currentLongitude,
