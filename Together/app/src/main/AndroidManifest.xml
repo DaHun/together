@@ -83,7 +83,6 @@
             android:exported="false"></service>
         <!-- [END gcm_registration_service] -->
 
-
     </application>
 
 </manifest>
