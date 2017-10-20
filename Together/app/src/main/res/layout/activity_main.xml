@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#e4dddd"
+    android:background="#FFC19E"
     tools:context="test.project.together.main.MainActivity">
 
 
     <LinearLayout
-        android:background="#e4dddd"
+        android:background="#FFC19E"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 

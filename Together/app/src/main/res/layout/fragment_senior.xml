@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e4dddd"
+    android:background="#FFC19E"
     android:orientation="horizontal"
     tools:context="test.project.together.main.MainActivity">
 
@@ -12,8 +12,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_weight="5"
-        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <Button
@@ -21,7 +21,7 @@
             android:layout_marginBottom="25dp"
             android:background="@drawable/button2"
             android:text="Register"
-            android:textColor="#8bf1170b"
+            android:textColor="#000"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_width="200dp"
@@ -32,17 +32,20 @@
             android:layout_marginTop="25dp"
             android:background="@drawable/button2"
             android:text="Check\nMatching\nInfo"
-            android:textColor="#8bf1170b"
+            android:textColor="#000"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_width="200dp"
             android:layout_height="80dp" />
     </LinearLayout>
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="5">
     <Button
         android:id="@+id/nextBtn"
-        android:background="#e4dddd"
+        android:background="@drawable/side2"
         android:textColor="#000000"
         android:textStyle="bold"
         android:gravity="center"
@@ -50,5 +53,5 @@
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="match_parent" />
-
+    </LinearLayout>
 </LinearLayout>

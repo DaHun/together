@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e4dddd"
+    android:background="#FFC19E"
     android:orientation="horizontal"
     tools:context="test.project.together.main.MainActivity">
 
@@ -165,7 +165,7 @@
 
     <Button
         android:id="@+id/nextBtn"
-        android:background="#e4dddd"
+        android:background="@drawable/side2"
         android:textStyle="bold"
         android:textColor="#000000"
         android:gravity="center"

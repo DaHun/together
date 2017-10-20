@@ -64,6 +64,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/snscomment"
             android:text="COMMENT"
+            android:background="@drawable/button2"
             android:layout_weight="1"/>
     </LinearLayout>
 
