@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="15dp"
-            app:src="@drawable/age" />
+            android:src="@drawable/age" />
         <!---->
     </LinearLayout>
 
