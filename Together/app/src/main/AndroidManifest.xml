@@ -17,6 +17,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+
+
     <application
         android:name=".application.ApplicationController"
         android:allowBackup="true"
@@ -35,7 +38,7 @@
             android:value="AIzaSyD_SGa1zgmljqq1yHWd5Cac3u-NJ-iMKOs" />
 
 
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".login.FingerPrintActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,6 +47,8 @@
         </activity>
         <activity android:name=".login.LoginActivity"/>
 
+
+        <activity android:name=".main.MainActivity"/>
 
         <!-- [START gcm_receiver] -->
         <receiver
