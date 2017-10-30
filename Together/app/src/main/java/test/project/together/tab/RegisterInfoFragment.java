@@ -1,5 +1,7 @@
 package test.project.together.tab;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,8 +13,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -21,7 +21,6 @@ import retrofit2.Response;
 import test.project.together.R;
 import test.project.together.application.ApplicationController;
 import test.project.together.model.Matching;
-import test.project.together.model.Posting;
 import test.project.together.model.User;
 import test.project.together.network.NetworkService;
 
@@ -44,6 +43,8 @@ public class RegisterInfoFragment extends Fragment {
     @BindView(R.id.volunteerAge) TextView volunteerAgeText;
     @BindView(R.id.volunteerPhone) TextView volunteerPhoneText;
 
+    @BindView(R.id.callButton) Button callButton;
+
 
     LinearLayout layout;
     NetworkService service;
@@ -54,6 +55,7 @@ public class RegisterInfoFragment extends Fragment {
         super();
     }
 
+    String phoneNumber = "tel:";
 
     @Nullable
     @Override
@@ -91,14 +93,24 @@ public class RegisterInfoFragment extends Fragment {
 
                     Log.d(TAG,response.body().isCheck()+"");
                     //matching 됬을경우에만 쿼리날림
-                    if(response.body().isCheck()==1)
+                    if(response.body().isCheck()==1){
                         matchingInfo();
+                    }else{
+                       callButton.setVisibility(View.GONE);
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<Matching> call, Throwable t) {
 
+            }
+        });
+        callButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(Intent.ACTION_CALL, Uri.parse(phoneNumber));
+                startActivity(in);
             }
         });
 
@@ -119,6 +131,7 @@ public class RegisterInfoFragment extends Fragment {
                     volunteerNameText.setText(response.body().name);
                     volunteerAgeText.setText(response.body().age);
                     volunteerPhoneText.setText(response.body().phone);
+                    phoneNumber += response.body().phone;
                  }
                 else
                     Log.d(TAG,"fail1");
@@ -131,6 +144,8 @@ public class RegisterInfoFragment extends Fragment {
         });
 
     }
+
+
 
 
 
