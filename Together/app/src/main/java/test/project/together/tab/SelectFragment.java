@@ -27,7 +27,7 @@ public class SelectFragment extends Fragment
 
     @BindView(R.id.takeBtn) Button takeBtn;
     @BindView(R.id.giveBtn) Button giveBtn;
-    @BindView(R.id.nextBtn) Button nextBtn;
+  //  @BindView(R.id.nextBtn) Button nextBtn;
 
     LinearLayout layout;
 
@@ -65,13 +65,14 @@ public class SelectFragment extends Fragment
                 EventBus.getDefault().post(new ChangeEvent());
             }
         });
-
-        nextBtn.setOnClickListener(new View.OnClickListener() {
+/*
+        *nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new Posting());
             }
         });
+        */
     }
 
 

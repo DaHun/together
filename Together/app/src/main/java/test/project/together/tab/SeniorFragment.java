@@ -24,7 +24,7 @@ import test.project.together.model.Posting;
 
 public class SeniorFragment extends Fragment {
 
-    @BindView(R.id.nextBtn) Button nextBtn;
+   // @BindView(R.id.nextBtn) Button nextBtn;
     @BindView(R.id.registerBtn) Button registerBtn;
     @BindView(R.id.checkBtn) Button checkBtn;
 
@@ -58,13 +58,14 @@ public class SeniorFragment extends Fragment {
 
 
         //Button
+        /*
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new Posting());
             }
         });
-
+*/
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

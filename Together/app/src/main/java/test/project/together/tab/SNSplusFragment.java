@@ -56,7 +56,7 @@ import test.project.together.network.NetworkService;
 public class SNSplusFragment extends Fragment{
 
     //@BindView(R.id.postingRecyclerView) RecyclerView postingRecyclerView;
-    @BindView(R.id.previousBtn) Button previousBtn;
+    //@BindView(R.id.previousBtn) Button previousBtn;
     //@BindView(R.id.plusposting) Button plusregi;
     @BindView(R.id.registerposting) Button registerposting;
     @BindView(R.id.getphotobtn) Button getphotobtn;
@@ -192,6 +192,7 @@ public class SNSplusFragment extends Fragment{
 
 
         //이전 버튼 클릭 리스너
+        /*
         previousBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,7 +200,7 @@ public class SNSplusFragment extends Fragment{
             }
         });
 
-
+*/
 
     }
 

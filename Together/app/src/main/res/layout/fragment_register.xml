@@ -30,7 +30,7 @@
 
                 <TextView
                     android:textStyle="bold"
-                    android:textSize="17sp"
+                    android:textSize="30sp"
                     android:textColor="#000000"
                     android:text="● Location : "
                     android:layout_width="match_parent"
@@ -52,7 +52,7 @@
 
                 <TextView
                     android:textStyle="bold"
-                    android:textSize="17sp"
+                    android:textSize="30sp"
                     android:textColor="#000000"
                     android:text="● Thing to want : "
                     android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
 
                 <TextView
                     android:textStyle="bold"
-                    android:textSize="17sp"
+                    android:textSize="30sp"
                     android:textColor="#000000"
                     android:text="● Start time : "
                     android:layout_width="wrap_content"
@@ -121,7 +121,7 @@
 
                 <TextView
                     android:textStyle="bold"
-                    android:textSize="17sp"
+                    android:textSize="30sp"
                     android:textColor="#000000"
                     android:text="● Finish time : "
                     android:layout_width="wrap_content"
@@ -152,17 +152,17 @@
             <Button
                 android:layout_margin="30dp"
                 android:text="Register"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:id="@+id/completeBtn"
-                android:background="@drawable/button3"
+                android:background="#F15F5F"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
     </ScrollView>
 
-
+<!--
     <Button
         android:id="@+id/nextBtn"
         android:background="@drawable/side2"
@@ -173,6 +173,6 @@
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="match_parent" />
-
+-->
 
 </LinearLayout>

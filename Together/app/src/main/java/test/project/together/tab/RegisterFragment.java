@@ -58,7 +58,7 @@ public class RegisterFragment extends Fragment
         GoogleApiClient.ConnectionCallbacks
 {
 
-    @BindView(R.id.nextBtn) Button nextBtn;
+//    @BindView(R.id.nextBtn) Button nextBtn;
 
     @BindView(R.id.locationText) TextView locationText;
     @BindView(R.id.calendar) CalendarView calendarView;
@@ -114,7 +114,7 @@ public class RegisterFragment extends Fragment
     public void initSetting() {
 
         service= ApplicationController.getInstance().getNetworkService();
-
+/*
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,7 +122,7 @@ public class RegisterFragment extends Fragment
             }
         });
 
-
+*/
         completeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

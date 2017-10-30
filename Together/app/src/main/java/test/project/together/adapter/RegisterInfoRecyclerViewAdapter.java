@@ -42,9 +42,9 @@ public class RegisterInfoRecyclerViewAdapter extends RecyclerView.Adapter<Regist
         final Matching item=items.get(position);
 
         if(item.isCheck()==1)
-            holder.oxImage.setImageResource(R.drawable.cast_abc_scrubber_control_off_mtrl_alpha);
+            holder.oxImage.setImageResource(R.drawable.o);
         else
-            holder.oxImage.setImageResource(R.drawable.cast_abc_scrubber_control_to_pressed_mtrl_005);
+            holder.oxImage.setImageResource(R.drawable.x);
 
 
         holder.date.setText(item.getDate());

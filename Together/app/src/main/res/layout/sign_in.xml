@@ -123,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="등록"
-            android:background="#FF8224"
+            android:background="#F15F5F"
             android:id="@+id/sign_in_btn"/>
 
         <Button
@@ -131,7 +131,7 @@
             android:layout_height="wrap_content"
             android:text="취소"
             android:layout_marginLeft="20dp"
-            android:background="#FF8224"
+            android:background="#F15F5F"
             android:id="@+id/sign_in_cancel"/>
     </LinearLayout>
 

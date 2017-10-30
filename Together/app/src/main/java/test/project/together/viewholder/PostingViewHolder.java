@@ -23,7 +23,7 @@ public class PostingViewHolder extends RecyclerView.ViewHolder {
         snstext = (TextView)itemView.findViewById(R.id.snstext);
         snsdate = (TextView)itemView.findViewById(R.id.snsdate);
         snslike = (Button) itemView.findViewById(R.id.snslike);
-        snslikecount = (TextView) itemView.findViewById(R.id.likecount);
+       // snslikecount = (TextView) itemView.findViewById(R.id.likecount);
         snscomment = (Button) itemView.findViewById(R.id.snscomment);
     //    plusposting = (Button) itemView.findViewById(R.id.plusposting);
     }

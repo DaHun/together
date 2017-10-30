@@ -18,27 +18,29 @@
 
         <Button
             android:id="@+id/registerBtn"
-            android:layout_marginBottom="25dp"
+            android:layout_margin="25dp"
             android:background="@drawable/button2"
             android:text="Register"
             android:textColor="#000"
-            android:textSize="20sp"
+            android:textSize="55sp"
             android:textStyle="bold"
-            android:layout_width="200dp"
-            android:layout_height="80dp" />
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <Button
             android:id="@+id/checkBtn"
-            android:layout_marginTop="25dp"
+            android:layout_margin="25dp"
             android:background="@drawable/button2"
             android:text="Check\nMatching\nInfo"
             android:textColor="#000"
-            android:textSize="20sp"
+            android:textSize="55sp"
             android:textStyle="bold"
-            android:layout_width="200dp"
-            android:layout_height="80dp" />
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
-
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,4 +56,5 @@
         android:layout_width="0dp"
         android:layout_height="match_parent" />
     </LinearLayout>
+    -->
 </LinearLayout>

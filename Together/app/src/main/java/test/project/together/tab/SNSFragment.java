@@ -31,7 +31,7 @@ import test.project.together.model.Posting;
 public class SNSFragment extends Fragment{
 
     @BindView(R.id.postingRecyclerView) RecyclerView postingRecyclerView;
-    @BindView(R.id.previousBtn) Button previousBtn;
+    //@BindView(R.id.previousBtn) Button previousBtn;
     @BindView(R.id.plusposting) Button plusregi;
 
 
@@ -64,7 +64,8 @@ public class SNSFragment extends Fragment{
 
         Posting posting=new Posting();
         posting.image_path="http://www.google.co.kr/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
-
+        //posting.getDate();
+        //posting.getContent();
 
         postingList.add(posting);
         postingList.add(posting);
@@ -88,7 +89,7 @@ public class SNSFragment extends Fragment{
         });
 
 
-
+/*
         //이전 버튼 클릭 리스너
         previousBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +99,7 @@ public class SNSFragment extends Fragment{
         });
 
 
-
+*/
     }
 
 

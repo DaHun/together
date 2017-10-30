@@ -94,8 +94,7 @@ public class MainActivity extends AppCompatActivity{
 
         tabLayout.setupWithViewPager(viewPager);
 
-        tabLayout.setTabTextColors(Color.rgb(0,0,0), Color.rgb(255,255,255));
-
+        tabLayout.setTabTextColors(Color.rgb(0,0,0), Color.rgb(0,0,0));
         contentResolver=getContentResolver();
 
     }
