@@ -9,4 +9,5 @@ public class User {
     public String name;
     public String age;
     public String token;
+    public String phone;
 }
