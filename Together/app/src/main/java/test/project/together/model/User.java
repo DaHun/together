@@ -8,5 +8,5 @@ public class User {
     public String user_id;
     public String name;
     public String age;
-    public String phone;
+    public String token;
 }

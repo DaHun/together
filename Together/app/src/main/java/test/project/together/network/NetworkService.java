@@ -29,6 +29,12 @@ public interface NetworkService {
      * 익명게시글 등록하기: POST, /posts
      */
 
+    ////회원가입
+    @POST("/all/register")
+    Call<Void> registerUserInfo(@Body User user);
+
+
+
     ////////////////////Matching
 
     //시니어:등록
