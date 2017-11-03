@@ -22,6 +22,7 @@ import android.content.SharedPreferences;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,8 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
             @Override
             public void onClick(View view) {
                 dismiss();
+                ActivityCompat.finishAffinity(getActivity());
+
             }
         });
 
