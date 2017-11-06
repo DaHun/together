@@ -136,7 +136,7 @@ public class RegisterInfoFragment extends Fragment {
                          * 거부한적이 없으면 False를 리턴한다. */
                         if (shouldShowRequestPermissionRationale(Manifest.permission.CALL_PHONE)) {
                             AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity().getApplication());
-                            dialog.setTitle("권한이 필요합니다.") .setMessage("이 기능을 사용하기 위해서는 단말기의 \"전화걸기\" 권한이 필요합니다. 계속 하시겠습니까?") .setPositiveButton("네", new DialogInterface.OnClickListener() {
+                            dialog.setTitle("Permission is required.") .setMessage("\"CALL\" permission is required to use this function. Do you want to continue?") .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     /**
@@ -144,10 +144,10 @@ public class RegisterInfoFragment extends Fragment {
                                      * 버전체크를 다시 해준다.
                                      * */
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // CALL_PHONE 권한을 Android OS에 요청한다.
-                                        requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, 1000); } } }) .setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+                                        requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, 1000); } } }) .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(getActivity().getApplication(), "기능을 취소했습니다", Toast.LENGTH_SHORT).show(); } }) .create() .show();
+                                    Toast.makeText(getActivity().getApplication(), "Canceled.", Toast.LENGTH_SHORT).show(); } }) .create() .show();
                         } // 최초로 권한을 요청할 때
                         else { // CALL_PHONE 권한을 Android OS에 요청한다.
                             requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, 1000);
@@ -171,11 +171,11 @@ public class RegisterInfoFragment extends Fragment {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(phoneNumber));
                 // Add Check Permission
-                if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     startActivity(intent);
                 }
             } else {
-                Toast.makeText(getActivity().getApplicationContext(), "권한요청을 거부했습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Canceled.", Toast.LENGTH_SHORT).show();
                 callButton.setVisibility(View.GONE);
             }
         }
