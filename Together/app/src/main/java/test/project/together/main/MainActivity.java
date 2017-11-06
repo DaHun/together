@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +30,7 @@ import test.project.together.adapter.ViewPagerAdapter;
 import test.project.together.application.ApplicationController;
 import test.project.together.gcm.QuickstartPreferences;
 import test.project.together.gcm.RegistrationIntentService;
+import test.project.together.login.LoginActivity;
 import test.project.together.model.ChangeEvent;
 import test.project.together.model.InfoLayoutEvent;
 import test.project.together.model.Matching;
@@ -79,12 +81,40 @@ public class MainActivity extends AppCompatActivity{
 
         ButterKnife.bind(this);
 
-        initSetting();
-
-        getInstanceIdToken();
-        registBroadcastReceiver();
+        if(checkinfo()==1){//정보있음
+            initSetting();
+            getInstanceIdToken();
+            registBroadcastReceiver();
+        }else{
+            //등록된 정보 없으므로 정보등록
+            Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
 
     }
+
+    //개인정보 등록되었나 확인
+    int checkinfo(){
+        //정보있으면return 1; 없으면 return 0;
+
+        String info1;
+        String info2;
+        String info3;
+
+        SharedPreferences pref = getSharedPreferences("Info",MODE_PRIVATE);
+        info1 = pref.getString("name","");
+        info2 = pref.getString("age","");
+        info3 = pref.getString("gender","");
+
+        if(info1== "" || info2== "" || info3== ""){
+            return 0;   //없음
+        }
+
+        return 1; //정보있음
+    }
+
 
     public void initSetting(){
 
