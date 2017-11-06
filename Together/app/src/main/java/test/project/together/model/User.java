@@ -11,4 +11,11 @@ public class User {
     public String gender;
     public String token;
 
+    public User(String name, String phone, String age, String gender, String token) {
+        this.name = name;
+        this.phone = phone;
+        this.age = age;
+        this.gender = gender;
+        this.token = token;
+    }
 }
