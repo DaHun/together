@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="test.project.together">
 
-
+//
     <uses-feature android:required="true" android:glEsVersion="0x00020000"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>

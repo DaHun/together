@@ -30,10 +30,8 @@ public interface NetworkService {
      */
 
     ////회원가입
-    @POST("/all/register")
-    Call<Void> registerUserInfo(@Body User user);
-
-
+    @POST("/all/user/register")
+    Call<User> registerUserInfo(@Body User user);
 
     ////////////////////Matching
 
