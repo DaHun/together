@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.project.together.R;
 import test.project.together.adapter.ViewPagerAdapter;
+import test.project.together.application.ApplicationController;
 import test.project.together.login.LoginActivity;
 import test.project.together.model.ChangeEvent;
 import test.project.together.model.InfoLayoutEvent;
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity{
         info1 = pref.getString("name","");
         info2 = pref.getString("age","");
         info3 = pref.getString("gender","");
+        ApplicationController.user_id=pref.getInt("user_id",-1);
 
         if(info1== "" || info2== "" || info3== ""){
             return 0;   //없음

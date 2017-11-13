@@ -46,7 +46,7 @@ import test.project.together.main.MainActivity;
 import test.project.together.model.User;
 import test.project.together.network.NetworkService;
 
-public class LoginActivity extends AppCompatActivity{
+public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
 
@@ -83,20 +83,18 @@ public class LoginActivity extends AppCompatActivity{
         init();
     }
 
-    public void initSetting(){
+    public void initSetting() {
 
-        service= ApplicationController.getInstance().getNetworkService();
+        service = ApplicationController.getInstance().getNetworkService();
 
-        signinbtn=(Button)findViewById(R.id.sign_in_btn);
-        cancelbtn=(Button)findViewById(R.id.sign_in_cancel);
-        nametxt=(EditText)findViewById(R.id.sign_in_name);
-        agespinner=(Spinner)findViewById(R.id.sign_in_age);
-        rg = (RadioGroup)findViewById(R.id.radiogroup);
-        phoneText=(TextView)findViewById(R.id.sign_in_phone);
+        signinbtn = (Button) findViewById(R.id.sign_in_btn);
+        cancelbtn = (Button) findViewById(R.id.sign_in_cancel);
+        nametxt = (EditText) findViewById(R.id.sign_in_name);
+        agespinner = (Spinner) findViewById(R.id.sign_in_age);
+        rg = (RadioGroup) findViewById(R.id.radiogroup);
+        phoneText = (TextView) findViewById(R.id.sign_in_phone);
 
     }
-
-
 
 
     void init() {
@@ -139,21 +137,26 @@ public class LoginActivity extends AppCompatActivity{
              * 거부한적이 없으면 False를 리턴한다. */
             if (shouldShowRequestPermissionRationale(Manifest.permission.READ_PHONE_STATE)) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getApplicationContext());
-                dialog.setTitle("Permission is required.") .setMessage("\"CALL\" permission is required to use this function. Do you want to continue?") .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                dialog.setTitle("Permission is required.").setMessage("\"CALL\" permission is required to use this function. Do you want to continue?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         /**
                          * 새로운 인스턴스(onClickListener)를 생성했기 때문에
                          * 버전체크를 다시 해준다.
                          * */
-                        Log.d(TAG,"if");
+                        Log.d(TAG, "if");
                         getNumber();
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // READ_PHONE_STATE 권한을 Android OS에 요청한다.
-                            requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, 1000); } } }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, 1000);
+                        }
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), "Canceled.", Toast.LENGTH_SHORT).show(); } }) .create() .show();
+                        Toast.makeText(getApplicationContext(), "Canceled.", Toast.LENGTH_SHORT).show();
+                    }
+                }).create().show();
             } // 최초로 권한을 요청할 때
             else { // PHONE STATE 권한을 Android OS에 요청한다.
                 requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, 1000);
@@ -161,10 +164,9 @@ public class LoginActivity extends AppCompatActivity{
         } // READ_PHONE_STATE 권한이 있을 때
         else { // 즉시 실행
             getNumber();
-            Log.d(TAG,"else2");
+            Log.d(TAG, "else2");
 
         }
-
 
 
         //등록
@@ -176,16 +178,7 @@ public class LoginActivity extends AppCompatActivity{
                 //age;
                 //gender
                 int id = rg.getCheckedRadioButtonId();
-                RadioButton rb = (RadioButton)findViewById(id);
-
-                //sharedpreferences
-                SharedPreferences pref = getSharedPreferences("Info",MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("name",name);
-                editor.putString("age",Integer.toString(age));
-                editor.putString("phone",phone);
-                editor.putString("gender",rb.getText().toString());
-                editor.commit();
+                final RadioButton rb = (RadioButton) findViewById(id);
 
                 User user = new User(name, phone, Integer.toString(age), rb.getText().toString(), token);
 
@@ -193,23 +186,32 @@ public class LoginActivity extends AppCompatActivity{
                 registerUserInfo.enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-                        if(response.isSuccessful()){
-                            Log.d(TAG,response.body().user_id);
-                            ApplicationController.user_id=Integer.valueOf(response.body().user_id);
+                        if (response.isSuccessful()) {
+                            Log.d(TAG, response.body().user_id);
+                            ApplicationController.user_id = Integer.valueOf(response.body().user_id);
 
-                            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                            //sharedpreferences
+                            SharedPreferences pref = getSharedPreferences("Info", MODE_PRIVATE);
+                            final SharedPreferences.Editor editor = pref.edit();
+                            editor.putString("name", name);
+                            editor.putString("age", Integer.toString(age));
+                            editor.putString("phone", phone);
+                            editor.putString("gender", rb.getText().toString());
+                            editor.putInt("user_id", Integer.valueOf(response.body().user_id));
+                            editor.commit();
+
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
-                        }
-                        else
-                            Log.d(TAG,"fail1");
+                        } else
+                            Log.d(TAG, "fail1");
 
                     }
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-                        Log.d(TAG,"fail2");
+                        Log.d(TAG, "fail2");
 
                     }
                 });
@@ -218,15 +220,23 @@ public class LoginActivity extends AppCompatActivity{
         });
 
 
-
-
     }
 
-    void getNumber(){
+    void getNumber() {
         //
-        String mPhoneNumber="";
+        String mPhoneNumber = "";
         try {
             TelephonyManager tmg = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
             mPhoneNumber = tmg.getLine1Number();
             //  Toast.makeText(getApplicationContext(), mPhoneNumber, Toast.LENGTH_LONG).show();
         }catch (Exception e){
