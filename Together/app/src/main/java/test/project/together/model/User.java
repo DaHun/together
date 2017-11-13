@@ -5,6 +5,7 @@ package test.project.together.model;
  */
 
 public class User {
+    public String user_id;
     public String name;
     public String phone;
     public String age;

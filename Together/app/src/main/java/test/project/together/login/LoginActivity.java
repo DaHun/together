@@ -1,13 +1,22 @@
 package test.project.together.login;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,12 +26,15 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,6 +57,7 @@ public class LoginActivity extends AppCompatActivity{
 
     Button signinbtn;
     Button cancelbtn;
+    TextView phoneText;
 
     String name;
     String phone;
@@ -61,7 +74,7 @@ public class LoginActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sign_in);
+        setContentView(R.layout.activity_sign_in);
 
         getInstanceIdToken();
         registBroadcastReceiver();
@@ -79,8 +92,11 @@ public class LoginActivity extends AppCompatActivity{
         nametxt=(EditText)findViewById(R.id.sign_in_name);
         agespinner=(Spinner)findViewById(R.id.sign_in_age);
         rg = (RadioGroup)findViewById(R.id.radiogroup);
+        phoneText=(TextView)findViewById(R.id.sign_in_phone);
 
     }
+
+
 
 
     void init() {
@@ -106,7 +122,49 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
-        //성별
+
+        //전화번호 권한
+        /**
+         * 사용자 단말기의 권한 중 "PHONE STATE" 권한이 허용되어 있는지 확인한다.
+         * Android는 C언어 기반으로 만들어졌기 때문에 Boolean 타입보다 Int 타입을 사용한다.
+         * */
+        int permissionResult = ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_PHONE_STATE);
+        /**
+         * 패키지는 안드로이드 어플리케이션의 아이디이다.
+         * 현재 어플리케이션이 CALL_PHONE에 대해 거부되어있는지 확인한다.
+         * */
+        if (permissionResult == PackageManager.PERMISSION_DENIED) {
+            /** * 사용자가 PHONE STATE 권한을 거부한 적이 있는지 확인한다.
+             * 거부한적이 있으면 True를 리턴하고
+             * 거부한적이 없으면 False를 리턴한다. */
+            if (shouldShowRequestPermissionRationale(Manifest.permission.READ_PHONE_STATE)) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getApplicationContext());
+                dialog.setTitle("Permission is required.") .setMessage("\"CALL\" permission is required to use this function. Do you want to continue?") .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        /**
+                         * 새로운 인스턴스(onClickListener)를 생성했기 때문에
+                         * 버전체크를 다시 해준다.
+                         * */
+                        Log.d(TAG,"if");
+                        getNumber();
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // READ_PHONE_STATE 권한을 Android OS에 요청한다.
+                            requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, 1000); } } }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(), "Canceled.", Toast.LENGTH_SHORT).show(); } }) .create() .show();
+            } // 최초로 권한을 요청할 때
+            else { // PHONE STATE 권한을 Android OS에 요청한다.
+                requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, 1000);
+            }
+        } // READ_PHONE_STATE 권한이 있을 때
+        else { // 즉시 실행
+            getNumber();
+            Log.d(TAG,"else2");
+
+        }
+
 
 
         //등록
@@ -125,35 +183,37 @@ public class LoginActivity extends AppCompatActivity{
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("name",name);
                 editor.putString("age",Integer.toString(age));
+                editor.putString("phone",phone);
                 editor.putString("gender",rb.getText().toString());
                 editor.commit();
 
-                User user = new User(name, phone, Integer.toString(age), Integer.toString(gender), token);
+                User user = new User(name, phone, Integer.toString(age), rb.getText().toString(), token);
 
-                Call<Void> registerUserInfo = service.registerUserInfo(user);
-                registerUserInfo.enqueue(new Callback<Void>() {
+                Call<User> registerUserInfo = service.registerUserInfo(user);
+                registerUserInfo.enqueue(new Callback<User>() {
                     @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        if(response.isSuccessful())
-                            Log.d(TAG,"success");
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if(response.isSuccessful()){
+                            Log.d(TAG,response.body().user_id);
+                            ApplicationController.user_id=Integer.valueOf(response.body().user_id);
+
+                            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
                         else
                             Log.d(TAG,"fail1");
 
                     }
 
                     @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
+                    public void onFailure(Call<User> call, Throwable t) {
                         Log.d(TAG,"fail2");
 
                     }
                 });
 
-                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-
-                //서버에 저장
             }
         });
 
@@ -162,6 +222,20 @@ public class LoginActivity extends AppCompatActivity{
 
     }
 
+    void getNumber(){
+        //
+        String mPhoneNumber="";
+        try {
+            TelephonyManager tmg = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+            mPhoneNumber = tmg.getLine1Number();
+            //  Toast.makeText(getApplicationContext(), mPhoneNumber, Toast.LENGTH_LONG).show();
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(), "에러", Toast.LENGTH_LONG).show();
+        }
+
+        phoneText.setText(mPhoneNumber);
+        phone=mPhoneNumber;
+    }
     ///////////
 
 
@@ -194,7 +268,7 @@ public class LoginActivity extends AppCompatActivity{
                     //Toast.makeText(getApplicationContext(),"COMPLETE",Toast.LENGTH_SHORT).show();
 
                     token=intent.getStringExtra("token");
-                    //Log.d(TAG,token);
+                    Log.d(TAG,token);
                     ApplicationController.token=token;
 
                 }
@@ -245,5 +319,13 @@ public class LoginActivity extends AppCompatActivity{
         return true;
     }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1000) {
+            getNumber();
+        }
+    }
 }
 
