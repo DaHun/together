@@ -5,10 +5,12 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,7 +77,6 @@ public class SeniorFragment extends Fragment {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     int permissionResult = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
                     /**
                      * 패키지는 안드로이드 어플리케이션의 아이디이다.
@@ -108,13 +109,8 @@ public class SeniorFragment extends Fragment {
                         //RegisterFragment로 이동
                         ViewPagerAdapter.subMode=1;
                         EventBus.getDefault().post(new ChangeEvent());
+
                     }
-                } // 마시멜로우 미만의 버전일 때
-                else { // 즉시 실행
-                    //RegisterFragment로 이동
-                    ViewPagerAdapter.subMode=1;
-                    EventBus.getDefault().post(new ChangeEvent());
-                }
             }
         });
 
@@ -125,5 +121,18 @@ public class SeniorFragment extends Fragment {
                 EventBus.getDefault().post(new ChangeEvent());
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1000) {
+            try {
+                ViewPagerAdapter.subMode=1;
+                EventBus.getDefault().post(new ChangeEvent());
+            }catch (Exception e){
+                Log.d(TAG, "fail~~~~~~~~~~~~~~~");
+            }
+        }
     }
 }

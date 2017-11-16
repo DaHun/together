@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -79,7 +80,6 @@ public class SelectFragment extends Fragment
                         Log.v(TAG,"Yes Btn Click");
                         dialog.dismiss();     //닫기
                         // Event
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             int permissionResult = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
                             /**
                              * 패키지는 안드로이드 어플리케이션의 아이디이다.
@@ -113,12 +113,6 @@ public class SelectFragment extends Fragment
                                 ViewPagerAdapter.mode=2;
                                 EventBus.getDefault().post(new ChangeEvent());
                                  }
-                        } // 마시멜로우 미만의 버전일 때
-                        else { // 즉시 실행
-                            //지도화면으로 전환
-                            ViewPagerAdapter.mode=2;
-                            EventBus.getDefault().post(new ChangeEvent());
-                        }
                     }
                 });
 
@@ -145,6 +139,16 @@ public class SelectFragment extends Fragment
         });
         */
     }
-
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1000) {
+            try {
+                ViewPagerAdapter.mode=2;
+                EventBus.getDefault().post(new ChangeEvent());
+            }catch (Exception e){
+                Log.d(TAG, "fail~~~~~~~~~~~~~~~");
+            }
+        }
+    }
 }
