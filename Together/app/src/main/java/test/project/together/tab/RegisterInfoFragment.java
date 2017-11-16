@@ -119,8 +119,6 @@ public class RegisterInfoFragment extends Fragment {
             public void onClick(View view) {
 //                Intent in = new Intent(Intent.ACTION_CALL, Uri.parse(phoneNumber));
  //               startActivity(in);
-                // 사용자의 OS 버전이 마시멜로우 이상인지 체크한다.
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     /**
                      * 사용자 단말기의 권한 중 "전화걸기" 권한이 허용되어 있는지 확인한다.
                      * Android는 C언어 기반으로 만들어졌기 때문에 Boolean 타입보다 Int 타입을 사용한다.
@@ -151,16 +149,12 @@ public class RegisterInfoFragment extends Fragment {
                         } // 최초로 권한을 요청할 때
                         else { // CALL_PHONE 권한을 Android OS에 요청한다.
                             requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, 1000);
+
                         }
                     } // CALL_PHONE의 권한이 있을 때
                     else { // 즉시 실행
                         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(phoneNumber));
                         startActivity(intent); }
-                } // 마시멜로우 미만의 버전일 때
-                else { // 즉시 실행
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(phoneNumber));
-                    startActivity(intent);
-                }
             }
         });
     }
@@ -168,17 +162,17 @@ public class RegisterInfoFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == 1000) { // 요청한 권한을 사용자가 "허용" 했다면...
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            //if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(phoneNumber));
                 // Add Check Permission
-                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+              //  if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     startActivity(intent);
-                }
+               // }
             } else {
                 Toast.makeText(getContext(), "Canceled.", Toast.LENGTH_SHORT).show();
                 callButton.setVisibility(View.GONE);
             }
-        }
+        //}
     }
 
     public void matchingInfo(){
@@ -203,11 +197,5 @@ public class RegisterInfoFragment extends Fragment {
                 Log.d(TAG,"fail2");
             }
         });
-
     }
-
-
-
-
-
 }
