@@ -26,6 +26,7 @@ import test.project.together.model.Posting;
 import test.project.together.tab.VolunteerFragment;
 
 import static test.project.together.adapter.ViewPagerAdapter.subMode;
+import static test.project.together.adapter.ViewPagerAdapter.volsubMode;
 
 public class MainActivity extends AppCompatActivity{
     //test eunju
@@ -142,13 +143,24 @@ public class MainActivity extends AppCompatActivity{
                 viewPagerAdapter.notifyDataSetChanged();
             } else if (ViewPagerAdapter.mode == 2) {
 
-                if (VolunteerFragment.infoLayoutMode) {
-                    VolunteerFragment.infoLayoutMode = false;
-                    EventBus.getDefault().post(new InfoLayoutEvent());
-                } else {
+                if(volsubMode==0) {
                     ViewPagerAdapter.mode = 0;
-                    viewPagerAdapter.notifyDataSetChanged();
+                }else if(volsubMode==1){
+                    if (VolunteerFragment.infoLayoutMode) {
+                        VolunteerFragment.infoLayoutMode = false;
+                        EventBus.getDefault().post(new InfoLayoutEvent());
+                    } else {
+                        //ViewPagerAdapter.mode = 0;
+                        volsubMode=0;
+                    }
+                }else if(volsubMode==2){
+                    volsubMode=0;
                 }
+
+
+                viewPagerAdapter.notifyDataSetChanged();
+
+
             } else {
                 super.onBackPressed();
             }

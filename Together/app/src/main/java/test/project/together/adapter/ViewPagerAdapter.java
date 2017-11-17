@@ -12,6 +12,8 @@ import test.project.together.tab.SNSplusFragment;
 import test.project.together.tab.SelectFragment;
 import test.project.together.tab.SeniorFragment;
 import test.project.together.tab.VolunteerFragment;
+import test.project.together.tab.VolunteerMatchingInfoFragment;
+import test.project.together.tab.VolunteerSelectFragment;
 
 
 /**
@@ -24,6 +26,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
 
     public static int mode=0;
     public static int subMode=0;
+    public static int volsubMode=0;
     //SNS
     public static int SNSmode=0;
     public static int SNSsubMode=0;
@@ -71,7 +74,12 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
                         else if(subMode==3)
                             return new RegisterInfoFragment();
                     case 2:
-                        return new VolunteerFragment();
+                        if(volsubMode==0)
+                            return new VolunteerSelectFragment();
+                        else if(volsubMode==1)
+                            return new VolunteerFragment();
+                        else if(volsubMode==2)
+                            return new VolunteerMatchingInfoFragment();
                 }
             case 1:
                 switch(SNSmode){
