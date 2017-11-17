@@ -76,9 +76,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        getInstanceIdToken();
-        registBroadcastReceiver();
-
         initSetting();
         init();
     }
@@ -335,6 +332,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1000) {
             getNumber();
+            getInstanceIdToken();
+            registBroadcastReceiver();
         }
     }
 }
