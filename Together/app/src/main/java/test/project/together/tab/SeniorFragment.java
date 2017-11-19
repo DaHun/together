@@ -1,15 +1,12 @@
 package test.project.together.tab;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,19 +84,7 @@ public class SeniorFragment extends Fragment {
                          * 거부한적이 있으면 True를 리턴하고
                          * 거부한적이 없으면 False를 리턴한다. */
                         if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                            AlertDialog.Builder dialog2 = new AlertDialog.Builder(getActivity().getApplication());
-                            dialog2.setTitle("Permission is required.") .setMessage("\"Location\" permission is required to use this function. Do you want to continue?") .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    /**
-                                     * 새로운 인스턴스(onClickListener)를 생성했기 때문에
-                                     * 버전체크를 다시 해준다.
-                                     * */
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // ACCESS_FINE_LOCATION 권한을 Android OS에 요청한다.
-                                        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1000); } } }) .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(getActivity().getApplication(), "Canceled.", Toast.LENGTH_SHORT).show(); } }) .create() .show();
+                            Toast.makeText(getActivity().getApplication(), "LOCATION permissions are required. Please change your permission settings.", Toast.LENGTH_LONG).show();
                         } // 최초로 권한을 요청할 때
                         else { // ACCESS_FINE_LOCATION 권한을 Android OS에 요청한다.
                             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1000);
@@ -128,8 +113,19 @@ public class SeniorFragment extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1000) {
             try {
-                ViewPagerAdapter.subMode=1;
-                EventBus.getDefault().post(new ChangeEvent());
+                for (int i = 0; i < permissions.length; i++) {
+                    String permission = permissions[i];
+                    int grantResult = grantResults[i];
+                    if (permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                            Toast.makeText(getContext(), "LOCATION permission athorized", Toast.LENGTH_SHORT).show();
+                            ViewPagerAdapter.subMode = 1;
+                            EventBus.getDefault().post(new ChangeEvent());
+                        } else {
+                            Toast.makeText(getContext(), "LOCATION permission denied", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
             }catch (Exception e){
                 Log.d(TAG, "fail~~~~~~~~~~~~~~~");
             }

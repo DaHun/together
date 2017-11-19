@@ -3,18 +3,14 @@ package test.project.together.login;
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -34,7 +30,6 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import java.util.ArrayList;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -133,27 +128,7 @@ public class LoginActivity extends AppCompatActivity {
              * 거부한적이 있으면 True를 리턴하고
              * 거부한적이 없으면 False를 리턴한다. */
             if (shouldShowRequestPermissionRationale(Manifest.permission.READ_PHONE_STATE)) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getApplicationContext());
-                dialog.setTitle("Permission is required.").setMessage("\"CALL\" permission is required to use this function. Do you want to continue?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        /**
-                         * 새로운 인스턴스(onClickListener)를 생성했기 때문에
-                         * 버전체크를 다시 해준다.
-                         * */
-                        Log.d(TAG, "if");
-                        getNumber();
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // READ_PHONE_STATE 권한을 Android OS에 요청한다.
-                            requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, 1000);
-                        }
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), "Canceled.", Toast.LENGTH_SHORT).show();
-                    }
-                }).create().show();
+                Toast.makeText(getApplicationContext(), "PHONE_STATE permissions are required. Please change your permission settings.", Toast.LENGTH_LONG).show();
             } // 최초로 권한을 요청할 때
             else { // PHONE STATE 권한을 Android OS에 요청한다.
                 requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, 1000);
@@ -331,9 +306,20 @@ public class LoginActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1000) {
-            getNumber();
-            getInstanceIdToken();
-            registBroadcastReceiver();
+            for (int i = 0; i < permissions.length; i++) {
+                String permission = permissions[i];
+                int grantResult = grantResults[i];
+                if (permission.equals(Manifest.permission.READ_PHONE_STATE)) {
+                    if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(getApplicationContext(), "PHONE_STATE permission athorized", Toast.LENGTH_SHORT).show();
+                        getNumber();
+                        getInstanceIdToken();
+                        registBroadcastReceiver();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "PHONE_STATE permission denied", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
         }
     }
 }
