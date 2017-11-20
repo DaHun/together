@@ -311,12 +311,12 @@ public class LoginActivity extends AppCompatActivity {
                 int grantResult = grantResults[i];
                 if (permission.equals(Manifest.permission.READ_PHONE_STATE)) {
                     if (grantResult == PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(getApplicationContext(), "PHONE_STATE permission athorized", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "PHONE_STATE permission is authorized", Toast.LENGTH_SHORT).show();
                         getNumber();
                         getInstanceIdToken();
                         registBroadcastReceiver();
                     } else {
-                        Toast.makeText(getApplicationContext(), "PHONE_STATE permission denied", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "PHONE_STATE permission is denied", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

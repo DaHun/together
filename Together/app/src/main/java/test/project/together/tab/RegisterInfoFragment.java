@@ -151,11 +151,11 @@ public class RegisterInfoFragment extends Fragment {
                 int grantResult = grantResults[i];
                 if (permission.equals(Manifest.permission.CALL_PHONE)) {
                     if (grantResult == PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(getContext(), "CALL permission athorized", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "CALL permission is authorized", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(phoneNumber));
                         startActivity(intent);
                     } else {
-                        Toast.makeText(getContext(), "CALL permission denied", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "CALL permission is denied", Toast.LENGTH_SHORT).show();
                         callButton.setVisibility(View.GONE);
                     }
                 }
