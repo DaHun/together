@@ -58,6 +58,9 @@ public interface NetworkService {
     @PUT("/volunteer/volunteerinfo/matching")
     Call<Void> matching(@Query("matching_id") int matching_id, @Query("user_id") int user_id);
 
+    //봉사자 : 내가 매칭한 리스트들 받아오기
+    @PUT("/volunteer/volunteerinfo/mine")
+    Call<ArrayList<Matching>> getMyMatchingList(@Query("user_id") int user_id);
 
     /////////////////////SNS
 
