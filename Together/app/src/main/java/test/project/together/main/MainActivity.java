@@ -25,7 +25,6 @@ import test.project.together.model.ChangeEvent;
 import test.project.together.model.InfoLayoutEvent;
 import test.project.together.model.Matching;
 import test.project.together.model.Posting;
-import test.project.together.model.QueryEvent;
 import test.project.together.tab.SNSplusFragment;
 import test.project.together.tab.VolunteerFragment;
 
