@@ -186,11 +186,11 @@ public class VolunteerSelectFragment extends Fragment {
                     int grantResult = grantResults[i];
                     if (permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
                         if(grantResult == PackageManager.PERMISSION_GRANTED) {
-                            Toast.makeText(getContext(),"LOCATION permission athorized",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),"LOCATION permission is authorized",Toast.LENGTH_SHORT).show();
                             ViewPagerAdapter.volsubMode = 1;
                             EventBus.getDefault().post(new ChangeEvent());
                         } else {
-                            Toast.makeText(getContext(),"LOCATIN permission denied",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),"LOCATION permission is denied",Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
