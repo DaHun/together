@@ -68,7 +68,7 @@ public interface NetworkService {
     @Multipart
     @POST("/all/sns/newposting") //임시로 지었음!
     Call<Void> snsPlus(@Part MultipartBody.Part file,
-                                           @Part("user_id") RequestBody id,
+                                           @Part("user_id") RequestBody user_id,
                                            @Part("content") RequestBody content,
                                            @Part("date") RequestBody date);
 

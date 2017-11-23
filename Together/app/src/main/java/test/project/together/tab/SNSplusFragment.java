@@ -68,12 +68,14 @@ public class SNSplusFragment extends Fragment{
     NetworkService service;
 
     Uri data = null;
+    String fileName;
     final int REQ_CODE_SELECT_IMAGE=100;
 
     //ArrayList<Posting> postingList;
     //PostingRecyclerViewAdapter postingRecyclerViewAdapter;
     LinearLayoutManager linearLayoutManager;
 
+    public static String imgPath=null;
     public SNSplusFragment() {
         super();
     }
@@ -112,7 +114,7 @@ public class SNSplusFragment extends Fragment{
             public void onClick(View view) {
 
 
-                RequestBody id = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(ApplicationController.user_id));
+                RequestBody user_id = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(ApplicationController.user_id));
                 RequestBody content = RequestBody.create(MediaType.parse("multipart/form-data"),newposttxt.getText().toString());
                 RequestBody date = RequestBody.create(MediaType.parse("multipart/form-data"), getDateString());
 
@@ -155,7 +157,7 @@ public class SNSplusFragment extends Fragment{
                     //File photo = new File(image_path); // 가져온 파일의 이름을 알아내려고 사용합니다
 
                     // MultipartBody.Part 실제 파일의 이름을 보내기 위해 사용!!
-                    body = MultipartBody.Part.createFormData("image", "testname", photoBody);
+                    body = MultipartBody.Part.createFormData("image", fileName, photoBody);
 
 
                 }
@@ -163,7 +165,7 @@ public class SNSplusFragment extends Fragment{
                 // 파일과 텍스트를 함께 넘길 때는 multipart를 사용합니다.
 
 
-                Call<Void> snsPlus = service.snsPlus(body, id, content, date);
+                Call<Void> snsPlus = service.snsPlus(body, user_id, content, date);
                 snsPlus.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
@@ -218,6 +220,28 @@ public class SNSplusFragment extends Fragment{
 
                     this.data = data.getData();
 
+                    if (this.data.getScheme().equals("file")) {
+                        fileName = this.data.getLastPathSegment();
+                    } else {
+                        Cursor cursor = null;
+                        try {
+                            cursor = MainActivity.contentResolver.query(this.data, new String[]{
+                                    MediaStore.Images.ImageColumns.DISPLAY_NAME
+                            }, null, null, null);
+
+                            if (cursor != null && cursor.moveToFirst()) {
+                                fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DISPLAY_NAME));
+                                Log.d(TAG, "name is " + fileName);
+                            }
+                        } finally {
+
+                            if (cursor != null) {
+                                cursor.close();
+                            }
+                        }
+                    }
+
+                    Toast.makeText(getContext(),fileName,Toast.LENGTH_SHORT).show();
                     //이미지 데이터를 비트맵으로 받아온다.
                     Bitmap image_bitmap 	= MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
 
@@ -225,7 +249,6 @@ public class SNSplusFragment extends Fragment{
                     newImage.setImageBitmap(image_bitmap);
 
                     Log.d(TAG,this.data+"");
-                    //Toast.makeText(getBaseContext(), "name_Str : "+name_Str , Toast.LENGTH_SHORT).show();
 
 
                 } catch (FileNotFoundException e) {
