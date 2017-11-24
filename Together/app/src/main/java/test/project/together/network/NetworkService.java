@@ -74,7 +74,7 @@ public interface NetworkService {
 
     //SNS 모든 글 로드
     @GET("/all/sns/load")
-    Call<ArrayList<Posting>> snsLoad();
+    Call<ArrayList<Posting>> getAllSNS();
 
 
 

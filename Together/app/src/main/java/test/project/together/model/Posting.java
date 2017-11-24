@@ -5,11 +5,11 @@ package test.project.together.model;
  */
 
 public class Posting {
-    public String image_path;
-    String date;
-    String content;
-    int user_id;
     int post_id;
+    int user_id;
+    public String image_path;
+    String content;
+    String date;
     int like_count;
 
     public Posting(int user_id, String date, String content, String image_path, int like_count) {

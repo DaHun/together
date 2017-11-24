@@ -20,8 +20,7 @@ import test.project.together.viewholder.PostingViewHolder;
  */
 
 public class PostingRecyclerViewAdapter extends RecyclerView.Adapter<PostingViewHolder>{
-    //master push test
-    //eunju test
+
     ArrayList<Posting> items;
     Context context;
 
@@ -42,9 +41,10 @@ public class PostingRecyclerViewAdapter extends RecyclerView.Adapter<PostingView
         final Posting item=items.get(position);
 
         Glide.with(context).load(items.get(position).getImage_path()).into(holder.postingImage);
-        holder.snsdate.setText(item.getDate());
         holder.snstext.setText(item.getContent());
-        
+        holder.snsdate.setText(item.getDate());
+        holder.snslike.setText(String.valueOf(item.getLike_count()));
+
     }
 
     @Override
