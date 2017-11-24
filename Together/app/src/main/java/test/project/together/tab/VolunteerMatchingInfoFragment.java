@@ -31,6 +31,7 @@ import retrofit2.Response;
 import test.project.together.R;
 import test.project.together.adapter.RegisterInfoRecyclerViewAdapter;
 import test.project.together.adapter.ViewPagerAdapter;
+import test.project.together.adapter.VolRegisterInfoRecyclerViewAdapter;
 import test.project.together.application.ApplicationController;
 import test.project.together.model.ChangeEvent;
 import test.project.together.model.Matching;
@@ -44,14 +45,14 @@ public class VolunteerMatchingInfoFragment extends Fragment {
 //봉사자가 매칭신청한 봉사내역을 보여주는 리스트
 //sdfs
     @BindView(R.id.volmatching)
-    RecyclerView matchingInfoRecyclerView;
+    RecyclerView volmatchingInfoRecyclerView;
 
     NetworkService service;
     final String TAG="CheckFragment";
     LinearLayout layout;
 
-    ArrayList<Matching> matchingList;
-    RegisterInfoRecyclerViewAdapter registerInfoRecyclerViewAdapter;
+    ArrayList<Matching> volmatchingList;
+    VolRegisterInfoRecyclerViewAdapter volregisterInfoRecyclerViewAdapter;
     LinearLayoutManager linearLayoutManager;
 
     public VolunteerMatchingInfoFragment() {
@@ -73,22 +74,21 @@ public class VolunteerMatchingInfoFragment extends Fragment {
 
     public void initSetting() {
 
-
         service= ApplicationController.getInstance().getNetworkService();
 
-        Call<ArrayList<Matching>> load_AllRegisterInfo=service.load_allRegisterInfo(ApplicationController.user_id);
-        load_AllRegisterInfo.enqueue(new Callback<ArrayList<Matching>>() {
+        Call<ArrayList<Matching>> getMyMatchingList=service.getMyMatchingList(ApplicationController.user_id);
+        getMyMatchingList.enqueue(new Callback<ArrayList<Matching>>() {
             @Override
             public void onResponse(Call<ArrayList<Matching>> call, Response<ArrayList<Matching>> response) {
                 if(response.isSuccessful()){
-                    matchingList=response.body();
-                    Log.d(TAG,matchingList.size()+" ");
+                    volmatchingList=response.body();
+                    Log.d(TAG,volmatchingList.size()+" ");
 
                     //RecyclerView Setting
-                    registerInfoRecyclerViewAdapter=new RegisterInfoRecyclerViewAdapter(matchingList);
-                    matchingInfoRecyclerView.setAdapter(registerInfoRecyclerViewAdapter);
+                    volregisterInfoRecyclerViewAdapter=new VolRegisterInfoRecyclerViewAdapter(volmatchingList);
+                    volmatchingInfoRecyclerView.setAdapter(volregisterInfoRecyclerViewAdapter);
                     linearLayoutManager=new LinearLayoutManager(getContext());
-                    matchingInfoRecyclerView.setLayoutManager(linearLayoutManager);
+                    volmatchingInfoRecyclerView.setLayoutManager(linearLayoutManager);
 
                 }else
                     Log.d(TAG,"fail1");

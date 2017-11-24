@@ -153,10 +153,13 @@ public class MainActivity extends AppCompatActivity{
                     }
                 }else if(volsubMode==2){
                     volsubMode=0;
-                }
+                }else if(volsubMode==3){
+                volsubMode=2;
+            }
 
 
-                viewPagerAdapter.notifyDataSetChanged();
+
+            viewPagerAdapter.notifyDataSetChanged();
 
 
             } else {
