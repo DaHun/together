@@ -3,10 +3,8 @@ package test.project.together.main;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +23,6 @@ import test.project.together.model.ChangeEvent;
 import test.project.together.model.InfoLayoutEvent;
 import test.project.together.model.Matching;
 import test.project.together.model.Posting;
-import test.project.together.tab.SNSplusFragment;
 import test.project.together.tab.VolunteerFragment;
 
 import static test.project.together.adapter.ViewPagerAdapter.subMode;
