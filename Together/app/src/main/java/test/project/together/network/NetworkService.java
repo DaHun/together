@@ -77,11 +77,11 @@ public interface NetworkService {
     @GET("/all/sns/load")
     Call<ArrayList<Posting>> getAllSNS();
 
-    //SNS 해당 글에 대한 댓글들 로드
+    //SNS 해당 포스팅에 관한 댓글들 로드
     @GET("/senior/volunteerinfo/load/all")
     Call<ArrayList<Comment>> load_comment(@Query("post_id") int post_id);
 
-    //SNS 해당 글에 대한 댓글들 로드
+    //SNS 해당 유저에 관한 포스팅 로드
     @GET("/senior/volunteerinfo/load/all")
     Call<ArrayList<Posting>> load_myPosting(@Query("user_id") int user_id);
 
