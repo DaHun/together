@@ -13,6 +13,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import test.project.together.model.Comment;
 import test.project.together.model.Matching;
 import test.project.together.model.Posting;
 import test.project.together.model.User;
@@ -76,6 +77,13 @@ public interface NetworkService {
     @GET("/all/sns/load")
     Call<ArrayList<Posting>> getAllSNS();
 
+    //SNS 해당 글에 대한 댓글들 로드
+    @GET("/senior/volunteerinfo/load/all")
+    Call<ArrayList<Comment>> load_comment(@Query("post_id") int post_id);
+
+    //SNS 해당 글에 대한 댓글들 로드
+    @GET("/senior/volunteerinfo/load/all")
+    Call<ArrayList<Posting>> load_myPosting(@Query("user_id") int user_id);
 
 
 }

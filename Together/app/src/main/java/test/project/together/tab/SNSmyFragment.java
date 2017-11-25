@@ -34,7 +34,7 @@ import test.project.together.network.NetworkService;
  * Created by jeongdahun on 2017. 9. 11..
  */
 
-public class SNSFragment extends Fragment{
+public class SNSmyFragment extends Fragment{
 
     @BindView(R.id.postingRecyclerView) RecyclerView postingRecyclerView;
     //@BindView(R.id.previousBtn) Button previousBtn;
@@ -51,7 +51,7 @@ public class SNSFragment extends Fragment{
     LinearLayoutManager linearLayoutManager;
 
 
-    public SNSFragment() {
+    public SNSmyFragment() {
         super();
     }
 
@@ -70,26 +70,29 @@ public class SNSFragment extends Fragment{
 
     public void initSetting() {
         service= ApplicationController.getInstance().getNetworkService();
+        Call<ArrayList<Posting>> load_myPosting=service.load_myPosting(ApplicationController.user_id);
 
-        postingList=new ArrayList<Posting>();
-
-        Call<ArrayList<Posting>> getAllSNS=service.getAllSNS();
-        getAllSNS.enqueue(new Callback<ArrayList<Posting>>() {
+        load_myPosting.enqueue(new Callback<ArrayList<Posting>>() {
             @Override
             public void onResponse(Call<ArrayList<Posting>> call, Response<ArrayList<Posting>> response) {
-                if (response.isSuccessful()) {
+                if(response.isSuccessful()){
                     postingList=response.body();
-                    //Posting RecyclerView Setting
+                    Log.d(TAG,postingList.size()+" ");
+
+                    //RecyclerView Setting
                     postingRecyclerViewAdapter=new PostingRecyclerViewAdapter(postingList);
                     postingRecyclerView.setAdapter(postingRecyclerViewAdapter);
                     linearLayoutManager=new LinearLayoutManager(getContext());
                     postingRecyclerView.setLayoutManager(linearLayoutManager);
+
                 }else
                     Log.d(TAG,"fail1");
+
             }
 
             @Override
             public void onFailure(Call<ArrayList<Posting>> call, Throwable t) {
+                Log.d(TAG,"fail2");
 
             }
         });
@@ -133,13 +136,8 @@ public class SNSFragment extends Fragment{
                     ViewPagerAdapter.SNSmode=0;
                     EventBus.getDefault().post(new ChangeEvent());
                 }
-
-
-
             }
         });
-
-
     }
 
 

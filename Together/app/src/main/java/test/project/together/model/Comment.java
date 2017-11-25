@@ -9,12 +9,14 @@ public class Comment {
     int post_id;
     String content;
     String date;
+    int user_id;
 
-    public Comment(int comment_id, int post_id, String content, String date) {
+    public Comment(int comment_id, int post_id, String content, String date, int user_id) {
         this.comment_id = comment_id;
         this.post_id = post_id;
         this.content = content;
         this.date = date;
+        this.user_id=user_id;
     }
 
     public Comment() {
@@ -35,5 +37,7 @@ public class Comment {
     public String getDate(){
         return date;
     }
+
+    public int getUser_id(){ return user_id;}
 
 }

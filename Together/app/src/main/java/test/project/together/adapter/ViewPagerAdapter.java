@@ -8,6 +8,7 @@ import test.project.together.tab.CheckFragment;
 import test.project.together.tab.RegisterFragment;
 import test.project.together.tab.RegisterInfoFragment;
 import test.project.together.tab.SNSFragment;
+import test.project.together.tab.SNSmyFragment;
 import test.project.together.tab.SNSplusFragment;
 import test.project.together.tab.SelectFragment;
 import test.project.together.tab.SeniorFragment;
@@ -90,6 +91,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
                         return new SNSFragment();
                     case 1:
                         return new SNSplusFragment();
+                    case 2:
+                        return new SNSmyFragment();
                 }
 
                 //return new SNSFragment();

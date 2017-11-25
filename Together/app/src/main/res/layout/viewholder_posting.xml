@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="5"
-                android:background="@drawable/like"
+                android:background="@drawable/like1"
                 android:gravity="center"
                 android:text="2"
                 android:textColor="#fff" />

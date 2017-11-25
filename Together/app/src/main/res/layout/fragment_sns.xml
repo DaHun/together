@@ -48,11 +48,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="25dp"
-            android:text="AGE"
+            android:text="MY"
             android:background="#F15F5F"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
-            android:id="@+id/change_sns_age"/>
+            android:id="@+id/change_my_posting"/>
     </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
