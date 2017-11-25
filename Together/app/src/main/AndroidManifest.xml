@@ -51,6 +51,8 @@
 
         <activity android:name=".main.MainActivity"/>
 
+        <activity android:name=".tab.CommentActivity"/>
+
         <!-- [START gcm_receiver] -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
