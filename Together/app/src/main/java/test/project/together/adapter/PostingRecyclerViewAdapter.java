@@ -9,10 +9,14 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 
 import test.project.together.R;
+import test.project.together.model.Comment;
 import test.project.together.model.Posting;
+import test.project.together.tab.CommentActivity;
 import test.project.together.viewholder.PostingViewHolder;
 
 /**
@@ -44,6 +48,14 @@ public class PostingRecyclerViewAdapter extends RecyclerView.Adapter<PostingView
         holder.snstext.setText(item.getContent());
         holder.snsdate.setText(item.getDate());
         holder.snslike.setText(String.valueOf(item.getLike_count()));
+
+        holder.snscomment.setOnClickListener(new View.OnClickListener() {   //COMMENT버튼 눌렀을 때
+            @Override
+            public void onClick(View v) {
+                CommentActivity.post_id=item.getPost_id();
+                EventBus.getDefault().post(new Comment());
+            }
+        });
 
     }
 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CEF279"
+    android:orientation="vertical"
+    tools:context="test.project.together.main.MainActivity">
+
+    <LinearLayout
+        android:background="#FFFFFF"
+        android:layout_weight="0.15"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <Button
+            android:id="@+id/snslike"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/like"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="#fff" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/commentRecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:background="#FFC19E"
+        android:layout_weight="0.15"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <TextView
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="Click the circle and say"
+            android:textSize="25dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:id="@+id/record"
+            android:layout_weight="0.20"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/record"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="#fff" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

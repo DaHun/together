@@ -43,7 +43,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
             case 0:
                 return "Matching";
             case 1:
-                return "SNS";
+                return "REVIEW";
             default:
                 return null;
 

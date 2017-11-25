@@ -20,9 +20,11 @@ import test.project.together.adapter.ViewPagerAdapter;
 import test.project.together.application.ApplicationController;
 import test.project.together.login.LoginActivity;
 import test.project.together.model.ChangeEvent;
+import test.project.together.model.Comment;
 import test.project.together.model.InfoLayoutEvent;
 import test.project.together.model.Matching;
 import test.project.together.model.Posting;
+import test.project.together.tab.CommentActivity;
 import test.project.together.tab.VolunteerFragment;
 
 import static test.project.together.adapter.ViewPagerAdapter.subMode;
@@ -55,6 +57,11 @@ public class MainActivity extends AppCompatActivity{
         viewPagerAdapter.notifyDataSetChanged();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void showComment(Comment comment){
+        Intent intent = new Intent(getApplicationContext(),CommentActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

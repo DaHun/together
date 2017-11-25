@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    tools:context="test.project.together.main.MainActivity">
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/userId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:text="hogin"
+                android:textColor="#000" />
+            <TextView
+                android:id="@+id/content"
+                android:layout_weight="1"
+                android:textSize="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="You look good!"
+                android:textColor="#000" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/sound"
+            android:layout_margin="3dp"
+            android:background="@drawable/sound"
+            android:layout_weight="0.25"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+    <ImageView
+        android:layout_weight="0.08"
+        android:layout_gravity="center"
+        android:background="@drawable/bar"
+        android:layout_width="360dp"
+        android:layout_height="0dp" />
+
+</LinearLayout>
