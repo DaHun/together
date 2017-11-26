@@ -38,28 +38,56 @@
     </LinearLayout>
     <LinearLayout
         android:background="#FFC19E"
-        android:layout_weight="0.15"
+        android:layout_weight="0.4"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <TextView
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="Click the circle and say"
-            android:textSize="28dp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-        <Button
-            android:id="@+id/record"
-            android:layout_weight="0.25"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/record"
-            android:gravity="center"
-            android:text="2"
-            android:textColor="#fff" />
+        android:layout_height="0dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/commenttxt"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:hint="Write or click the circle and say"
+                android:background="#fff"
+                android:textSize="25dp"
+                android:textColorHint="#bdbdbd"
+                android:textColor="#000"
+                android:padding="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <Button
+                android:id="@+id/record"
+                android:layout_weight="5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/record" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/commentregibtn"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:textSize="25dp"
+                android:background="#F15F5F"
+                android:text="OK"/>
+            <Button
+                android:layout_weight="1"
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:background="#F15F5F"
+                android:text="CANCEL"/>
+        </LinearLayout>
     </LinearLayout>
-
 
 
 </LinearLayout>

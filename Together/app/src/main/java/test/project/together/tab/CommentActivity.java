@@ -1,7 +1,10 @@
 package test.project.together.tab;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,8 +37,14 @@ import test.project.together.network.NetworkService;
 
 public class CommentActivity extends Activity {
 
-    @BindView(R.id.commentRecyclerview)
+   /* @BindView(R.id.commentRecyclerview)
     RecyclerView commentRecyclerView;
+
+    @BindView(R.id.record) Button recordbtn;
+    @BindView(R.id.commentregibtn) Button regibtn;
+*/
+   private final int REQ_CODE_SPEECH_INPUT = 100;
+   EditText commenttext;
 
     public static int post_id;
 
@@ -41,26 +54,51 @@ public class CommentActivity extends Activity {
     ArrayList<Comment> commentList;
     CommentRecyclerViewAdapter commentRecyclerViewAdapter;
     LinearLayoutManager linearLayoutManager;
+    RecyclerView commentRecyclerView;
 
+    String txt="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
 
+        initSetting();
+
     }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = (LinearLayout) inflater.inflate(R.layout.activity_comment, container, false);
 
-        ButterKnife.bind(this, layout);
+        //ButterKnife.bind(this, layout);
 
-        initSetting();
 
         return layout;
     }
 
     public void initSetting() {
+
+        commenttext = (EditText)findViewById(R.id.commenttxt);
+        commentRecyclerView = (RecyclerView)findViewById(R.id.commentRecyclerview);
+
+        Button recordbtn = (Button)findViewById(R.id.record);
+        recordbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                askSpeechInput();
+            }
+        });
+
+        Button regibtn = (Button)findViewById(R.id.commentregibtn);
+        regibtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG,"regibtn");
+                Toast.makeText(CommentActivity.this,"hello",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         service= ApplicationController.getInstance().getNetworkService();
         Call<ArrayList<Comment>> load_comment=service.load_comment(post_id);
         load_comment.enqueue(new Callback<ArrayList<Comment>>() {
@@ -89,4 +127,39 @@ public class CommentActivity extends Activity {
         });
 
     }
+
+    private void askSpeechInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                "Hi speak something!");
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    txt=commenttext.getText().toString();
+                    commenttext.setText(txt+result.get(0)+" ");
+                }
+                break;
+            }
+
+        }
+    }
+
+
 }

@@ -77,6 +77,10 @@ public interface NetworkService {
     @GET("/all/sns/load")
     Call<ArrayList<Posting>> getAllSNS();
 
+    //SNS 해당 포스팅에 관한 댓글 등록
+    @POST("/sns/comment/register")
+    Call<Void> register_comment(@Body Comment comment);
+
     //SNS 해당 포스팅에 관한 댓글들 로드
     @GET("/senior/volunteerinfo/load/all")
     Call<ArrayList<Comment>> load_comment(@Query("post_id") int post_id);
