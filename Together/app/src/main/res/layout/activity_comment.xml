@@ -79,6 +79,7 @@
                 android:background="#F15F5F"
                 android:text="OK"/>
             <Button
+                android:id="@+id/commentcancelbtn"
                 android:layout_weight="1"
                 android:layout_margin="3dp"
                 android:layout_width="match_parent"

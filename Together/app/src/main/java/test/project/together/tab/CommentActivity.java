@@ -69,6 +69,15 @@ public class CommentActivity extends Activity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(commentRecyclerViewAdapter.tts != null) {
+            commentRecyclerViewAdapter.tts.stop();
+            commentRecyclerViewAdapter.tts.shutdown();
+        }
+    }
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = (LinearLayout) inflater.inflate(R.layout.activity_comment, container, false);
 
@@ -91,6 +100,15 @@ public class CommentActivity extends Activity {
                 askSpeechInput();
             }
         });
+
+        Button cancelbtn = (Button)findViewById(R.id.commentcancelbtn);
+        cancelbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
 
         Button regibtn = (Button)findViewById(R.id.commentregibtn);
         regibtn.setOnClickListener(new View.OnClickListener() {
