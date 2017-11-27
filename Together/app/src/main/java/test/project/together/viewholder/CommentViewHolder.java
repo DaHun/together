@@ -8,7 +8,6 @@ import android.widget.TextView;
 import test.project.together.R;
 
 public class CommentViewHolder extends RecyclerView.ViewHolder {
-    public ImageView postingImage;
     public TextView userId;
     public TextView content;
 
@@ -16,6 +15,6 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
     public CommentViewHolder(View itemView) {
         super(itemView);
         userId=(TextView) itemView.findViewById(R.id.userId);
-        content = (TextView)itemView.findViewById(R.id.snstext);
+        content = (TextView)itemView.findViewById(R.id.content);
     }
 }

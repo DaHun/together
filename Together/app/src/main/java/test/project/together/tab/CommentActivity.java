@@ -17,7 +17,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -77,6 +79,7 @@ public class CommentActivity extends Activity {
     }
 
     public void initSetting() {
+        service= ApplicationController.getInstance().getNetworkService();
 
         commenttext = (EditText)findViewById(R.id.commenttxt);
         commentRecyclerView = (RecyclerView)findViewById(R.id.commentRecyclerview);
@@ -93,13 +96,36 @@ public class CommentActivity extends Activity {
         regibtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG,"regibtn");
-                Toast.makeText(CommentActivity.this,"hello",Toast.LENGTH_SHORT).show();
+
+                Comment comment=new Comment(post_id, commenttext.getText().toString(), getDateString(), ApplicationController.user_id);
+                Call<ArrayList<Comment>> register_comment=service.register_comment(comment);
+                register_comment.enqueue(new Callback<ArrayList<Comment>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<Comment>> call, Response<ArrayList<Comment>> response) {
+                        if(response.isSuccessful()){
+                            commentList=response.body();
+                            Log.d(TAG,commentList.size()+" ");
+
+                            //RecyclerView Setting
+                            commentRecyclerViewAdapter=new CommentRecyclerViewAdapter(commentList);
+                            commentRecyclerView.setAdapter(commentRecyclerViewAdapter);
+                            linearLayoutManager=new LinearLayoutManager(getApplicationContext());
+                            commentRecyclerView.setLayoutManager(linearLayoutManager);
+                        }else
+                            Log.d(TAG,"fail1");
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<Comment>> call, Throwable t) {
+                        Log.d(TAG,"fail2");
+
+                    }
+                });
+
             }
         });
 
 
-        service= ApplicationController.getInstance().getNetworkService();
         Call<ArrayList<Comment>> load_comment=service.load_comment(post_id);
         load_comment.enqueue(new Callback<ArrayList<Comment>>() {
             @Override
@@ -162,4 +188,11 @@ public class CommentActivity extends Activity {
     }
 
 
+    public String getDateString()
+    {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREA);
+        String str_date = df.format(new Date());
+
+        return str_date;
+    }
 }
