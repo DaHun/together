@@ -169,8 +169,11 @@ public class SNSplusFragment extends Fragment{
                 snsPlus.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        if(response.isSuccessful())
+                        if(response.isSuccessful()){
                             Log.d(TAG,"success");
+                            ViewPagerAdapter.SNSmode=0;
+                            EventBus.getDefault().post(new ChangeEvent());
+                        }
                         else
                             Log.d(TAG,"fail1");
 
@@ -185,9 +188,6 @@ public class SNSplusFragment extends Fragment{
 
 
 
-                Toast.makeText(getContext(), "눌림",Toast.LENGTH_SHORT).show();
-                ViewPagerAdapter.SNSmode=0;
-                EventBus.getDefault().post(new ChangeEvent());
             }
         });
 
