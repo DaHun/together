@@ -13,9 +13,13 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import test.project.together.R;
 import test.project.together.model.Comment;
 import test.project.together.model.Posting;
+import test.project.together.network.NetworkService;
 import test.project.together.tab.CommentActivity;
 import test.project.together.viewholder.PostingViewHolder;
 
@@ -27,6 +31,8 @@ public class PostingRecyclerViewAdapter extends RecyclerView.Adapter<PostingView
 
     ArrayList<Posting> items;
     Context context;
+    NetworkService service;
+    final static String TAG="PostingRecyclerVA";
 
     public PostingRecyclerViewAdapter(ArrayList<Posting> items){
         this.items=items;
@@ -54,6 +60,29 @@ public class PostingRecyclerViewAdapter extends RecyclerView.Adapter<PostingView
             public void onClick(View v) {
                 CommentActivity.post_id=item.getPost_id();
                 EventBus.getDefault().post(new Comment());
+            }
+        });
+
+        holder.snslike.setOnClickListener(new View.OnClickListener() {   //좋아요 버튼 눌렀을 때
+            @Override
+            public void onClick(View v) {
+                Call<Void> increase_likeCount=service.increase_likeCount(item.getPost_id());
+                increase_likeCount.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.isSuccessful()){
+                            Log.d(TAG,"success");
+                        }else
+                            Log.d(TAG,"fail1");
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.d(TAG,"fail2");
+
+                    }
+                });
             }
         });
 

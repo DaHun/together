@@ -1,9 +1,6 @@
 package test.project.together.adapter;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
-import android.speech.tts.TextToSpeech;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
 
 import test.project.together.R;
 import test.project.together.model.Comment;
@@ -27,8 +22,6 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentView
     ArrayList<Comment> items;
     Context context;
 
-    public TextToSpeech tts;
-
     public CommentRecyclerViewAdapter(ArrayList<Comment> items){
         this.items=items;
     }
@@ -42,36 +35,12 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentView
     }
 
     @Override
-    public void onBindViewHolder(final CommentViewHolder holder, final int position) {
+    public void onBindViewHolder(CommentViewHolder holder, final int position) {
         final Comment item=items.get(position);
 
-        holder.userId.setText(item.getDate());
+        holder.userName.setText(item.getUser_name());
+        holder.date.setText(item.getDate());
         holder.content.setText(item.getContent());
-
-        tts=new TextToSpeech(context, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    tts.setLanguage(Locale.ENGLISH);
-                }
-            }
-
-        });
-
-        holder.readbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String txt = holder.content.getText().toString();
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    ttsGreater21(txt);
-                } else {
-                    ttsUnder20(txt);
-                }
-            }
-        });
-        //여기다가 구현
-
 
     }
 
@@ -81,20 +50,5 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentView
             return items.size();
         else
             return 0;
-    }
-
-
-
-    @SuppressWarnings("deprecation")
-    private void ttsUnder20(String text) {
-        HashMap<String, String> map = new HashMap<>();
-        map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "MessageId");
-        tts.speak(text, TextToSpeech.QUEUE_FLUSH, map);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void ttsGreater21(String text) {
-        String utteranceId=this.hashCode() + "";
-        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
     }
 }

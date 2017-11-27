@@ -10,15 +10,24 @@ public class Comment {
     String content;
     String date;
     int user_id;
+    String user_name;
 
-    public Comment(int comment_id, int post_id, String content, String date, int user_id) {
+    public Comment(int comment_id, int post_id, String content, String date, int user_id, String user_name) {
         this.comment_id = comment_id;
         this.post_id = post_id;
         this.content = content;
         this.date = date;
         this.user_id=user_id;
+        this.user_name = user_name;
     }
 
+    public Comment(int post_id, String content, String date, int user_id, String user_name) {
+        this.post_id = post_id;
+        this.content = content;
+        this.date = date;
+        this.user_id=user_id;
+        this.user_name = user_name;
+    }
     public Comment(int post_id, String content, String date, int user_id) {
         this.post_id = post_id;
         this.content = content;
@@ -46,5 +55,7 @@ public class Comment {
     }
 
     public int getUser_id(){ return user_id;}
+
+    public String getUser_name(){ return user_name;}
 
 }

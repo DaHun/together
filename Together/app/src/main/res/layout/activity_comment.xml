@@ -7,22 +7,7 @@
     android:background="#FFFFFF"
     android:orientation="vertical"
     tools:context="test.project.together.main.MainActivity">
-
-    <LinearLayout
-        android:background="#FFFFFF"
-        android:layout_weight="0.10"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <Button
-            android:id="@+id/snslike"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/like"
-            android:gravity="center"
-            android:text="2"
-            android:textColor="#fff" />
-
-    </LinearLayout>
+    
     <LinearLayout
         android:orientation="vertical"
         android:layout_weight="1"

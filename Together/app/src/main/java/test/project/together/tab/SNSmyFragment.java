@@ -1,6 +1,5 @@
 package test.project.together.tab;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -39,7 +38,7 @@ public class SNSmyFragment extends Fragment{
     @BindView(R.id.postingRecyclerView) RecyclerView postingRecyclerView;
     //@BindView(R.id.previousBtn) Button previousBtn;
     @BindView(R.id.plusposting) Button plusregi;
-    @BindView(R.id.change_my_posting) Button myPosting;
+    @BindView(R.id.change_posting) Button myPosting;
 
 
     final String TAG="SNSFragment";
@@ -59,7 +58,7 @@ public class SNSmyFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layout = (LinearLayout) inflater.inflate(R.layout.fragment_sns, container, false);
+        layout = (LinearLayout) inflater.inflate(R.layout.fragment_my_sns, container, false);
 
         ButterKnife.bind(this, layout);
 
@@ -113,29 +112,8 @@ public class SNSmyFragment extends Fragment{
         myPosting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences checkStatus = getActivity().getSharedPreferences("checkStatusInfo", 0);
-                String str = checkStatus.getString("flagStatus", ""); // 키값으로 꺼냄
-                if (!str.equals("checked")) {
-                    myPosting.setText("ALL");
-
-                    SharedPreferences checkStatus1 = getActivity().getSharedPreferences("checkStatusInfo", 0);
-                    final SharedPreferences.Editor editor = checkStatus1.edit();//저장하려면 editor가 필요
-                    editor.putString("flagStatus", "checked"); // 입력
-                    editor.commit(); // 파일에 최종 반영함
-                    ViewPagerAdapter.SNSmode=2;
-                    EventBus.getDefault().post(new ChangeEvent());
-
-                }else{
-                    myPosting.setText("MY");
-
-                    SharedPreferences checkStatus1 = getActivity().getSharedPreferences("checkStatusInfo", 0);
-                    final SharedPreferences.Editor editor = checkStatus1.edit();//저장하려면 editor가 필요
-                    editor.putString("flagStatus", "noCheck"); // 입력
-                    editor.commit(); // 파일에 최종 반영함
-
                     ViewPagerAdapter.SNSmode=0;
                     EventBus.getDefault().post(new ChangeEvent());
-                }
             }
         });
     }
