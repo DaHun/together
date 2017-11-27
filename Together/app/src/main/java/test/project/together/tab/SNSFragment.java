@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -55,6 +56,12 @@ public class SNSFragment extends Fragment{
         super();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initSetting();
+    }
+
 
     @Nullable
     @Override
@@ -62,8 +69,6 @@ public class SNSFragment extends Fragment{
         layout = (LinearLayout) inflater.inflate(R.layout.fragment_sns, container, false);
 
         ButterKnife.bind(this, layout);
-
-        initSetting();
 
         return layout;
     }
