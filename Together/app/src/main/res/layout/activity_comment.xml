@@ -7,7 +7,7 @@
     android:background="#FFFFFF"
     android:orientation="vertical"
     tools:context="test.project.together.main.MainActivity">
-    
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_weight="1"
