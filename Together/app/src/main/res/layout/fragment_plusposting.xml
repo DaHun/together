@@ -7,51 +7,39 @@
     android:orientation="vertical"
     android:background="#FFC19E"
     tools:context="test.project.together.main.MainActivity">
-    <!--
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/previousBtn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/side"
-                android:gravity="center"
-                android:text="Previous"
-                android:textColor="#000000"
-                android:textStyle="bold" />
-
-    </LinearLayout>
- -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
        android:layout_weight="1">
         <TextView
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="NEW POST"
             android:textSize="30dp"
             android:textStyle="bold"/>
         <EditText
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="#fff"
             android:layout_margin="10dp"
-            android:text="내용을 입력해주세요"
-            android:textColor="#BDBDBD"
-            android:id="@+id/newposttxt"/>
+            android:textColor="#000"
+            android:background="#FFFFFF"
+            android:id="@+id/newposttxt"
+            android:textColorHint="#BDBDBD"
+            android:hint="What are you thinking?"
+            />
         <Button
-            android:layout_width="wrap_content"
+            android:background="@drawable/button"
+            android:layout_gravity="center"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
             android:text="SELECT PHOTO"
             android:textSize="40dp"
-            android:background="#F15F5F"
             android:id="@+id/getphotobtn"/>
         <ImageView
             android:layout_marginTop="5dp"
