@@ -76,13 +76,6 @@ public class RegisterInfoFragment extends Fragment {
 
     public void initSetting() {
 
-      /*  nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new Posting());
-            }
-        });
-*/
         service= ApplicationController.getInstance().getNetworkService();
 
         Call<Matching> load_oneRegisterInfo=service.load_oneRegisterInfo(matching_id);

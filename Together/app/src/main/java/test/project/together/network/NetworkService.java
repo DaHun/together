@@ -63,6 +63,10 @@ public interface NetworkService {
     @GET("/volunteer/volunteerinfo/mine")
     Call<ArrayList<Matching>> getMyMatchingList(@Query("user_id") int user_id);
 
+    //봉사자:매칭된 상대 정보
+    @GET("/senior/matchinginfo/load")
+    Call<User> load_matchinginfo2(@Query("matching_id") int matching_id);
+
     /////////////////////SNS
 
     //SNS 새 글 작성
