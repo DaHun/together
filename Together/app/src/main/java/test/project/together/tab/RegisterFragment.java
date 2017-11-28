@@ -6,7 +6,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -17,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,9 +28,7 @@ import com.google.android.gms.location.LocationServices;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,7 +42,6 @@ import test.project.together.adapter.ViewPagerAdapter;
 import test.project.together.application.ApplicationController;
 import test.project.together.model.ChangeEvent;
 import test.project.together.model.Matching;
-import test.project.together.model.Posting;
 import test.project.together.network.NetworkService;
 
 /**
@@ -61,8 +56,9 @@ public class RegisterFragment extends Fragment
 //    @BindView(R.id.nextBtn) Button nextBtn;
 
     @BindView(R.id.locationText) TextView locationText;
-    @BindView(R.id.calendar) CalendarView calendarView;
-
+    @BindView(R.id.yearSpinner) Spinner yearSpinner;
+    @BindView(R.id.monthSpinner) Spinner monthSpinner;
+    @BindView(R.id.dateSpinner) Spinner dateSpinner;
     @BindView(R.id.start_hourSpinner) Spinner start_hourSpinner;
     @BindView(R.id.start_minuteSpinner) Spinner start_minuteSpinner;
     @BindView(R.id.finish_hourSpinner) Spinner finish_hourSpinner;
@@ -114,15 +110,7 @@ public class RegisterFragment extends Fragment
     public void initSetting() {
 
         service= ApplicationController.getInstance().getNetworkService();
-/*
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new Posting());
-            }
-        });
 
-*/
         completeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,34 +164,6 @@ public class RegisterFragment extends Fragment
         //Geocoder Setting
         gc = new Geocoder(getContext(), Locale.KOREAN);
 
-
-
-        ///////////
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                mYear=String.valueOf(year);
-                mMonth=String.valueOf(month+1);
-                mDay=String.valueOf(dayOfMonth);
-
-                Log.d(TAG,mYear+" "+mMonth+" "+mDay);
-            }
-        });
-
-        long now = System.currentTimeMillis();
-        Date date = new Date(now);
-        SimpleDateFormat sdf;
-
-        sdf = new SimpleDateFormat("yyyy");
-        mYear = sdf.format(date);
-
-        sdf = new SimpleDateFormat("MM");
-        mMonth = sdf.format(date);
-
-        sdf = new SimpleDateFormat("dd");
-        mDay = sdf.format(date);
-
-
     }
 
 
@@ -216,17 +176,45 @@ public class RegisterFragment extends Fragment
         hourList.add("15"); hourList.add("16"); hourList.add("17");
         hourList.add("18"); hourList.add("19"); hourList.add("20");
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, hourList);
+        final ArrayList<String> yearList = new ArrayList<String>();
+        yearList.add("2017"); yearList.add("2018");
+
+        final ArrayList<String> monthList = new ArrayList<String>();
+        monthList.add("01"); monthList.add("02"); monthList.add("03");
+        monthList.add("04"); monthList.add("05"); monthList.add("06");
+        monthList.add("07"); monthList.add("08"); monthList.add("09");
+        monthList.add("10"); monthList.add("11"); monthList.add("12");
+
+        final ArrayList<String> dateList = new ArrayList<String>();
+        dateList.add("01"); dateList.add("02"); dateList.add("03"); dateList.add("04"); dateList.add("05"); dateList.add("06");
+        dateList.add("07"); dateList.add("08"); dateList.add("09"); dateList.add("10"); dateList.add("11"); dateList.add("12");
+        dateList.add("13"); dateList.add("14"); dateList.add("15"); dateList.add("16"); dateList.add("17"); dateList.add("18");
+        dateList.add("19"); dateList.add("20"); dateList.add("21"); dateList.add("22"); dateList.add("23"); dateList.add("24");
+        dateList.add("25"); dateList.add("26"); dateList.add("27"); dateList.add("28"); dateList.add("29"); dateList.add("30"); dateList.add("31");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_date, hourList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         start_hourSpinner.setAdapter(dataAdapter);
         finish_hourSpinner.setAdapter(dataAdapter);
+
+        ArrayAdapter<String> dataAdapter4 = new ArrayAdapter<String>(getContext(), R.layout.spinner_item_login_activity, yearList);
+        dataAdapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        yearSpinner.setAdapter(dataAdapter4);
+
+        ArrayAdapter<String> dataAdapter5 = new ArrayAdapter<String>(getContext(), R.layout.spinner_item_login_activity, monthList);
+        dataAdapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        monthSpinner.setAdapter(dataAdapter5);
+
+        ArrayAdapter<String> dataAdapter6 = new ArrayAdapter<String>(getContext(), R.layout.spinner_item_login_activity, dateList);
+        dataAdapter6.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dateSpinner.setAdapter(dataAdapter6);
 
 
         final ArrayList<String> minuteList = new ArrayList<String>();
         minuteList.add("00"); minuteList.add("10"); minuteList.add("20");
         minuteList.add("30"); minuteList.add("40"); minuteList.add("50");
 
-        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, minuteList);
+        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(getContext(), R.layout.spinner_date, minuteList);
         dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         start_minuteSpinner.setAdapter(dataAdapter2);
         finish_minuteSpinner.setAdapter(dataAdapter2);
@@ -283,12 +271,45 @@ public class RegisterFragment extends Fragment
 
             }
         });
+        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mYear=yearList.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        monthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mMonth=monthList.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mDay=dateList.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         ////
         ArrayList<String> wantList = new ArrayList<String>();
         wantList.add("Walk"); wantList.add("Talk"); wantList.add("Meal");wantList.add("etc");
 
-        ArrayAdapter<String> dataAdapter3 = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, wantList);
+        ArrayAdapter<String> dataAdapter3 = new ArrayAdapter<String>(getContext(), R.layout.spinner_item_login_activity, wantList);
         dataAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         wantSpinner.setAdapter(dataAdapter3);
 

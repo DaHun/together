@@ -8,97 +8,117 @@
     android:orientation="vertical"
     tools:context="test.project.together.main.MainActivity">
 
-
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="40dp"
-        android:text="Sing in"
-        android:layout_margin="20dp"
-        android:textStyle="bold" />
-
-    <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:background="#F15F5F"
+        android:textColor="#FFFFFF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:textSize="45dp"
+        android:text="SIGN IN"
+        android:padding="7dp"
+        android:textStyle="bold" />
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:src="@drawable/user2"
+        android:scaleType="fitXY"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
+            android:textColor="#000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="NAME:"
-            android:textSize="30dp"
+            android:text="NAME"
+            android:textSize="35dp"
             android:textStyle="bold" />
 
         <EditText
+            android:textAlignment="center"
+            android:textColor="#000"
             android:id="@+id/sign_in_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp" />
+            android:layout_width="250dp"
+            android:textSize="30dp"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
+            android:textColor="#000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="PHONE:"
-            android:textSize="30dp"
+            android:text="PHONE"
+            android:textSize="35dp"
             android:textStyle="bold" />
 
         <TextView
+            android:textColor="#000"
             android:id="@+id/sign_in_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="30dp"
-            android:textStyle="bold"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginLeft="55dp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <LinearLayout
+        android:gravity="center"
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
+            android:textColor="#000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="AGE:"
-            android:textSize="25dp"
+            android:gravity="center"
+            android:text="AGE"
+            android:textSize="35dp"
             android:textStyle="bold" />
 
         <Spinner
+            android:layout_marginLeft="5dp"
+            android:textSize="30dp"
             android:id="@+id/sign_in_age"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
-            android:background="#e4dddd" />
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_gravity="center"
         android:gravity="center">
         //
         <RadioGroup
+            android:gravity="center"
+            android:orientation="horizontal"
             android:id="@+id/radiogroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <RadioButton
+                android:textColor="#000"
                 android:id="@+id/radio_boy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -106,6 +126,7 @@
                 android:textSize="30dp"
                 android:text= "Man"/>
             <RadioButton
+                android:textColor="#000"
                 android:id="@+id/radio_girl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,10 +140,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center">
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="173dp"
             android:layout_height="wrap_content"
             android:text="REGISTER"
             android:textSize="30dp"
@@ -131,11 +152,11 @@
             android:padding="10dp"/>
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="179dp"
             android:layout_height="wrap_content"
             android:text="CLOSE APP"
             android:textSize="30dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:background="#F15F5F"
             android:id="@+id/sign_in_cancel"
             android:padding="10dp"/>

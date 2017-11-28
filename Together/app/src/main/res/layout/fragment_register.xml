@@ -32,14 +32,14 @@
                     android:textStyle="bold"
                     android:textSize="30sp"
                     android:textColor="#000000"
-                    android:text="● Location : "
+                    android:text="● Location "
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/locationText"
                     android:textSize="20sp"
-                    android:textColor="#f44c84"
+                    android:textColor="#000"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -54,7 +54,7 @@
                     android:textStyle="bold"
                     android:textSize="30sp"
                     android:textColor="#000000"
-                    android:text="● Thing to want : "
+                    android:text="● Thing to want  "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -68,13 +68,61 @@
 
             </LinearLayout>
 
-            <CalendarView
-                android:id="@+id/calendar"
-                android:layout_marginTop="20dp"
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            </CalendarView>
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:textColor="#000000"
+                    android:text="● Date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Spinner
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/yearSpinner"
+                        android:background="#FFC19E"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:textSize="30dp"
+                        android:text="/"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <Spinner
+                        android:id="@+id/monthSpinner"
+                        android:layout_width="100dp"
+                        android:background="#FFC19E"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:textSize="30dp"
+                        android:text="/"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <Spinner
+                        android:id="@+id/dateSpinner"
+                        android:background="#FFC19E"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_marginTop="30dp"

@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         for (int i = 15; i <= 100; i++) {
             ageList.add(Integer.toString(i));
         }
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item, ageList);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item_login_activity, ageList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         agespinner.setAdapter(dataAdapter);
 
