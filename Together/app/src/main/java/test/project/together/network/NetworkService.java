@@ -94,7 +94,7 @@ public interface NetworkService {
     Call<ArrayList<Comment>> register_comment(@Body Comment comment);
 
     //SNS 좋아요 수 증가시키기
-    @GET("/senior/volunteerinfo/load/all")
+    @GET("/all/sns/like")
     Call<Void> increase_likeCount(@Query("post_id") int post_id);
 
 }
