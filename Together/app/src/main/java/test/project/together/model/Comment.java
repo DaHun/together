@@ -50,7 +50,8 @@ public class Comment {
     public String getDate(){
         return date;
     }
-    
+
+
     public String getUser_name(){ return name;}
 
 }
