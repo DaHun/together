@@ -60,11 +60,11 @@ public interface NetworkService {
     Call<Void> matching(@Query("matching_id") int matching_id, @Query("user_id") int user_id);
 
     //봉사자 : 내가 매칭한 리스트들 받아오기
-    @GET("/volunteer/volunteerinfo/mine")
+    @GET("/volunteer/volunteerinfo/mine/all")
     Call<ArrayList<Matching>> getMyMatchingList(@Query("user_id") int user_id);
 
     //봉사자:매칭된 상대 정보
-    @GET("/senior/matchinginfo/load")
+    @GET("/volunteer/volunteerinfo/mine/one")
     Call<User> load_matchinginfo2(@Query("matching_id") int matching_id);
 
     /////////////////////SNS
