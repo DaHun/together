@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -18,9 +19,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.Query;
 import test.project.together.R;
+import test.project.together.application.ApplicationController;
 import test.project.together.model.Comment;
 import test.project.together.model.Posting;
+import test.project.together.network.NetworkService;
 import test.project.together.tab.CommentActivity;
 import test.project.together.viewholder.PostingViewHolder;
 
@@ -33,6 +40,8 @@ public class PostingRecyclerViewAdapter extends RecyclerView.Adapter<PostingView
     ArrayList<Posting> items;
     Context context;
 
+    NetworkService service;
+
     public TextToSpeech posttts;
 
 
@@ -44,6 +53,7 @@ public class PostingRecyclerViewAdapter extends RecyclerView.Adapter<PostingView
     public PostingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_posting,parent,false);
         context=parent.getContext();
+        service= ApplicationController.getInstance().getNetworkService();
         Log.d("Posting",items.size()+"");
         return new PostingViewHolder(v);
     }
@@ -81,6 +91,30 @@ public class PostingRecyclerViewAdapter extends RecyclerView.Adapter<PostingView
         String time = item.getDate().toString().substring(11,16);
         holder.snsdate.setText(date+" "+time);
         holder.snslike.setText(String.valueOf(item.getLike_count()));
+        holder.snslike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Call<Void> increase_likeCount=service.increase_likeCount(item.getPost_id());
+                increase_likeCount.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.isSuccessful()){
+                            int like=Integer.valueOf(holder.snslike.getText().toString())+1;
+                            holder.snslike.setText(String.valueOf(like));
+                        }else{
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+
+                    }
+                });
+
+            }
+        });
 
         holder.snscomment.setOnClickListener(new View.OnClickListener() {   //COMMENT버튼 눌렀을 때
             @Override
