@@ -1,6 +1,7 @@
 package test.project.together.main;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -8,6 +9,11 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -15,6 +21,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pl.polidea.view.ZoomView;
 import test.project.together.R;
 import test.project.together.adapter.ViewPagerAdapter;
 import test.project.together.application.ApplicationController;
@@ -38,8 +45,6 @@ public class MainActivity extends AppCompatActivity{
     final String TAG="MainActivity";
     ViewPagerAdapter viewPagerAdapter;
     public static ContentResolver contentResolver;
-
-
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -66,7 +71,18 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.container);
+
+        View v = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.activity_main, null, false);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        ZoomView zoomView = new ZoomView(this);
+        zoomView.addView(v);
+        zoomView.setLayoutParams(layoutParams);
+
+        RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
+        container.addView(zoomView);
+
 
         ButterKnife.bind(this);
 

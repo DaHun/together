@@ -2,6 +2,7 @@ package test.project.together.tab;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -15,15 +16,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import pl.polidea.view.ZoomView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,7 +63,17 @@ public class CommentActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comment);
+        setContentView(R.layout.container);
+
+        View v = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.activity_comment, null, false);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        ZoomView zoomView = new ZoomView(this);
+        zoomView.addView(v);
+        zoomView.setLayoutParams(layoutParams);
+
+        RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
+        container.addView(zoomView);
 
         initSetting();
 
