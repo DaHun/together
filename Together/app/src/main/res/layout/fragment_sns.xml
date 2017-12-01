@@ -7,25 +7,7 @@
     android:orientation="horizontal"
     android:background="#FFC19E"
     tools:context="test.project.together.main.MainActivity">
-<!--
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="5">
 
-        <Button
-            android:id="@+id/previousBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/side"
-            android:gravity="center"
-            android:text="Previous"
-            android:textColor="#000000"
-            android:textStyle="bold" />
-    </LinearLayout>
-    -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,16 +42,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"></android.support.v7.widget.RecyclerView>
-
-        <!--
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/change_sns_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="15dp"
-            android:src="@drawable/age" />
-        -->
 
     </LinearLayout>
 
