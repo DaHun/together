@@ -3,11 +3,7 @@ package test.project.together.adapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.widget.RecyclerView;
@@ -15,13 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.facebook.share.model.ShareHashtag;
-import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareDialog;
@@ -37,7 +30,6 @@ import test.project.together.model.Comment;
 import test.project.together.model.Posting;
 import test.project.together.tab.CommentActivity;
 import test.project.together.viewholder.MyPostingViewHolder;
-import test.project.together.viewholder.PostingViewHolder;
 
 /**
  * Created by jeongdahun on 2017. 6. 26..
@@ -92,7 +84,7 @@ public class MyPostingRecyclerViewAdapter extends RecyclerView.Adapter<MyPosting
             }
         });
 
-        String date = item.getDate().toString().substring(0,10);
+        String date = item.getDate().toString().substring(5,10);
         String time = item.getDate().toString().substring(11,16);
         holder.snsdate.setText(date+" "+time);
         holder.snslike.setText(String.valueOf(item.getLike_count()));
