@@ -1,6 +1,5 @@
 package test.project.together.tab;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,15 +18,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,8 +47,6 @@ import test.project.together.adapter.ViewPagerAdapter;
 import test.project.together.application.ApplicationController;
 import test.project.together.main.MainActivity;
 import test.project.together.model.ChangeEvent;
-import test.project.together.model.Matching;
-import test.project.together.model.Posting;
 import test.project.together.network.NetworkService;
 
 import static android.app.Activity.RESULT_OK;
@@ -65,7 +61,8 @@ public class SNSplusFragment extends Fragment{
     //@BindView(R.id.previousBtn) Button previousBtn;
     //@BindView(R.id.plusposting) Button plusregi;
     @BindView(R.id.registerposting) Button registerposting;
-    @BindView(R.id.getphotobtn) Button getphotobtn;
+    @BindView(R.id.getphotobtn)
+    ImageButton getphotobtn;
     @BindView(R.id.newposttxt)
     EditText newposttxt;
     @BindView(R.id.newImage) ImageView newImage;

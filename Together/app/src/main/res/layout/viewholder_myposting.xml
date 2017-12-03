@@ -6,83 +6,119 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="10dp"
-    android:background="#f7f4f4"
+    android:background="@drawable/button5"
     android:gravity="center"
     tools:context="test.project.together.main.MainActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="5dp"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:text="eunju"
+                android:textColor="#000" />
+
+            <TextView
+
+                android:id="@+id/snsdate"
+                android:textSize="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="3dp"
+                android:text="10/4 17:33"
+                android:textColor="#8C8C8C" />
+            <TextView
+                android:textSize="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/snstext"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="7dp"
+                android:layout_gravity="left"
+                android:textColor="#000"
+                android:text="Test SNS 즐거운추석!"/>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="right"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/deletebtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/delete"/>
+            <Button
+                android:id="@+id/sharebtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/share"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
     <ImageView
+        android:layout_margin="5dp"
         android:id="@+id/imageView"
         android:scaleType="fitXY"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:src="@mipmap/ic_launcher"/>
 
+
     <LinearLayout
+        android:background="@drawable/button5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/snsdate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="5dp"
-                android:text="2017.10.4"
-                android:textColor="#000" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/snstext"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="50dp"
-                android:layout_gravity="left"
-                android:textColor="#000"
-                android:text="Test SNS 즐거운추석!"/>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/sharebtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/share"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <LinearLayout
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:layout_weight="1">
 
             <Button
+                android:layout_margin="3dp"
                 android:id="@+id/snslike"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="5"
-                android:background="@drawable/like1"
+                android:background="@drawable/like2"
                 android:gravity="center"
                 android:text="2"
                 android:textColor="#fff" />
 
             <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/snscomment"
-            android:text="COMMENT"
-            android:textSize="30dp"
-            android:textColor="#fff"
-            android:background="#F15F5F"
-            android:layout_weight="1"/>
-    </LinearLayout>
+                android:layout_marginLeft="3dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/snscomment"
+                android:text="COMMENT"
+                android:textSize="30dp"
+                android:textColor="#fff"
+                android:background="@drawable/button6"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -22,7 +21,6 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Query;
 import test.project.together.R;
 import test.project.together.application.ApplicationController;
 import test.project.together.model.Comment;
@@ -87,7 +85,7 @@ public class PostingRecyclerViewAdapter extends RecyclerView.Adapter<PostingView
             }
         });
 
-        String date = item.getDate().toString().substring(0,10);
+        String date = item.getDate().toString().substring(5,10);
         String time = item.getDate().toString().substring(11,16);
         holder.snsdate.setText(date+" "+time);
         holder.snslike.setText(String.valueOf(item.getLike_count()));
