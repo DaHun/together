@@ -22,6 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import test.project.together.R;
+import test.project.together.adapter.MyPostingRecyclerViewAdapter;
 import test.project.together.adapter.PostingRecyclerViewAdapter;
 import test.project.together.adapter.ViewPagerAdapter;
 import test.project.together.application.ApplicationController;
@@ -46,7 +47,7 @@ public class SNSmyFragment extends Fragment{
     NetworkService service;
 
     ArrayList<Posting> postingList;
-    PostingRecyclerViewAdapter postingRecyclerViewAdapter;
+    MyPostingRecyclerViewAdapter mypostingRecyclerViewAdapter;
     LinearLayoutManager linearLayoutManager;
 
 
@@ -79,8 +80,8 @@ public class SNSmyFragment extends Fragment{
                     Log.d(TAG,postingList.size()+" ");
 
                     //RecyclerView Setting
-                    postingRecyclerViewAdapter=new PostingRecyclerViewAdapter(postingList);
-                    postingRecyclerView.setAdapter(postingRecyclerViewAdapter);
+                    mypostingRecyclerViewAdapter=new MyPostingRecyclerViewAdapter(postingList);
+                    postingRecyclerView.setAdapter(mypostingRecyclerViewAdapter);
                     linearLayoutManager=new LinearLayoutManager(getContext());
                     postingRecyclerView.setLayoutManager(linearLayoutManager);
 

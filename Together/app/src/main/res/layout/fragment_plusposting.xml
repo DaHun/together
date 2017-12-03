@@ -22,17 +22,29 @@
             android:text="NEW POST"
             android:textSize="30dp"
             android:textStyle="bold"/>
-        <EditText
-            android:padding="10dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
-            android:textColor="#000"
-            android:background="#FFFFFF"
-            android:id="@+id/newposttxt"
-            android:textColorHint="#BDBDBD"
-            android:hint="What are you thinking?"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:textColor="#000"
+                android:background="#FFFFFF"
+                android:id="@+id/newposttxt"
+                android:textColorHint="#BDBDBD"
+                android:layout_weight="2"
+                android:hint="What are you thinking?"
             />
+            <Button
+                android:id="@+id/newtextrecord"
+                android:layout_gravity="center"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/record" />
+        </LinearLayout>
         <Button
             android:background="@drawable/button"
             android:layout_gravity="center"

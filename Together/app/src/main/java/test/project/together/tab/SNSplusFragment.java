@@ -1,6 +1,7 @@
 package test.project.together.tab;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,6 +32,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -49,6 +53,8 @@ import test.project.together.model.Matching;
 import test.project.together.model.Posting;
 import test.project.together.network.NetworkService;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by jeongdahun on 2017. 9. 11..
  */
@@ -60,8 +66,10 @@ public class SNSplusFragment extends Fragment{
     //@BindView(R.id.plusposting) Button plusregi;
     @BindView(R.id.registerposting) Button registerposting;
     @BindView(R.id.getphotobtn) Button getphotobtn;
-    @BindView(R.id.newposttxt) TextView newposttxt;
+    @BindView(R.id.newposttxt)
+    EditText newposttxt;
     @BindView(R.id.newImage) ImageView newImage;
+    @BindView(R.id.newtextrecord) Button textrecordbtn;
 
     final String TAG="SNSplusFragment";
     LinearLayout layout;
@@ -70,6 +78,9 @@ public class SNSplusFragment extends Fragment{
     Uri data = null;
     String fileName;
     final int REQ_CODE_SELECT_IMAGE=100;
+
+    private final int REQ_CODE_SPEECH_INPUT = 200;
+    String txt="";
 
     //ArrayList<Posting> postingList;
     //PostingRecyclerViewAdapter postingRecyclerViewAdapter;
@@ -104,6 +115,14 @@ public class SNSplusFragment extends Fragment{
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+            }
+        });
+
+        //텍스트 음성 입력
+        textrecordbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                askSpeechInput();
             }
         });
 
@@ -212,7 +231,7 @@ public class SNSplusFragment extends Fragment{
 
         if(requestCode == REQ_CODE_SELECT_IMAGE)
         {
-            if(resultCode== Activity.RESULT_OK)
+            if(resultCode== RESULT_OK)
             {
                 try {
                     //Uri에서 이미지 이름을 얻어온다.
@@ -263,6 +282,16 @@ public class SNSplusFragment extends Fragment{
                 }
             }
         }
+
+        if(requestCode == REQ_CODE_SPEECH_INPUT){
+            if (resultCode == RESULT_OK && null != data) {
+
+                ArrayList<String> result = data
+                        .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                txt=newposttxt.getText().toString();
+                newposttxt.setText(txt+result.get(0)+" ");
+            }
+        }
     }
 
     public String getDateString()
@@ -272,5 +301,21 @@ public class SNSplusFragment extends Fragment{
 
         return str_date;
     }
+
+    //음성
+    private void askSpeechInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                "Hi speak something!");
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+
+        }
+    }
+
 
 }
