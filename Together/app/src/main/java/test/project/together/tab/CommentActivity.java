@@ -87,7 +87,7 @@ public class CommentActivity extends Activity {
             commentRecyclerViewAdapter.tts.shutdown();
         }
     }
-
+//
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = (LinearLayout) inflater.inflate(R.layout.activity_comment, container, false);
 
