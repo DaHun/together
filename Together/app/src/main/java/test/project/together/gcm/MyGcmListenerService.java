@@ -12,8 +12,13 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
 
+import org.greenrobot.eventbus.EventBus;
+
 import test.project.together.R;
+import test.project.together.adapter.ViewPagerAdapter;
 import test.project.together.main.MainActivity;
+import test.project.together.model.ChangeEvent;
+import test.project.together.tab.RegisterInfoFragment;
 
 
 /**
@@ -32,13 +37,13 @@ public class MyGcmListenerService extends GcmListenerService {
     public void onMessageReceived(String from, Bundle data) {
         String title = data.getString("title");
         String message = data.getString("message");
-
+        String matching_id = data.getString("matching_id");
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Title: " + title);
 
 
         // GCM으로 받은 메세지를 디바이스에 알려주는 sendNotification()을 호출한다.
-        sendNotification(title, message);
+        sendNotification(title, message, matching_id);
     }
 
 
@@ -47,9 +52,13 @@ public class MyGcmListenerService extends GcmListenerService {
      * @param title
      * @param message
      */
-    private void sendNotification(String title, String message) {
+    private void sendNotification(String title, String message, String matching_id) {
 
+        RegisterInfoFragment.matching_id=Integer.parseInt(matching_id);
+        ViewPagerAdapter.mode=1;
+        ViewPagerAdapter.subMode=3;
 
+        EventBus.getDefault().post(new ChangeEvent());
 
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
