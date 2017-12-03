@@ -163,6 +163,16 @@ public class VolunteerFragment extends Fragment
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.isSuccessful()){
                             Log.d(TAG,"success");
+                            infoLayoutMode=false;
+                            infoLayout.setVisibility(View.GONE);
+                            for(int i=0;i<seniorArrayList.size();i++)
+                                if(seniorArrayList.get(i).getMatching_id()==interested_volunteer.getMatching_id()){
+                                    Toast.makeText(getActivity(),seniorArrayList.get(i).getWish(),Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(),seniorArrayList.get(i).getDate(),Toast.LENGTH_SHORT).show();
+                                    seniorArrayList.remove(i);
+                                    markerArrayList.get(i).remove();
+                                    markerArrayList.remove(i);
+                                }
                         }else
                             Log.d(TAG,"fail1");
                     }
@@ -193,6 +203,16 @@ public class VolunteerFragment extends Fragment
         UiSettings uiSettings = map.getUiSettings();
         // 줌기능 설정
         uiSettings.setZoomControlsEnabled(true);
+
+
+        //맵 클릭
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                infoLayoutMode=false;
+                infoLayout.setVisibility(View.GONE);
+            }
+        });
 
         //마커 윈도우 세팅
         map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
