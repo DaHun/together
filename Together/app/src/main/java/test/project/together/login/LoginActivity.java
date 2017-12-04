@@ -185,6 +185,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("phone", phone);
                             editor.putString("gender", rb.getText().toString());
                             editor.putInt("user_id", Integer.valueOf(response.body().user_id));
+                            ApplicationController.user_id=Integer.valueOf(response.body().user_id);
                             editor.commit();
 
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
