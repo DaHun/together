@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -28,7 +29,9 @@ import com.google.android.gms.location.LocationServices;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -170,6 +173,17 @@ public class RegisterFragment extends Fragment
 
     public void spinnerSetting(){
 
+        //현재 날짜 가져오기
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat CurYearFormat = new SimpleDateFormat("yyyy");
+        SimpleDateFormat CurMonthFormat = new SimpleDateFormat("MM");
+        SimpleDateFormat CurDayFormat = new SimpleDateFormat("dd");
+
+        int CurYear = Integer.parseInt(CurYearFormat.format(date));
+        int CurMonth = Integer.parseInt(CurMonthFormat.format(date));
+        int CurDay = Integer.parseInt(CurDayFormat.format(date));
+
         final ArrayList<String> hourList = new ArrayList<String>();
         hourList.add("09"); hourList.add("10"); hourList.add("11");
         hourList.add("12"); hourList.add("13"); hourList.add("14");
@@ -200,15 +214,17 @@ public class RegisterFragment extends Fragment
         ArrayAdapter<String> dataAdapter4 = new ArrayAdapter<String>(getContext(), R.layout.spinner_item_login_activity, yearList);
         dataAdapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearSpinner.setAdapter(dataAdapter4);
+        yearSpinner.setSelection(CurYear-2017);
 
         ArrayAdapter<String> dataAdapter5 = new ArrayAdapter<String>(getContext(), R.layout.spinner_item_login_activity, monthList);
         dataAdapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         monthSpinner.setAdapter(dataAdapter5);
+        monthSpinner.setSelection(CurMonth-1);
 
         ArrayAdapter<String> dataAdapter6 = new ArrayAdapter<String>(getContext(), R.layout.spinner_item_login_activity, dateList);
         dataAdapter6.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dateSpinner.setAdapter(dataAdapter6);
-
+        dateSpinner.setSelection(CurDay-1);
 
         final ArrayList<String> minuteList = new ArrayList<String>();
         minuteList.add("00"); minuteList.add("10"); minuteList.add("20");
