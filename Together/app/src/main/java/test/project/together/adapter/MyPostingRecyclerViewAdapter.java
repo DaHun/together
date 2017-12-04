@@ -42,7 +42,6 @@ public class MyPostingRecyclerViewAdapter extends RecyclerView.Adapter<MyPosting
 
     public TextToSpeech posttts;
 
-    Bitmap image=null;
 
     public MyPostingRecyclerViewAdapter(ArrayList<Posting> items){
         this.items=items;
@@ -98,6 +97,8 @@ public class MyPostingRecyclerViewAdapter extends RecyclerView.Adapter<MyPosting
         });
 
         holder.sharebtn.setOnClickListener(new View.OnClickListener() {
+            Bitmap image=null;
+
             @Override
             public void onClick(View view) {
 
@@ -106,14 +107,11 @@ public class MyPostingRecyclerViewAdapter extends RecyclerView.Adapter<MyPosting
                 Glide.with(context).load(items.get(position).getImage_path()).asBitmap().into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        image=null;
                         image = resource;
                     }
                 });
 
                 ShareDialog shareDialog = new ShareDialog((Activity) context);
-
-                //Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.share);
 
                 SharePhoto photo = new SharePhoto.Builder()
                         .setBitmap(image)
