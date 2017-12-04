@@ -4,91 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/comment"
+    android:orientation="vertical"
     tools:context="test.project.together.main.MainActivity">
 
-
-    <ScrollView
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp">
 
-        <LinearLayout
-            android:background="@drawable/comment"
-            android:orientation="vertical"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/commentRecyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
 
-            <LinearLayout
-                android:orientation="vertical"
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:background="#FFC19E"
+        android:layout_weight="0.4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/commenttxt"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:hint="Write or click the circle and say"
+                android:background="#fff"
+                android:textSize="25dp"
+                android:textColorHint="#bdbdbd"
+                android:textColor="#000"
+                android:padding="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <Button
+                android:id="@+id/record"
+                android:layout_weight="5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/record" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/commentregibtn"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="0dp">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/commentRecyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </android.support.v7.widget.RecyclerView>
-
-            </LinearLayout>
-            <LinearLayout
-                android:background="#FFC19E"
-                android:layout_weight="0.4"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:textSize="25dp"
+                android:background="#F15F5F"
+                android:text="OK"/>
+            <Button
+                android:id="@+id/commentcancelbtn"
+                android:layout_weight="1"
+                android:layout_margin="3dp"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <EditText
-                        android:id="@+id/commenttxt"
-                        android:layout_weight="1"
-                        android:layout_margin="8dp"
-                        android:hint="Write or click the circle and say"
-                        android:background="#fff"
-                        android:textSize="25dp"
-                        android:textColorHint="#bdbdbd"
-                        android:textColor="#000"
-                        android:padding="2dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                    <Button
-                        android:id="@+id/record"
-                        android:layout_weight="5"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/record" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <Button
-                        android:id="@+id/commentregibtn"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_margin="3dp"
-                        android:textSize="25dp"
-                        android:background="#F15F5F"
-                        android:text="OK"/>
-                    <Button
-                        android:id="@+id/commentcancelbtn"
-                        android:layout_weight="1"
-                        android:layout_margin="3dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:textSize="25dp"
-                        android:background="#F15F5F"
-                        android:text="CANCEL"/>
-                </LinearLayout>
-            </LinearLayout>
-
-
-
+                android:layout_height="30dp"
+                android:textSize="25dp"
+                android:background="#F15F5F"
+                android:text="CANCEL"/>
         </LinearLayout>
+    </LinearLayout>
 
-    </ScrollView>
 
 </LinearLayout>
