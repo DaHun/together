@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity{
 
         if(checkinfo()==1){//정보있음
             initSetting();
+         //   Toast.makeText(getApplicationContext(),String.valueOf(ApplicationController.user_id),Toast.LENGTH_SHORT).show();
 
         }else{
             //등록된 정보 없으므로 정보등록

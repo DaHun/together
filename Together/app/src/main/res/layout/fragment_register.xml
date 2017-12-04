@@ -203,7 +203,7 @@
                 android:textSize="30sp"
                 android:textStyle="bold"
                 android:id="@+id/completeBtn"
-                android:background="#F15F5F"
+                android:background="@drawable/register_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
