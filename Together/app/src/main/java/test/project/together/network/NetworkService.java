@@ -97,4 +97,8 @@ public interface NetworkService {
     @GET("/all/sns/like")
     Call<Void> increase_likeCount(@Query("post_id") int post_id);
 
+    //SNS 포스팅 삭제
+    @GET("/all/sns/like")   //수정필요
+    Call<Void> delete_posting(@Query("post_id") int post_id);
+
 }

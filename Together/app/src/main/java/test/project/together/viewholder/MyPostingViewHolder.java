@@ -16,6 +16,7 @@ public class MyPostingViewHolder extends RecyclerView.ViewHolder {
     public TextView snslikecount;
     public Button snscomment;
     public Button sharebtn;
+    public Button deletebtn;
     //public Button plusposting;
 
     public MyPostingViewHolder(View itemView) {
@@ -28,5 +29,6 @@ public class MyPostingViewHolder extends RecyclerView.ViewHolder {
         snscomment = (Button) itemView.findViewById(R.id.snscomment);
     //    plusposting = (Button) itemView.findViewById(R.id.plusposting);
         sharebtn = (Button)itemView.findViewById(R.id.sharebtn);
+        deletebtn = (Button)itemView.findViewById(R.id.deletebtn);
     }
 }

@@ -25,9 +25,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import test.project.together.R;
+import test.project.together.application.ApplicationController;
+import test.project.together.model.ChangeEvent;
 import test.project.together.model.Comment;
 import test.project.together.model.Posting;
+import test.project.together.network.NetworkService;
 import test.project.together.tab.CommentActivity;
 import test.project.together.viewholder.MyPostingViewHolder;
 
@@ -39,6 +45,7 @@ public class MyPostingRecyclerViewAdapter extends RecyclerView.Adapter<MyPosting
 
     ArrayList<Posting> items;
     Context context;
+    NetworkService service;
 
     public TextToSpeech posttts;
 
@@ -53,12 +60,13 @@ public class MyPostingRecyclerViewAdapter extends RecyclerView.Adapter<MyPosting
         context=parent.getContext();
         Log.d("Posting",items.size()+"");
         return new MyPostingViewHolder(v);
+
     }
 
     @Override
     public void onBindViewHolder(final MyPostingViewHolder holder, final int position) {
         final Posting item=items.get(position);
-
+        service= ApplicationController.getInstance().getNetworkService();
         Glide.with(context).load(items.get(position).getImage_path()).into(holder.postingImage);
         holder.snstext.setText(item.getContent());
         posttts=new TextToSpeech(context, new TextToSpeech.OnInitListener() {
@@ -121,6 +129,29 @@ public class MyPostingRecyclerViewAdapter extends RecyclerView.Adapter<MyPosting
                         .build();
 
                 shareDialog.show(content);
+            }
+        });
+        holder.deletebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Call<Void> delete_posting=service.delete_posting(item.getPost_id());
+                delete_posting.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.isSuccessful()){
+                            Log.d("Delete","Success");
+                            ViewPagerAdapter.SNSmode=2;
+                            EventBus.getDefault().post(new ChangeEvent());
+                        }else{
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+
+                    }
+                });
             }
         });
 
