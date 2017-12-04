@@ -50,6 +50,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import test.project.together.R;
+import test.project.together.adapter.ViewPagerAdapter;
 import test.project.together.application.ApplicationController;
 import test.project.together.model.ChangeEvent;
 import test.project.together.model.InfoLayoutEvent;
@@ -165,14 +166,10 @@ public class VolunteerFragment extends Fragment
                             Log.d(TAG,"success");
                             infoLayoutMode=false;
                             infoLayout.setVisibility(View.GONE);
-                            for(int i=0;i<seniorArrayList.size();i++)
-                                if(seniorArrayList.get(i).getMatching_id()==interested_volunteer.getMatching_id()){
-                                    Toast.makeText(getActivity(),seniorArrayList.get(i).getWish(),Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(getActivity(),seniorArrayList.get(i).getDate(),Toast.LENGTH_SHORT).show();
-                                    seniorArrayList.remove(i);
-                                    markerArrayList.get(i).remove();
-                                    markerArrayList.remove(i);
-                                }
+
+                            VolMatchingInfoFragment.matching_id=interested_volunteer.getMatching_id();
+                            ViewPagerAdapter.volsubMode=3;
+                            EventBus.getDefault().post(new ChangeEvent());
                         }else
                             Log.d(TAG,"fail1");
                     }
