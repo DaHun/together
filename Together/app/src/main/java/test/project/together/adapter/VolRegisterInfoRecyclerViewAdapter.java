@@ -23,7 +23,7 @@ import test.project.together.viewholder.VolRegisterInfoViewHolder;
  */
 
 public class VolRegisterInfoRecyclerViewAdapter extends RecyclerView.Adapter<VolRegisterInfoViewHolder>{
-///TEST-HOJIN
+
     ArrayList<Matching> items;
     Context context;
 
