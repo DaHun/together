@@ -95,6 +95,7 @@ public class MyPostingRecyclerViewAdapter extends RecyclerView.Adapter<MyPosting
         String time = item.getDate().toString().substring(11,16);
         holder.snsdate.setText(date+" "+time);
         holder.snslike.setText(String.valueOf(item.getLike_count()));
+        holder.userName.setText(String.valueOf(item.getName()));
 
         holder.snscomment.setOnClickListener(new View.OnClickListener() {   //COMMENT버튼 눌렀을 때
             @Override

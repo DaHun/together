@@ -13,12 +13,14 @@ public class PostingViewHolder extends RecyclerView.ViewHolder {
     public TextView snstext;
     public TextView snsdate;
     public Button snslike;
+    public TextView userName;
     public TextView snslikecount;
     public Button snscomment;
     //public Button plusposting;
 
     public PostingViewHolder(View itemView) {
         super(itemView);
+        userName = (TextView)itemView.findViewById(R.id.userName);
         postingImage=(ImageView)itemView.findViewById(R.id.imageView);
         snstext = (TextView)itemView.findViewById(R.id.snstext);
         snsdate = (TextView)itemView.findViewById(R.id.snsdate);
