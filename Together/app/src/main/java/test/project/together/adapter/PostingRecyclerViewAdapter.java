@@ -89,6 +89,7 @@ public class PostingRecyclerViewAdapter extends RecyclerView.Adapter<PostingView
         String time = item.getDate().toString().substring(11,16);
         holder.snsdate.setText(date+" "+time);
         holder.snslike.setText(String.valueOf(item.getLike_count()));
+        holder.userName.setText(String.valueOf(item.getName()));
         holder.snslike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

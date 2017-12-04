@@ -17,10 +17,12 @@ public class MyPostingViewHolder extends RecyclerView.ViewHolder {
     public Button snscomment;
     public Button sharebtn;
     public Button deletebtn;
+    public TextView userName;
     //public Button plusposting;
 
     public MyPostingViewHolder(View itemView) {
         super(itemView);
+        userName = (TextView)itemView.findViewById(R.id.userName);
         postingImage=(ImageView)itemView.findViewById(R.id.imageView);
         snstext = (TextView)itemView.findViewById(R.id.snstext);
         snsdate = (TextView)itemView.findViewById(R.id.snsdate);
