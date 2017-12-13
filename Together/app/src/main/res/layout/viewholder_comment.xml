@@ -12,7 +12,7 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:background="@drawable/box"
+        android:background="@drawable/boxx"
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_weight="1"
@@ -29,7 +29,7 @@
                     android:id="@+id/proimgg"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:src="@drawable/proimg"/>
+                    android:src="@drawable/proimgg"/>
 
                 <TextView
                     android:id="@+id/userName"
@@ -76,6 +76,7 @@
                     android:layout_width="50dp"
                     android:layout_gravity="center"
                     android:layout_height="50dp" />
+                <!---->
                 </LinearLayout>
         </LinearLayout>
 

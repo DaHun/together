@@ -22,5 +22,7 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
         date = (TextView)itemView.findViewById(R.id.date);
         readbtn = (Button)itemView.findViewById(R.id.sound);
         proimg=(CircleImageView)itemView.findViewById(R.id.proimgg);
+
+        ///
     }
 }

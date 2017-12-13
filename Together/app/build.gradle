@@ -48,6 +48,8 @@ dependencies {
     implementation files('libs/android-zoom-view.jar')
     //페이스북 연동
     compile 'com.facebook.android:facebook-share:[4,5)'
+    //CircleImage
+    compile 'de.hdodenhof:circleimageview:2.0.0'
 
 }
 
