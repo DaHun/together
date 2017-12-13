@@ -54,9 +54,14 @@ public class MyGcmListenerService extends GcmListenerService {
      */
     private void sendNotification(String title, String message, String matching_id) {
 
-        RegisterInfoFragment.matching_id=Integer.parseInt(matching_id);
-        ViewPagerAdapter.mode=1;
-        ViewPagerAdapter.subMode=3;
+        if(matching_id==null){
+            ViewPagerAdapter.mode=2;
+            ViewPagerAdapter.volsubMode=1;
+        }else{
+            RegisterInfoFragment.matching_id=Integer.parseInt(matching_id);
+            ViewPagerAdapter.mode=1;
+            ViewPagerAdapter.subMode=3;
+        }
 
         EventBus.getDefault().post(new ChangeEvent());
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,6 +36,8 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -54,6 +58,7 @@ import test.project.together.adapter.ViewPagerAdapter;
 import test.project.together.application.ApplicationController;
 import test.project.together.model.ChangeEvent;
 import test.project.together.model.InfoLayoutEvent;
+import test.project.together.model.Master;
 import test.project.together.model.Matching;
 import test.project.together.model.Posting;
 import test.project.together.network.NetworkService;
@@ -67,6 +72,9 @@ public class VolunteerFragment extends Fragment
         GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks,
         LocationListener{
+
+    @BindView(R.id.plusMasterBtn) ImageView plusMasterBtn;
+    @BindView(R.id.regiserMasterBtn) Button registerMasterBtn;
 
     @BindView(R.id.infoLayout) LinearLayout infoLayout;
     @BindView(R.id.locationText) TextView locationText;
@@ -100,6 +108,13 @@ public class VolunteerFragment extends Fragment
     ArrayList<Matching> seniorArrayList=null;
     ArrayList<Marker> markerArrayList=null;
 
+    int registerMasterMode=0;
+    LatLng fromPos;
+    LatLng toPos;
+    LatLng originPos;
+    double range=0;
+    Circle rangeCircle=null;
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onInfoLayoutEvent(InfoLayoutEvent infoLayoutEvent){ infoLayout.setVisibility(View.GONE);}
@@ -128,6 +143,45 @@ public class VolunteerFragment extends Fragment
     }
 
     public void initSetting(Bundle savedInstanceState) {
+
+        plusMasterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registerMasterMode=1;
+            }
+        });
+
+        registerMasterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registerMasterBtn.setVisibility(View.GONE);
+                rangeCircle.remove();
+
+                Master master= new Master(
+                        ApplicationController.user_id,
+                        originPos.latitude,
+                        originPos.longitude,
+                        range);
+                Call<Void> registerMaster=service.registerMaster(master);
+                registerMaster.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.isSuccessful())
+                            Log.d(TAG,"success");
+                        else
+                            Log.d(TAG,"fail1");
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.d(TAG,"fail2");
+
+                    }
+                });
+            }
+        });
+
+
 
         //googleApiClient  통합 GoogleAPI!
         if (mGoogleApiClient == null) {
@@ -206,8 +260,26 @@ public class VolunteerFragment extends Fragment
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
+
                 infoLayoutMode=false;
                 infoLayout.setVisibility(View.GONE);
+
+                //처음 위치 : 원 지름 끝점1
+                if(registerMasterMode == 1){
+                    Toast.makeText(getContext(),"First Point : Radius Range",Toast.LENGTH_SHORT).show();
+                    fromPos=latLng;
+                    registerMasterMode=2;
+                }
+                //두번째 위치 : 원 지름 끝점2
+                else if(registerMasterMode == 2){
+                    Toast.makeText(getContext(),"Second Point : Radius Range",Toast.LENGTH_SHORT).show();
+                    toPos=latLng;
+                    onAddCircle(fromPos, toPos);
+                    registerMasterBtn.setVisibility(View.VISIBLE);
+                    registerMasterMode=0;
+                    fromPos=null;
+                    toPos=null;
+                }
             }
         });
 
@@ -327,6 +399,31 @@ public class VolunteerFragment extends Fragment
 
             }
         });
+
+    }
+
+    public void onAddCircle(LatLng fromPos, LatLng toPos){
+
+        if(rangeCircle != null)
+            rangeCircle.remove();
+
+        Location fromLocation=new Location("");
+        fromLocation.setLatitude(fromPos.latitude);
+        fromLocation.setLongitude(fromPos.longitude);
+        Location toLocation=new Location("");
+        toLocation.setLatitude(toPos.latitude);
+        toLocation.setLongitude(toPos.longitude);
+
+        originPos = new LatLng((fromPos.latitude+toPos.latitude)/2 , (fromPos.longitude+toPos.longitude)/2);
+        range = fromLocation.distanceTo(toLocation)/2;
+
+        CircleOptions circleOptions = new CircleOptions().center(originPos) //원점
+                .radius(range)      //반지름 단위 : m
+                .strokeWidth(0f)  //선너비 0f : 선없음
+                .fillColor(Color.parseColor("#99ffd0db")); //배경색
+
+        //원추가
+        rangeCircle=map.addCircle(circleOptions);
 
     }
 

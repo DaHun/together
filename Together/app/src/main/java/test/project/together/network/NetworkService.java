@@ -14,6 +14,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 import test.project.together.model.Comment;
+import test.project.together.model.Master;
 import test.project.together.model.Matching;
 import test.project.together.model.Posting;
 import test.project.together.model.User;
@@ -48,6 +49,9 @@ public interface NetworkService {
     //시니어:매칭된 상대 정보
     @GET("/senior/matchinginfo/load")
     Call<User> load_matchinginfo(@Query("matching_id") int matching_id);
+    //시니어:마스터들에게 푸쉬알람
+    @GET("/senior/push/master")
+    Call<Void> pushToVolunteer(@Query("latitude") double latitude, @Query("longitude") double longitude);
 
     //////
 
@@ -66,6 +70,12 @@ public interface NetworkService {
     //봉사자:매칭된 상대 정보
     @GET("/volunteer/volunteerinfo/mine/one")
     Call<User> load_matchinginfo2(@Query("matching_id") int matching_id);
+
+    //봉사자:마스터 등록
+    @POST("/volunteer/register/master")
+    Call<Void> registerMaster(@Body Master master);
+
+
 
     /////////////////////SNS
 

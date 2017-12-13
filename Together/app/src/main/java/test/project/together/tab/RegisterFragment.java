@@ -75,6 +75,7 @@ public class RegisterFragment extends Fragment
     final static String TAG="RegisterFragment";
 
     GoogleApiClient mGoogleApiClient = null;
+    Location mLastLocation;
     LocationRequest mLocationRequest;
     Geocoder gc;
     String currentLocation;
@@ -144,6 +145,24 @@ public class RegisterFragment extends Fragment
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
                         Log.d(TAG,"fail2");
+
+                    }
+                });
+
+                //반경내에 있는 마스터들에게 푸쉬 알람 알리기
+                Call<Void> pushToVolunteer=service.pushToVolunteer(currentLatitude, currentLongitude);
+                pushToVolunteer.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.isSuccessful()){
+                            Log.d(TAG,"success");
+                        }else{
+                            Log.d(TAG,"fail1");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
 
                     }
                 });
@@ -338,6 +357,7 @@ public class RegisterFragment extends Fragment
 
         try {
 
+            //Toast.makeText(getContext(),"try",Toast.LENGTH_SHORT).show();
             List<Address> addr = gc.getFromLocation(location.getLatitude(), location.getLongitude(), 5);
 
             if(addr!=null){
@@ -349,6 +369,7 @@ public class RegisterFragment extends Fragment
 
             }
         } catch (IOException e) {
+            //Toast.makeText(getContext(),"error",Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 
@@ -379,6 +400,11 @@ public class RegisterFragment extends Fragment
                 .setInterval(10000)
                 .setFastestInterval(1000)
                 .setSmallestDisplacement(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        mLastLocation = LocationServices.FusedLocationApi
+                .getLastLocation(mGoogleApiClient);
+        currentLocation=searchPlace(mLastLocation);
+        locationText.setText(currentLocation);
 
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
