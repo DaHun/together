@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import test.project.together.R;
 
 public class CommentViewHolder extends RecyclerView.ViewHolder {
@@ -12,6 +13,7 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
     public TextView content;
     public TextView date;
     public Button readbtn;
+    public CircleImageView proimg;
 
     public CommentViewHolder(View itemView) {
         super(itemView);
@@ -19,5 +21,6 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
         content = (TextView)itemView.findViewById(R.id.content);
         date = (TextView)itemView.findViewById(R.id.date);
         readbtn = (Button)itemView.findViewById(R.id.sound);
+        proimg=(CircleImageView)itemView.findViewById(R.id.proimgg);
     }
 }
