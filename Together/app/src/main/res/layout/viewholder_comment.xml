@@ -5,69 +5,81 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="#FFFFFF"
+    android:padding="10dp"
     tools:context="test.project.together.main.MainActivity">
 
     <LinearLayout
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_height="0dp">
+        android:background="@drawable/box"
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="0dp"
             android:orientation="vertical"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:textSize="15dp"
-                android:text="2017년 11월 27일"
-                android:textColor="#000" />
-            <TextView
-                android:id="@+id/userName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:textStyle="bold"
-                android:textSize="25dp"
-                android:text="hogin"
-                android:textColor="#000" />
-            <TextView
-                android:id="@+id/content"
-                android:layout_weight="1"
-                android:textSize="30dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:text="You look good!"
-                android:textColor="#000" />
+                android:orientation="horizontal">
 
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/proimgg"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/proimg"/>
+
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textStyle="bold"
+                    android:textSize="25dp"
+                    android:text="hojin"
+                    android:textColor="#000" />
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="15dp"
+                    android:layout_gravity="bottom"
+                    android:text="2017년 11월 27일"
+                    android:textColor="#3b3b3b" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/content"
+                    android:layout_weight="1"
+                    android:textSize="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="You look good!"
+                    android:textColor="#000" />
+                <Button
+                    android:id="@+id/sound"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/sound"
+                    android:layout_width="50dp"
+                    android:layout_gravity="center"
+                    android:layout_height="50dp" />
+                </LinearLayout>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/sound"
-            android:layout_margin="3dp"
-            android:background="@drawable/sound"
-            android:layout_weight="0.25"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-
     </LinearLayout>
-    <ImageView
-        android:layout_weight="0.08"
-        android:layout_gravity="center"
-        android:background="@drawable/bar"
-        android:layout_width="360dp"
-        android:layout_height="0dp" />
+
 
 </LinearLayout>
