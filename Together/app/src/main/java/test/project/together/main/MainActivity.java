@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity{
         info2 = pref.getString("age","");
         info3 = pref.getString("gender","");
         ApplicationController.user_id=pref.getInt("user_id",-1);
+        ApplicationController.name=pref.getString("name","");
 
         if(info1== "" || info2== "" || info3== ""){
             return 0;   //없음

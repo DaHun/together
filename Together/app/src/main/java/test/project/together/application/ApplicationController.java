@@ -15,6 +15,7 @@ public class ApplicationController extends Application {
 
     public static int user_id=0;
     public static String token=null;
+    public static String name;
 
     //서버 유알엘
     private static String baseUrl = "http://52.79.105.167:3000";
