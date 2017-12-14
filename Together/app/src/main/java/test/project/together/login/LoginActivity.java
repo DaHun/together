@@ -238,7 +238,6 @@ public class LoginActivity extends AppCompatActivity {
 
                         }
                     });
-
                 }else{
 
                     RequestBody req_name = RequestBody.create(MediaType.parse("multipart/form-data"), nametxt.getText().toString());
