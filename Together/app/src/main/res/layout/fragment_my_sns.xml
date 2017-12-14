@@ -39,17 +39,15 @@
         <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="NEW"
+            android:background="@drawable/add"
             android:textSize="25dp"
             android:layout_weight="0.5"
-            android:background="#F15F5F"
         android:id="@+id/plusposting"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="25dp"
-            android:text="ALL"
-            android:background="#F15F5F"
+            android:background="@drawable/all"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:id="@+id/change_posting"/>

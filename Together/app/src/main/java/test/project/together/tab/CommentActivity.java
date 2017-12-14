@@ -141,6 +141,8 @@ public class CommentActivity extends Activity {
                             commentRecyclerView.setAdapter(commentRecyclerViewAdapter);
                             linearLayoutManager=new LinearLayoutManager(getApplicationContext());
                             commentRecyclerView.setLayoutManager(linearLayoutManager);
+
+                            commenttext.setText("");
                         }else
                             Log.d(TAG,"fail1");
                     }
@@ -151,6 +153,7 @@ public class CommentActivity extends Activity {
 
                     }
                 });
+
 
             }
         });

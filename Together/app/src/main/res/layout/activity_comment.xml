@@ -31,7 +31,7 @@
                 android:layout_margin="8dp"
                 android:hint="Write or click the circle and say"
                 android:background="#fff"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColorHint="#bdbdbd"
                 android:textColor="#000"
                 android:padding="2dp"

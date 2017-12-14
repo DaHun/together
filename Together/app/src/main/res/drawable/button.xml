@@ -3,7 +3,7 @@
 
     <item android:state_pressed="true">
         <shape>
-            <gradient android:angle="270" android:endColor="#cdcdcd" android:startColor="#eeeeee" />
+            <gradient android:angle="270" android:endColor="#F15F5F" android:startColor="#F15F5F" />
 
             <corners android:bottomLeftRadius="10dp" android:bottomRightRadius="10dp" android:topLeftRadius="10dp" android:topRightRadius="10dp" />
         </shape>

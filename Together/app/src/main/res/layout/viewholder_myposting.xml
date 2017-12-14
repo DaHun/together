@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="10dp"
-    android:background="#FAE0D4"
+    android:background="@drawable/posting"
     android:gravity="center"
     tools:context="test.project.together.main.MainActivity">
 

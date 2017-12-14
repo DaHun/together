@@ -17,27 +17,34 @@
         android:orientation="vertical">
 
         <Button
+            android:drawableTop="@drawable/senior"
+            android:paddingTop="40dp"
+            android:paddingBottom="40dp"
             android:id="@+id/takeBtn"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="25dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/button"
+            android:layout_margin="25dp"
+            android:layout_weight="1"
             android:text="Senior"
             android:textColor="#000"
-            android:layout_weight="1"
             android:textSize="55sp"
             android:textStyle="bold" />
+
 
         <Button
             android:id="@+id/giveBtn"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="25dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/button"
+            android:drawableTop="@drawable/volunteer"
+            android:paddingTop="40dp"
+            android:paddingBottom="40dp"
+            android:layout_margin="25dp"
+            android:layout_weight="1"
             android:text="Volunteer"
             android:textColor="#000"
             android:textSize="55sp"
-            android:layout_weight="1"
             android:textStyle="bold" />
     </LinearLayout>
 

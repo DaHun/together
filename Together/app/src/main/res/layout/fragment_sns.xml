@@ -21,17 +21,16 @@
         <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="NEW"
+
             android:textSize="25dp"
             android:layout_weight="0.5"
-            android:background="#F15F5F"
+            android:background="@drawable/add"
         android:id="@+id/plusposting"/>
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:text="MY"
-            android:background="#F15F5F"
+            android:layout_height="match_parent"
+            android:textSize="0dp"
+            android:background="@drawable/my"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:id="@+id/change_posting"/>
