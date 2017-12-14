@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -101,6 +102,16 @@ public class CommentActivity extends Activity {
     public void initSetting() {
         service= ApplicationController.getInstance().getNetworkService();
 
+        CommentRecyclerViewAdapter.tts=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    CommentRecyclerViewAdapter.tts.setLanguage(Locale.ENGLISH);
+                }
+            }
+
+        });
+
         commenttext = (EditText)findViewById(R.id.commenttxt);
         commentRecyclerView = (RecyclerView)findViewById(R.id.commentRecyclerview);
 
@@ -137,7 +148,7 @@ public class CommentActivity extends Activity {
                             Log.d(TAG,commentList.size()+" ");
 
                             //RecyclerView Setting
-                            commentRecyclerViewAdapter=new CommentRecyclerViewAdapter(commentList);
+                            commentRecyclerViewAdapter=new CommentRecyclerViewAdapter(commentList, getApplicationContext());
                             commentRecyclerView.setAdapter(commentRecyclerViewAdapter);
                             linearLayoutManager=new LinearLayoutManager(getApplicationContext());
                             commentRecyclerView.setLayoutManager(linearLayoutManager);
@@ -168,7 +179,7 @@ public class CommentActivity extends Activity {
                     Log.d(TAG,commentList.size()+" ");
 
                     //RecyclerView Setting
-                    commentRecyclerViewAdapter=new CommentRecyclerViewAdapter(commentList);
+                    commentRecyclerViewAdapter=new CommentRecyclerViewAdapter(commentList, getApplicationContext());
                     commentRecyclerView.setAdapter(commentRecyclerViewAdapter);
                     linearLayoutManager=new LinearLayoutManager(getApplicationContext());
                     commentRecyclerView.setLayoutManager(linearLayoutManager);

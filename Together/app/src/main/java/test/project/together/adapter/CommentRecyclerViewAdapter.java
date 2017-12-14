@@ -29,17 +29,17 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentView
     ArrayList<Comment> items;
     Context context;
 
-    public TextToSpeech tts;
+    public static TextToSpeech tts;
 
-    public CommentRecyclerViewAdapter(ArrayList<Comment> items){
+    public CommentRecyclerViewAdapter(ArrayList<Comment> items, Context context){
         this.items=items;
+        this.context=context;
     }
 
     @Override
     public CommentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_comment,parent,false);
-        context=parent.getContext();
-        Log.d("Comment",items.size()+"");
+        //Log.d("Comment",items.size()+"");
         return new CommentViewHolder(v);
     }
 
@@ -47,6 +47,7 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentView
     public void onBindViewHolder(final CommentViewHolder holder, final int position) {
         final Comment item=items.get(position);
 
+        Log.d("POSITION",position+"");
         if(!item.getImage_path().equals("null"))
             Glide.with(context).load(item.getImage_path()).into(holder.proimg);
         holder.userName.setText(item.getUser_name());
@@ -55,24 +56,16 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentView
         holder.date.setText(date + " " +time);
         holder.content.setText(item.getContent());
 
-        tts=new TextToSpeech(context, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    tts.setLanguage(Locale.ENGLISH);
-                }
-            }
-
-        });
-
         holder.readbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String txt = holder.content.getText().toString();
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Log.d("Comment","21");
                     ttsGreater21(txt);
                 } else {
+                    Log.d("Comment","20");
                     ttsUnder20(txt);
                 }
             }

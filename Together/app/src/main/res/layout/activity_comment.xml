@@ -8,14 +8,8 @@
     android:orientation="vertical"
     tools:context="test.project.together.main.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/commentRecyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
-
-
     <LinearLayout
+        android:id="@+id/bottomLayout"
         android:layout_alignParentBottom="true"
         android:background="#FFC19E"
         android:layout_width="match_parent"
@@ -71,6 +65,16 @@
                 android:text="CANCEL"/>
         </LinearLayout>
     </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/bottomLayout"
+        android:id="@+id/commentRecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
 
 
 </RelativeLayout>
