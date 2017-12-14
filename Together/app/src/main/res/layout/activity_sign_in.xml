@@ -26,13 +26,15 @@
                 android:text="SIGN IN"
                 android:padding="7dp"
                 android:textStyle="bold" />
+
             <ImageView
+                android:id="@+id/proimgg"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/user2"
-                android:scaleType="fitXY"
                 android:layout_gravity="center"
+                android:scaleType="fitXY"
                 android:layout_width="100dp"
-                android:layout_height="100dp" />
+                android:layout_height="100dp"
+                android:src="@drawable/user2"/>
 
             <LinearLayout
 

@@ -32,8 +32,20 @@ public interface NetworkService {
      */
 
     ////회원가입
+
+    //사진있음
+    @Multipart
     @POST("/all/user/register")
-    Call<User> registerUserInfo(@Body User user);
+    Call<User> registerUserInfo(@Part MultipartBody.Part file,
+                       @Part("name") RequestBody name,
+                       @Part("phone") RequestBody phone,
+                       @Part("age") RequestBody age,
+                       @Part("gender") RequestBody gender,
+                       @Part("token") RequestBody token);
+
+    //사진없음
+    @POST("/all/user/register2")
+    Call<User> registerUserInfo2(@Body User user);
 
     ////////////////////Matching
 
@@ -70,6 +82,10 @@ public interface NetworkService {
     //봉사자:매칭된 상대 정보
     @GET("/volunteer/volunteerinfo/mine/one")
     Call<User> load_matchinginfo2(@Query("matching_id") int matching_id);
+
+    //봉사자:교회 코드 확인
+    @GET("/volunteer/check/master")
+    Call<Void> checkMaster(@Query("code") int code);
 
     //봉사자:마스터 등록
     @POST("/volunteer/register/master")

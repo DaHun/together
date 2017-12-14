@@ -7,7 +7,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
@@ -21,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -32,17 +39,29 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import pl.polidea.view.ZoomView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import test.project.together.R;
+import test.project.together.adapter.ViewPagerAdapter;
 import test.project.together.application.ApplicationController;
 import test.project.together.gcm.QuickstartPreferences;
 import test.project.together.gcm.RegistrationIntentService;
 import test.project.together.main.MainActivity;
+import test.project.together.model.ChangeEvent;
 import test.project.together.model.User;
 import test.project.together.network.NetworkService;
 
@@ -55,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
 
     RadioGroup rg;
 
+    ImageView profileImage;
     Button signinbtn;
     Button cancelbtn;
     TextView phoneText;
@@ -62,12 +82,15 @@ public class LoginActivity extends AppCompatActivity {
     String name;
     String phone;
     String token;
-    int age;
+    int age=0;
     int gender;
 
     NetworkService service;
 
-    ///
+    final int REQ_CODE_SELECT_IMAGE=100;
+
+    Uri data = null;
+    String fileName;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
@@ -93,6 +116,17 @@ public class LoginActivity extends AppCompatActivity {
     public void initSetting() {
 
         service = ApplicationController.getInstance().getNetworkService();
+
+        profileImage=(ImageView) findViewById(R.id.proimgg);
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+                intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+            }
+        });
 
         signinbtn = (Button) findViewById(R.id.sign_in_btn);
         cancelbtn = (Button) findViewById(R.id.sign_in_cancel);
@@ -160,49 +194,138 @@ public class LoginActivity extends AppCompatActivity {
         signinbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //이름
+
                 name = nametxt.getText().toString();
-                //age;
                 //gender
                 int id = rg.getCheckedRadioButtonId();
                 final RadioButton rb = (RadioButton) findViewById(id);
 
-                User user = new User(name, phone, Integer.toString(age), rb.getText().toString(), token);
+                if(data == null){
+                    User user = new User(name, phone, Integer.toString(age), rb.getText().toString(), token);
 
-                Call<User> registerUserInfo = service.registerUserInfo(user);
-                registerUserInfo.enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        if (response.isSuccessful()) {
-                            Log.d(TAG, response.body().user_id);
-                            ApplicationController.user_id = Integer.valueOf(response.body().user_id);
 
-                            //sharedpreferences
-                            SharedPreferences pref = getSharedPreferences("Info", MODE_PRIVATE);
-                            final SharedPreferences.Editor editor = pref.edit();
-                            editor.putString("name", name);
-                            editor.putString("age", Integer.toString(age));
-                            editor.putString("phone", phone);
-                            editor.putString("gender", rb.getText().toString());
-                            editor.putInt("user_id", Integer.valueOf(response.body().user_id));
-                            ApplicationController.user_id=Integer.valueOf(response.body().user_id);
-                            editor.commit();
+                    Call<User> registerUserInfo2 = service.registerUserInfo2(user);
+                    registerUserInfo2.enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            if (response.isSuccessful()) {
+                                Log.d(TAG, response.body().user_id);
+                                ApplicationController.user_id = Integer.valueOf(response.body().user_id);
 
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        } else
-                            Log.d(TAG, "fail1");
+                                //sharedpreferences
+                                SharedPreferences pref = getSharedPreferences("Info", MODE_PRIVATE);
+                                final SharedPreferences.Editor editor = pref.edit();
+                                editor.putString("name", name);
+                                editor.putString("age", Integer.toString(age));
+                                editor.putString("phone", phone);
+                                editor.putString("gender", rb.getText().toString());
+                                editor.putInt("user_id", Integer.valueOf(response.body().user_id));
+                                ApplicationController.user_id=Integer.valueOf(response.body().user_id);
+                                editor.commit();
+
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            } else
+                                Log.d(TAG, "fail1");
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Log.d(TAG, "fail2");
+
+                        }
+                    });
+
+                }else{
+
+                    RequestBody req_name = RequestBody.create(MediaType.parse("multipart/form-data"), nametxt.getText().toString());
+                    RequestBody req_phone = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(phone));
+                    RequestBody req_age = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(age));
+                    RequestBody req_gender = RequestBody.create(MediaType.parse("multipart/form-data"), rb.getText().toString());
+                    RequestBody req_token = RequestBody.create(MediaType.parse("multipart/form-data"), token);
+
+                    MultipartBody.Part body;
+
+                    if (data == null) {
+                        body = null;
+                    } else {
+
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+
+                        InputStream in = null; // here, you need to get your context.
+                        try {
+                            in = getContentResolver().openInputStream(data);
+                            Log.d(TAG,"inputstream");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                        Bitmap bitmap = BitmapFactory.decodeStream(in, null, options); // InputStream 으로부터 Bitmap 을 만들어 준다.
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+                        // 압축 옵션( JPEG, PNG ) , 품질 설정 ( 0 - 100까지의 int형 ), 압축된 바이트 배열을 담을 스트림
+                        RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpeg"), baos.toByteArray());
+
+                        body = MultipartBody.Part.createFormData("image", fileName, photoBody);
+
 
                     }
 
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        Log.d(TAG, "fail2");
+                    Call<User> registerUserInfo=service.registerUserInfo(
+                            body,
+                            req_name,
+                            req_phone,
+                            req_age,
+                            req_gender,
+                            req_token);
+                    registerUserInfo.enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            if (response.isSuccessful()) {
+                                Toast.makeText(getApplicationContext(),"success",Toast.LENGTH_LONG).show();
+                                Log.d(TAG, response.body().user_id);
+                                ApplicationController.user_id = Integer.valueOf(response.body().user_id);
 
-                    }
-                });
+                                Log.d(TAG, name);
+                                Log.d(TAG,Integer.toString(age));
+                                Log.d(TAG,rb.getText().toString());
+
+                                //sharedpreferences
+                                SharedPreferences pref = getSharedPreferences("Info", MODE_PRIVATE);
+                                final SharedPreferences.Editor editor = pref.edit();
+                                editor.putString("name", name);
+                                editor.putString("age", Integer.toString(age));
+                                editor.putString("phone", phone);
+                                editor.putString("gender", rb.getText().toString());
+                                editor.putInt("user_id", Integer.valueOf(response.body().user_id));
+                                ApplicationController.user_id=Integer.valueOf(response.body().user_id);
+                                editor.commit();
+
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            } else
+                                Log.d(TAG, "fail1");
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Log.d(TAG, "fail2");
+
+                        }
+                    });
+
+
+                }
+
+
+
+                //////////////////////////
+
 
             }
         });
@@ -337,6 +460,59 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //   Toast.makeText(getBaseContext(), "resultCode : "+resultCode,Toast.LENGTH_SHORT).show();
+
+        if(requestCode == REQ_CODE_SELECT_IMAGE)
+        {
+            if(resultCode== RESULT_OK)
+            {
+                try {
+
+                    this.data = data.getData();
+
+                    if (this.data.getScheme().equals("file")) {
+                        fileName = this.data.getLastPathSegment();
+                    } else {
+                        Cursor cursor = null;
+                        try {
+                            cursor = getContentResolver().query(this.data, new String[]{
+                                    MediaStore.Images.ImageColumns.DISPLAY_NAME
+                            }, null, null, null);
+                            if (cursor != null && cursor.moveToFirst()) {
+                                fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DISPLAY_NAME));
+                                Log.d(TAG, "name is " + fileName);
+                            }
+                        } finally {
+
+                            if (cursor != null) {
+                                cursor.close();
+                            }
+                        }
+                    }
+
+                    //이미지 데이터를 비트맵으로 받아온다.
+                    Bitmap image_bitmap 	= MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                    //배치해놓은 ImageView에 set
+                    profileImage.setImageBitmap(image_bitmap);
+
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 }
 

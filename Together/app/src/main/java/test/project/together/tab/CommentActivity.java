@@ -125,7 +125,7 @@ public class CommentActivity extends Activity {
         regibtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),String.valueOf(ApplicationController.user_id),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),String.valueOf(ApplicationController.user_id),Toast.LENGTH_SHORT).show();
 
                 Comment comment=new Comment(post_id, commenttext.getText().toString(), getDateString(), ApplicationController.user_id);
                 Call<ArrayList<Comment>> register_comment=service.register_comment(comment);

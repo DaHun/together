@@ -15,12 +15,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -109,12 +113,21 @@ public class VolunteerFragment extends Fragment
     ArrayList<Marker> markerArrayList=null;
 
     int registerMasterMode=0;
+    Marker[] circleMarker;
     LatLng fromPos;
     LatLng toPos;
     LatLng originPos;
     double range=0;
     Circle rangeCircle=null;
 
+
+    int count=0;
+
+    /////////////// 팝업부분
+    PopupWindow popup;
+    View popupView;
+    EditText codeEditText;
+    Button codeBtn;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onInfoLayoutEvent(InfoLayoutEvent infoLayoutEvent){ infoLayout.setVisibility(View.GONE);}
@@ -138,6 +151,7 @@ public class VolunteerFragment extends Fragment
         service=ApplicationController.getInstance().getNetworkService();
 
         initSetting(savedInstanceState);
+        popupSetting();
 
         return layout;
     }
@@ -147,7 +161,20 @@ public class VolunteerFragment extends Fragment
         plusMasterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registerMasterMode=1;
+
+                //클릭시 흐리게 하고 팝업 윈도우 생성
+                layout.setAlpha(0.3f);
+                popup = new PopupWindow(popupView, 1200, WindowManager.LayoutParams.WRAP_CONTENT, true);
+                RelativeLayout relativeLayout = (RelativeLayout) layout.findViewById(R.id.mainlayout);
+                popup.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+                popup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        layout.setAlpha(1.0f);
+                    }
+                });
+
             }
         });
 
@@ -156,6 +183,21 @@ public class VolunteerFragment extends Fragment
             public void onClick(View view) {
                 registerMasterBtn.setVisibility(View.GONE);
                 rangeCircle.remove();
+
+                circleMarker[0].remove();
+                circleMarker[1].remove();
+
+                //마커 다시 보여주기
+                MarkerOptions options = new MarkerOptions();
+                options.icon(BitmapDescriptorFactory.fromBitmap(interested_bitmap));
+
+
+                markerArrayList=new ArrayList<>();
+                for(int i=0;i<seniorArrayList.size();i++){
+                    options.position(new LatLng(seniorArrayList.get(i).getLatitude(), seniorArrayList.get(i).getLongitude()));
+                    options.title("interest");
+                    markerArrayList.add(map.addMarker(options));
+                }
 
                 Master master= new Master(
                         ApplicationController.user_id,
@@ -167,9 +209,9 @@ public class VolunteerFragment extends Fragment
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.isSuccessful())
-                            Log.d(TAG,"success");
+                            Toast.makeText(getContext(),"Success : register range to volunteer",Toast.LENGTH_LONG).show();
                         else
-                            Log.d(TAG,"fail1");
+                            Toast.makeText(getContext(),"You already registered it",Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -180,7 +222,6 @@ public class VolunteerFragment extends Fragment
                 });
             }
         });
-
 
 
         //googleApiClient  통합 GoogleAPI!
@@ -238,6 +279,51 @@ public class VolunteerFragment extends Fragment
         });
     }
 
+    public void popupSetting(){
+
+        //팝업으로 띄울 커스텀뷰를 설정하고
+        popupView = LayoutInflater.from(getContext()).inflate(R.layout.popup_window, null);
+        codeEditText=popupView.findViewById(R.id.codeEditText);
+        codeBtn=popupView.findViewById(R.id.codeBtn);
+
+        codeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Call<Void> checkMaster=service.checkMaster(Integer.parseInt(codeEditText.getText().toString()));
+                checkMaster.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.isSuccessful()){
+
+                            Toast.makeText(getContext(),"Your are authorized master\nRegister range to volunteer",Toast.LENGTH_LONG).show();
+                            registerMasterMode=1;
+
+                            if(markerArrayList != null){
+                                for(int i=0;i<markerArrayList.size();i++)
+                                    markerArrayList.get(i).remove();
+                                markerArrayList=null;
+                            }
+                        }else
+                            Toast.makeText(getContext(),"Your are not authorized master\nPlease call and be authorized",Toast.LENGTH_LONG).show();
+
+                        codeEditText.setText("");
+                        popup.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.d(TAG,"fail2");
+
+                    }
+                });
+
+            }
+        });
+
+
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
@@ -255,7 +341,7 @@ public class VolunteerFragment extends Fragment
         // 줌기능 설정
         uiSettings.setZoomControlsEnabled(true);
 
-
+        circleMarker=new Marker[2];
         //맵 클릭
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
@@ -264,17 +350,41 @@ public class VolunteerFragment extends Fragment
                 infoLayoutMode=false;
                 infoLayout.setVisibility(View.GONE);
 
+                //Circle 마커
+                View circle_marker_view = LayoutInflater.from(getContext()).inflate(R.layout.marker_circle, null);
+                Bitmap circle_bitmap=createDrawableFromView(getContext(), circle_marker_view);
                 //처음 위치 : 원 지름 끝점1
                 if(registerMasterMode == 1){
-                    Toast.makeText(getContext(),"First Point : Radius Range",Toast.LENGTH_SHORT).show();
+
                     fromPos=latLng;
                     registerMasterMode=2;
+
+                    if(circleMarker[0] != null )
+                        circleMarker[0].remove();
+                    if(circleMarker[1] != null )
+                        circleMarker[1].remove();
+                    if(rangeCircle != null)
+                        rangeCircle.remove();
+
+                    MarkerOptions options = new MarkerOptions();
+                    options.title("circle");
+                    options.icon(BitmapDescriptorFactory.fromBitmap(circle_bitmap));
+                    options.position(new LatLng(fromPos.latitude-0.00026, fromPos.longitude));
+                    circleMarker[0]=map.addMarker(options);
+
                 }
                 //두번째 위치 : 원 지름 끝점2
                 else if(registerMasterMode == 2){
-                    Toast.makeText(getContext(),"Second Point : Radius Range",Toast.LENGTH_SHORT).show();
+
                     toPos=latLng;
+
+                    MarkerOptions options = new MarkerOptions();
+                    options.title("circle");
+                    options.icon(BitmapDescriptorFactory.fromBitmap(circle_bitmap));
+                    options.position(new LatLng(toPos.latitude-0.00026, toPos.longitude));
+                    circleMarker[1]=map.addMarker(options);
                     onAddCircle(fromPos, toPos);
+
                     registerMasterBtn.setVisibility(View.VISIBLE);
                     registerMasterMode=0;
                     fromPos=null;
@@ -515,7 +625,9 @@ public class VolunteerFragment extends Fragment
         final LatLng Loc = new LatLng(latitude, longitude);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(Loc, 16));
 
-        mark_And_Loadlist(Loc);
+        //Log.d(TAG,"MARK AND LOADLIST");
+        if(count++ == 0)
+            mark_And_Loadlist(Loc);
     }
 
 

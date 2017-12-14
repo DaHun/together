@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -45,6 +47,8 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentView
     public void onBindViewHolder(final CommentViewHolder holder, final int position) {
         final Comment item=items.get(position);
 
+        if(!item.getImage_path().equals("null"))
+            Glide.with(context).load(item.getImage_path()).into(holder.proimg);
         holder.userName.setText(item.getUser_name());
         String date = item.getDate().toString().substring(0,10);
         String time = item.getDate().toString().substring(11,16);

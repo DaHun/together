@@ -11,6 +11,7 @@ public class User {
     public String age;
     public String gender;
     public String token;
+    public String image_path;
 
     public User(String name, String phone, String age, String gender, String token) {
         this.name = name;

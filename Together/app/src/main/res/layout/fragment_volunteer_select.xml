@@ -20,7 +20,7 @@
             android:id="@+id/volselectBtn"
             android:layout_margin="25dp"
             android:background="@drawable/button2"
-            android:text="SELECT"
+            android:text="MATCHING"
             android:textColor="#000"
             android:textSize="55sp"
             android:textStyle="bold"

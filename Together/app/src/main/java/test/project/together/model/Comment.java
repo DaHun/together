@@ -11,6 +11,7 @@ public class Comment {
     String date;
     int user_id;
     String name;
+    String image_path;
 
 
     public Comment(int post_id, String content, String date, int user_id) {
@@ -18,6 +19,16 @@ public class Comment {
         this.content = content;
         this.date = date;
         this.user_id = user_id;
+    }
+
+    public Comment(int comment_id, int post_id, String content, String date, int user_id, String name, String image_path) {
+        this.comment_id=comment_id;
+        this.post_id = post_id;
+        this.content = content;
+        this.date = date;
+        this.user_id = user_id;
+        this.name=name;
+        this.image_path=image_path;
     }
 
 
@@ -42,5 +53,7 @@ public class Comment {
 
 
     public String getUser_name(){ return name;}
+
+    public String getImage_path(){ return image_path;}
 
 }
